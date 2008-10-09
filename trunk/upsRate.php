@@ -18,7 +18,7 @@ class upsRate {
 		throw new Exception("Empty XML Access Code");
 	elseif($user=="")
 		throw new Exception("Empty Username");
-	elseif($paswe=="")
+	elseif($pass=="")
 		throw new Exception("Empty Password");
 	elseif($shipper=="")
 		throw new Exception("Empty UPS Account Number");
