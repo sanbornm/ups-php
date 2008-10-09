@@ -6,7 +6,14 @@ class upsRate {
     var $shipperNumber;
     var $credentials;
 
-    function setCredentials($access,$user,$pass,$shipper) {
+    /**********************************************
+     * $access = XML Access Code
+     * $user = UPS.com Username
+     * $password = UPS.com Password
+     * $shipper = UPS Account Number
+     *
+     **********************************************/
+    function __construct($access,$user,$pass,$shipper) {
 	$this->AccessLicenseNumber = $access;
 	$this->UserID = $user;
 	$this->Password = $pass;	
