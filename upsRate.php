@@ -13,20 +13,26 @@ class upsRate {
      * $shipper = UPS Account Number
      *
      **********************************************/
-    function __construct($access,$user,$pass,$shipper) {
-	$this->AccessLicenseNumber = $access;
-	$this->UserID = $user;
-	$this->Password = $pass;	
-	$this->shipperNumber = $shipper;
-	$this->credentials = 1;
+    function __construct($access="",$user="",$pass="",$shipper="") { 
+	if($access=="")
+		throw new Exception("Empty XML Access Code");
+	elseif($user=="")
+		throw new Exception("Empty Username");
+	elseif($paswe=="")
+		throw new Exception("Empty Password");
+	elseif($shipper=="")
+		throw new Exception("Empty UPS Account Number");
+	else {
+		$this->AccessLicenseNumber = $access;
+		$this->UserID = $user;
+		$this->Password = $pass;	
+		$this->shipperNumber = $shipper;
+		$this->credentials = 1;
+	};
     }
 
     // Define the function getRate() - no parameters
     function getRate($PostalCode,$dest_zip,$service,$length,$width,$height,$weight) {
-	if ($this->credentials != 1) {
-		print 'Please set your credentials with the setCredentials function';
-		die();
-	}
 	$data ="<?xml version=\"1.0\"?>  
 		<AccessRequest xml:lang=\"en-US\">  
 		    <AccessLicenseNumber>$this->AccessLicenseNumber</AccessLicenseNumber>  
