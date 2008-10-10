@@ -9,6 +9,7 @@ This road map is a rough outline of when we are going to implement features and 
 = Road Map =
 
 ==Version 1.0==
+----
 ===UPS Tracking Tool===
 Implement basic tracking functionality as well as common usage getters like
 * Ship to address
@@ -32,7 +33,7 @@ Basic Implementation
 Basic implementation of estimated time for delivery of packages
 
 ==Version 2.0==
-
+----
 ===UPS Shipping Tool===
 As this tool requires higher access levels and more complex functions.  We are reserving this for version 2.0
 
