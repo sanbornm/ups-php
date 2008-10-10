@@ -106,7 +106,16 @@ class upsRate {
 		curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);  
 		curl_setopt($ch,CURLOPT_POSTFIELDS,$data);  
 		$result=curl_exec ($ch);  
-	    echo '<!-- '. $result. ' -->'; // THIS LINE IS FOR DEBUG PURPOSES ONLY-IT WILL SHOW IN HTML COMMENTS  
+
+		// Find out if the UPS service is down
+		preg_match_all('/HTTP\/1\.\d\s(\d+)/',$result,$matches);
+		foreach($matches[1] as $key=>$value) {
+		    if ($value != 100 && $value != 200) {
+			throw new Exception("The UPS service seems to be down with HTTP/1.1 $value");
+		    }
+		}
+
+		echo '<!-- '. $result. ' -->'; // THIS LINE IS FOR DEBUG PURPOSES ONLY-IT WILL SHOW IN HTML COMMENTS  
 		$data = strstr($result, '<?');  
 		$xml_parser = xml_parser_create();  
 		xml_parse_into_struct($xml_parser, $data, $vals, $index);  
@@ -114,23 +123,23 @@ class upsRate {
 		$params = array();  
 		$level = array();  
 		foreach ($vals as $xml_elem) {  
-		 if ($xml_elem['type'] == 'open') {  
-		if (array_key_exists('attributes',$xml_elem)) {  
-		     list($level[$xml_elem['level']],$extra) = array_values($xml_elem['attributes']);  
-		} else {  
-		     $level[$xml_elem['level']] = $xml_elem['tag'];  
+		    if ($xml_elem['type'] == 'open') {  
+			if (array_key_exists('attributes',$xml_elem)) {  
+			    list($level[$xml_elem['level']],$extra) = array_values($xml_elem['attributes']);  
+			} else {  
+			    $level[$xml_elem['level']] = $xml_elem['tag'];  
+		    }  
 		}  
-		 }  
-		 if ($xml_elem['type'] == 'complete') {  
-		$start_level = 1;  
-		$php_stmt = '$params';  
-		while($start_level < $xml_elem['level']) {  
-		     $php_stmt .= '[$level['.$start_level.']]';  
-		     $start_level++;  
-		}  
-		$php_stmt .= '[$xml_elem[\'tag\']] = $xml_elem[\'value\'];';  
-		eval($php_stmt);  
-		 }  
+		if ($xml_elem['type'] == 'complete') {  
+		  $start_level = 1;  
+		  $php_stmt = '$params';  
+		  while($start_level < $xml_elem['level']) {  
+		       $php_stmt .= '[$level['.$start_level.']]';  
+		       $start_level++;  
+		  }  
+		  $php_stmt .= '[$xml_elem[\'tag\']] = $xml_elem[\'value\'];';  
+		  eval($php_stmt);  
+		  }  
 		}  
 		curl_close($ch);  
 		return $params['RATINGSERVICESELECTIONRESPONSE']['RATEDSHIPMENT']['TOTALCHARGES']['MONETARYVALUE'];  

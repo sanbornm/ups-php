@@ -52,6 +52,15 @@ class upsTrack {
         curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
         $result=curl_exec ($ch);
+
+	// Find out if the service is down
+	preg_match_all('/HTTP\/1\.\d\s(\d+)/',$result,$matches);
+	foreach($matches[1] as $key=>$value) {
+	    if ($value != 100 && $value != 200) {
+		throw new Exception("The UPS service seems to be down with HTTP/1.1 $value");
+	    }
+	}
+
         // echo '<!-- '. $result. ' -->';
         $data = strstr($result, '<?');
         $xml_parser = xml_parser_create();
