@@ -13,10 +13,10 @@ This road map is a rough outline of when we are going to implement features and 
 ----
 ===UPS Tracking Tool===
 Implement basic tracking functionality as well as common usage getters like
-*Ship to address
-*Scheduled delivery date
-*Pickup date
-*Package status (delivered or not)
+  * Ship to address
+  * Scheduled delivery date
+  * Pickup date
+  * Package status (delivered or not)
 
 ===UPS Signature Tracking===
 Implement basic functionality
