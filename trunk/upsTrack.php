@@ -4,6 +4,8 @@ class upsTrack {
     var $UserId;  
     var $Password;
     var $credentials;
+    var $isSuccessful;
+    var $xmlResponse;
 
     /**********************************************
      * $access = XML Access Code
@@ -51,7 +53,7 @@ class upsTrack {
         curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
-        $result=curl_exec ($ch);
+        $result = curl_exec ($ch);
 
 	// Find out if the service is down
 	preg_match_all('/HTTP\/1\.\d\s(\d+)/',$result,$matches);
@@ -88,7 +90,23 @@ class upsTrack {
     	}
         }
         curl_close($ch);
+	$this->xmlResponse = $params;
+	$this->isSuccessful = 1;
         return $params;
+    }
+    
+    function getDeliveryDate() {
+	if ($this->isSuccessful != 1) {
+	    throw new Exception('Last response from UPS was not ran or not successful, please run getTrack() again');
+	}
+	return $this->xmlResponse['TRACKRESPONSE']['SHIPMENT']['SCHEDULEDDELIVERYDATE'];	
+    }
+
+    function getPickupDate() {
+	if ($this->isSuccessful != 1) {
+	    throw new Exception('Last response from UPS was not ran or not successful, please run getTrack() again');
+	}
+	return $this->xmlResponse['TRACKRESPONSE']['SHIPMENT']['PICKUPDATE'];	
     }
 
 }
