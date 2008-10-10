@@ -6,7 +6,7 @@
 This road map is a rough outline of when we are going to implement features and at what version.
 
 
-= Details =
+= Road Map =
 
 ==Version 1.0==
 ===UPS Tracking Tool===
