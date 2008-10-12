@@ -1,9 +1,8 @@
 ====== About ======
 
-This project was started as I found there was a need for modules written 
-in PHP to communicate with the UPS Shipping API.  The plan for this 
-project is to create reusable code for use with all of the UPS shipping 
-tools through thier XML API.
+This project was started due to an obvious lack of PHP tools to communicate 
+with the UPS Shipping API.  The plan for this project is to create reusable 
+code for use with all of the UPS shipping tools through thier XML API.
 
 This project will eventually cover all of these UPS API tools.
 
