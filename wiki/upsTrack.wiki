@@ -6,7 +6,7 @@
 To use upsTrack you must require the function upsTrack.php
 
 {{{
-require("$upsTrack.php");
+require("upsTrack.php");
 }}}
 
 
