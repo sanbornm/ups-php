@@ -6,7 +6,7 @@ class upsPHP {
 		$this->User = $user;
 		$this->Pass = $pass;
 		$this->setTestingMode(1);
-		$this->templatePath = 'XML/'; // No beginning slash if path is relative
+		$this->templatePath = 'xml/'; // No beginning slash if path is relative
 	}
 
 	function access(){
