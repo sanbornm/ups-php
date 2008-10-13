@@ -1,7 +1,7 @@
 <?php
 class upsPHP {
 
-	function __constructor($license,$user,$pass){
+	function __construct($license,$user,$pass){
 		$this->License = $license;
 		$this->User = $user;
 		$this->Pass = $pass;
