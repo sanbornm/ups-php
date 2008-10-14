@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XML Spy v4.1 U (http://www.xmlspy.com) by Stephanie Weaver (UPS GACOR850393,) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xsd:include schemaLocation="XPCIVocabulary.xsd"/>
+	<xsd:include schemaLocation="XPCIInterchange.xsd"/>
+	<xsd:element name="ShipConfirmRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Request"/>
+				<xsd:element ref="LabelSpecification" minOccurs="0"/>
+				<xsd:element ref="Shipment"/>
+			</xsd:sequence>
+			<xsd:attribute name="xml:lang" type="xsd:NMTOKEN"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

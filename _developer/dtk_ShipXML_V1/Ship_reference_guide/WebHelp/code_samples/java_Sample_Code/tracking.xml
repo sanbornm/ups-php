@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<TrackRequest xml:lang="en-US">
+   <Request>
+      <TransactionReference>
+         <CustomerContext>sample</CustomerContext>
+         <XpciVersion>1.0001</XpciVersion>
+      </TransactionReference>
+      <RequestAction>Track</RequestAction>
+   </Request>
+   <TrackingNumber>1Z12345E1512345676</TrackingNumber>
+</TrackRequest>

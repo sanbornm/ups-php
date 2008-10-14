@@ -1,0 +1,610 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<!--(==============================================================)-->
+<!--(Document created with RoboEditor. )============================-->
+<!--(==============================================================)-->
+
+<head>
+
+<title>Using Secure Socket Layer (SSL)</title>
+
+<!--(Meta)==========================================================-->
+
+<meta name=generator content="RoboHELP by eHelp Corporation - www.ehelp.com">
+<meta name=generator-major-version content=0.1>
+<meta name=generator-minor-version content=1>
+<meta name=filetype content=kadov>
+<meta name=filetype-version content=1>
+<meta name=page-count content=1>
+<meta name=layout-height content=3481>
+<meta name=layout-width content=687>
+<meta name=date content="10 11, 2001 3:47:24 PM">
+
+
+<!--(Links)=========================================================-->
+
+<SCRIPT language="javascript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../default_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='../default.css'>");}
+//-->
+</SCRIPT>
+<style>
+<!--
+ul.whs1 {list-style: disc;}
+p.whs2 {margin-left: 0px; font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs3 {margin-left: 0px; font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs4 {margin-left: 0px; font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs5 {margin-left: 0px; font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs6 {margin-left: 0px; font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs7 {margin-left: 0px; font-family: Arial, sans-serif; font-size: 12pt;}
+table.whs8 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs9 {width: 100%;}
+td.whs10 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs11 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 0px;}
+p.whs12 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 0px;}
+p.whs13 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 48px;}
+p.whs14 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 0px;}
+p.whs15 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 48px;}
+p.whs16 {margin-left: 0px; font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs17 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 0px;}
+p.whs18 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs19 {font-family: Arial, sans-serif; font-size: 12pt;}
+table.whs20 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs21 {width: 100%;}
+td.whs22 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs23 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs24 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs25 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs26 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs27 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs28 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs29 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs30 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs31 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs32 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs33 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs34 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs35 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs36 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs37 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs38 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs39 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs40 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs41 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs42 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs43 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs44 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs45 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs46 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs47 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs48 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs49 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs50 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs51 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs52 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs53 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs54 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs55 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs56 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs57 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs58 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs59 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs60 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs61 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs62 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs63 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs64 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs65 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs66 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs67 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs68 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs69 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs70 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs71 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs72 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs73 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs74 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs75 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs76 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs77 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs78 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs79 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs80 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs81 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs82 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs83 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs84 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs85 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs86 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs87 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs88 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs89 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs90 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs91 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs92 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs93 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs94 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs95 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs96 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs97 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs98 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs99 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs100 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs101 {font-size: 10pt; font-family: 'Courier New', monospace; margin-left: 48px;}
+p.whs102 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs103 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs104 {margin-left: 0px; font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs105 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs106 {font-size: 12pt; font-family: Arial, sans-serif;}
+table.whs107 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs108 {width: 100%;}
+td.whs109 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs110 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 48px;}
+p.whs111 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs112 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs113 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs114 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs115 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs116 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs117 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs118 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs119 {font-family: Arial, sans-serif; font-size: 12pt;}
+table.whs120 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs121 {width: 100%;}
+td.whs122 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs123 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs124 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs125 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs126 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs127 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs128 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs129 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs130 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs131 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs132 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs133 {font-family: Arial, sans-serif; font-size: 12pt;}
+table.whs134 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs135 {width: 100%;}
+td.whs136 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs137 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs138 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs139 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs140 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs141 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs142 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs143 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs144 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs145 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs146 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs147 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs148 {font-size: 10pt; font-family: 'Courier New', monospace;}
+p.whs149 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs150 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs151 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs152 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs153 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs154 {font-family: Arial, sans-serif; font-size: 8pt;}
+
+-->
+</style>
+<script>
+<!--
+if (navigator.appName == "Netscape")
+{
+  var strNSS = "<style>";
+  strNSS += "p.whs2 {margin-left:1; }";
+  strNSS += "p.whs3 {margin-left:1; }";
+  strNSS += "p.whs4 {margin-left:1; }";
+  strNSS += "p.whs5 {margin-left:1; }";
+  strNSS += "p.whs6 {margin-left:1; }";
+  strNSS += "p.whs7 {margin-left:1; }";
+  strNSS += "p.whs11 {margin-left:1; }";
+  strNSS += "p.whs12 {margin-left:1; }";
+  strNSS += "p.whs14 {margin-left:1; }";
+  strNSS += "p.whs16 {margin-left:1; }";
+  strNSS += "p.whs17 {margin-left:1; }";
+  strNSS += "p.whs104 {margin-left:1; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script language="javascript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//-->
+</script>
+<style>
+<!--
+  div.WebHelpPopupMenu {position:absolute; left:0px; top:0px; z-index:4; visibility:hidden;}
+  p.WebHelpNavBar {text-align:right;}
+-->
+</style>
+</head>
+
+<!--(Body)==========================================================-->
+
+
+<body>
+
+
+<h1><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../un_global_upslogo.gif' x-maintain-ratio='TRUE' width='50' height='51' border='0'>");}
+else
+{ document.write("<img src='../un_global_upslogo.gif' x-maintain-ratio='TRUE' style='border: none; width: 50px; height: 51px; float: none;' width='50' height='51' border='0'>");}
+//--></SCRIPT><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../un_global_hed.gif' x-maintain-ratio='TRUE' width='550' height='51' border='0'>");}
+else
+{ document.write("<img src='../un_global_hed.gif' x-maintain-ratio='TRUE' style='border: none; width: 550px; height: 51px; float: none;' width='550' height='51' border='0'>");}
+//--></SCRIPT></h1>
+
+<h1><a name=Using></a>Using Secure Socket Layer with Java</h1>
+
+<p>The Secure Socket Layer puts the "S" in HTTPS. <!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->To communicate 
+with the UPS Online Tools Server you must combine the technology of HTTP with 
+the technology of SSL. <!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->SSL 
+ is a security protocol that provides communications privacy over the Internet. 
+ The protocol allows client/server applications to communicate in a way 
+ that is designed to prevent eavesdropping, tampering, or message forgery. 
+ This protocol was originally developed by Netscape Communications and 
+ has now become an industry standard.</p>
+
+<p>&nbsp;</p>
+
+<p>A protocol is a set of rules or procedures. SSL 
+technology takes a message and runs it through a set of steps that “scrambles” 
+the message. This is done so that the message cannot be read while it is being 
+transferred. <!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->This ”scrambling” 
+ is called Encryption. When the message is received by the intended recipient, 
+ SSL unscrambles the message, checks that it came from the correct sender 
+ (Server Authentication) and then verifies that it has not been tampered 
+ with (Message Integrity).</p>
+
+<p>&nbsp;</p>
+
+<p>SSL makes use of Digital Certificates to authenticate one or both parties 
+ of an Internet transaction. A digital certificate is a means of binding 
+ the details about an individual or organization to a public key and serves 
+ two purposes: </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p>It provides a cryptographic key that allows another 
+ party to encrypt information for the certificate's owner. </p>
+	
+	<li class=kadov-p><p>It provides a measure of proof that the holder 
+ of the certificate is who they claim to be; otherwise, they will not be 
+ able to decrypt any information that was encrypted using the key in the 
+ certificate.</p></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p>For more information on <!--kadov_tag{{<ignored>}}-->SSL<!--kadov_tag{{</ignored>}}-->, view the <!--kadov_tag{{<ignored>}}-->SSL<!--kadov_tag{{</ignored>}}--> 
+ 3.0 specifications at <a href="http://home.netscape.com/eng/ssl3/"
+							 target=_blank>http://<!--kadov_tag{{<ignored>}}-->home.netscape.com<!--kadov_tag{{</ignored>}}-->/<!--kadov_tag{{<ignored>}}-->eng<!--kadov_tag{{</ignored>}}-->/ssl3/</a>.</p>
+
+<p>&nbsp;</p>
+
+<p>Two vendor-specific implementations will be detailed below.</p>
+
+<p>&nbsp;</p>
+
+<h2>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-outline-level: 2"><B><SPAN 
+style="FONT-SIZE: 18pt">A Sun Microsystem’s J2SE Implementation<?xml:namespace 
+prefix = o ns = "urn:schemas-microsoft-com:office:office" 
+/><o:p></o:p></SPAN></B></P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto">The Java package 
+developed by Sun Microsystems to implement SSL is Java<SUP><SPAN 
+style="FONT-SIZE: 8pt">TM</SPAN></SUP> Secure Socket Extension (JSSE). The JSSE 
+framework is capable of supporting many different secure communication protocols 
+such as SSL 2.0 and 3.0 and TLS 1.0.<SPAN style="mso-spacerun: yes">&nbsp; 
+</SPAN>However, the JSSE SSL 3.0 and TLS 1.0 are implemented in the J2SE 1.4x 
+and later. </P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto">&nbsp;</P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto">To learn more 
+about JSSE, go to <A href="http://java.sun.com/products/jsse/" 
+target=_blank>http://java.sun.com/products/jsse/</A> .</P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN 
+style="FONT-FAMILY: Arial"><o:p>&nbsp;</o:p></SPAN></P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN 
+style="FONT-FAMILY: Arial">Sun's J2SE implementation of SSL is found in the 
+HttpsURLConnection class in the com.sun.net.ssl package, which extends the 
+java.net.URLConnection class.<SPAN style="mso-spacerun: yes">&nbsp; </SPAN>The 
+HttpsURLConnection class can be used to establish secure channels through 
+SSL/TLS sockets before requesting or receiving data.<SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN>An HttpsURLConnection object is returned 
+by the URL object's openConnection() method when "HTTPS" is specified as the 
+protocol.<SPAN style="mso-spacerun: yes">&nbsp; 
+</SPAN>&nbsp;<o:p></o:p></SPAN></P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN 
+style="FONT-FAMILY: Arial">&nbsp;&nbsp;<o:p></o:p></SPAN></P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; mso-outline-level: 3"><B><SPAN 
+style="FONT-SIZE: 13.5pt">Code Example<o:p></o:p></SPAN></B></P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN 
+style="FONT-FAMILY: Arial">The following code example shows how to implement 
+HTTPS protocol with HttpsURLConnection via the URLConnection in your JSSE 
+application.<SPAN style="mso-spacerun: yes">&nbsp; </SPAN>After calling the 
+openConnection() method,<SPAN style="mso-spacerun: yes">&nbsp; </SPAN>the 
+returned object is checked to be a HttpsURLConnection:<o:p></o:p></SPAN></P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN 
+style="FONT-FAMILY: Arial">&nbsp;<o:p></o:p></SPAN></P>
+<TABLE class=MsoNormalTable 
+style="WIDTH: 100%; mso-cellspacing: 0in; mso-padding-alt: 0in 0in 0in 0in" 
+cellSpacing=0 cellPadding=0 width="100%" border=0>
+  
+  <TR style="mso-yfti-irow: 0; mso-yfti-lastrow: yes">
+    <TD 
+    style="BORDER-RIGHT: black 1pt solid; PADDING-RIGHT: 7.5pt; BORDER-TOP: black 1pt solid; PADDING-LEFT: 7.5pt; BACKGROUND: #ffffcb; PADDING-BOTTOM: 0.75pt; BORDER-LEFT: black 1pt solid; WIDTH: 100%; PADDING-TOP: 0.75pt; BORDER-BOTTOM: black 1pt solid; mso-border-alt: solid black .75pt" 
+    vAlign=top width="100%">
+      <P class=MsoNormal 
+      style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">import 
+      java.io.*;<o:p></o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">import 
+      java.net.*;<o:p></o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">import 
+      javax.net.ssl.*;<o:p></o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="MARGIN-LEFT: 0.5in; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><o:p>&nbsp;</o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="MARGIN-LEFT: 0.5in; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">public someClass 
+      class<SPAN style="mso-spacerun: yes">&nbsp; </SPAN>{<o:p></o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="MARGIN-LEFT: 0.5in; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+      <BR>&nbsp;&nbsp; public static void main(String[] args) throws Exception 
+      {<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.setProperty("java.protocol.handler.pkgs",<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"com.sun.net.ssl.internal.www.protocol");<o:p></o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="MARGIN-LEFT: 0.5in; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 
+      Create HTTPS URL<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL secureurl = 
+      new URL("https://www.yourdomain.com");<o:p></o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="MARGIN-LEFT: 0.5in; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN 
+      style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>// Open 
+      secure URL connection<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URLConnection 
+      urlConn = secureurl.openConnection(); <o:p></o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="MARGIN-LEFT: 0.5in; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN 
+      style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN>// if 
+      secure connection<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(urlConn 
+      instanceof 
+      com.sun.net.ssl.HttpsURLConnection){<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;…Setup 
+      your HTTP POST parameters here… 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;…Manage 
+      your input and output here…&nbsp;&nbsp; }<o:p></o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="MARGIN-LEFT: 0.5in; mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><BR><SPAN 
+      style="mso-spacerun: yes">&nbsp;</SPAN>}<o:p></o:p></SPAN></P></TD></TR></TABLE>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN 
+style="FONT-FAMILY: Arial">&nbsp;&nbsp;<o:p></o:p></SPAN></P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN 
+style="FONT-FAMILY: Arial">You can then access the HTTPS URLs using the APIs 
+provided by the URLConnection class.<SPAN style="mso-spacerun: yes">&nbsp; 
+</SPAN>You don't need to worry about the format of the http GET and POST 
+commands, which you would if you used the SSL Socket APIs.<o:p></o:p></SPAN></P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN 
+style="FONT-FAMILY: Arial"><SPAN style="mso-spacerun: yes">&nbsp;&nbsp; 
+</SPAN><o:p></o:p></SPAN></P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN 
+style="FONT-FAMILY: Arial">If you access Internet behind firewall, the 
+connection’s Proxy Host and Port properties must to be 
+set:&nbsp;<o:p></o:p></SPAN></P>
+<TABLE class=MsoNormalTable 
+style="WIDTH: 100%; mso-cellspacing: 0in; mso-padding-alt: 0in 0in 0in 0in" 
+cellSpacing=0 cellPadding=0 width="100%" border=0>
+  
+  <TR style="mso-yfti-irow: 0; mso-yfti-lastrow: yes">
+    <TD 
+    style="BORDER-RIGHT: black 1pt solid; PADDING-RIGHT: 7.5pt; BORDER-TOP: black 1pt solid; PADDING-LEFT: 7.5pt; BACKGROUND: #ffffcb; PADDING-BOTTOM: 0.75pt; BORDER-LEFT: black 1pt solid; WIDTH: 100%; PADDING-TOP: 0.75pt; BORDER-BOTTOM: black 1pt solid; mso-border-alt: solid black .75pt" 
+    vAlign=top width="100%">
+      <P class=MsoNormal 
+      style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">//Set the https proxy 
+      <o:p></o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><o:p>&nbsp;</o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">System.setProperty("https.proxyHost", 
+      "somewhere.yourdomain.com");<o:p></o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><o:p>&nbsp;</o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">System.setPropery("https.proxyPort", 
+      "8080");<o:p></o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><o:p>&nbsp;</o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">//The next connection 
+      will be through proxy.<o:p></o:p></SPAN></P>
+      <P class=MsoNormal 
+      style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto; tab-stops: 45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><SPAN 
+      style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><o:p>&nbsp;</o:p></SPAN></P></TD></TR></TABLE>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN 
+style="FONT-FAMILY: Arial">&nbsp;<o:p></o:p></SPAN></P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto"><SPAN 
+style="FONT-FAMILY: Arial">The source code for the someClass is <SPAN 
+style="COLOR: red"><A 
+href="../Local%20Settings/Temporary%20Internet%20Files/code_samples/java_Sample_Code/code/Proxy.java">here</A></SPAN>.<o:p></o:p></SPAN></P>
+<P class=MsoNormal 
+style="mso-margin-top-alt: auto; mso-margin-bottom-alt: auto">&nbsp;</P>
+<P class=whs103>&nbsp;</P>
+<H2>Another Sun <!--kadov_tag{{<ignored>}}-->Microsystem's<!--kadov_tag{{</ignored>}}--> 
+Implementation</H2>  </h2>
+
+<p>The Java package developed by Sun Microsystems to 
+implement <!--kadov_tag{{<ignored>}}-->SSL<!--kadov_tag{{</ignored>}}--> is <!--kadov_tag{{<ignored>}}-->Java<span style="FONT-SIZE: 8pt; VERTICAL-ALIGN: super"><FONT SIZE=1 style="FONT-SIZE: 8pt">TM</FONT></span><!--kadov_tag{{</ignored>}}--> Secure 
+Socket Extension (<!--kadov_tag{{<ignored>}}-->JSSE<!--kadov_tag{{</ignored>}}-->). The <!--kadov_tag{{<ignored>}}-->JSSE<!--kadov_tag{{</ignored>}}--> API is 
+implemented on the <!--kadov_tag{{<ignored>}}-->Java<span style="FONT-SIZE: 8pt; VERTICAL-ALIGN: super"><FONT SIZE=1 style="FONT-SIZE: 8pt">TM</FONT></span><!--kadov_tag{{</ignored>}}--> 
+ 2 Platform, Standard Edition. </p>
+
+<p>&nbsp;</p>
+
+<p>To learn more about <!--kadov_tag{{<ignored>}}-->JSSE<!--kadov_tag{{</ignored>}}-->, 
+ go to <a href="http://java.sun.com/products/jsse/"
+			 target=_blank>http://<!--kadov_tag{{<ignored>}}-->java.sun.com<!--kadov_tag{{</ignored>}}-->/products/<!--kadov_tag{{<ignored>}}-->jsse<!--kadov_tag{{</ignored>}}-->/</a> 
+ .</p>
+
+<p>&nbsp;</p>
+
+<h3>Code Examples</h3>
+
+<p class="whs105">The following 
+ code examples illustrate how to use JSSE to implement SSL:</p>
+
+<p class="whs106">&nbsp;</p><!--(Table)=========================================================-->
+<table cellspacing ="0" width="100%" class="whs107" x-use-null-cells>
+  <COLGROUP>
+<col class="whs108">
+
+<tr valign=top>
+<td bgcolor="#ffffcb" width="100%" class="whs109">
+<p class="whs110"><span style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New', monospace"><FONT SIZE=2 style="FONT-SIZE: 10pt">// 
+ Add the HTTPS protocol handler to system properties</FONT></span></p>
+<p class="whs111">&nbsp;</p>
+<p class="whs112">java.security.Security.addProvider(new 
+ com.sun.net.ssl.internal.ssl.Provider());</p>
+<p class="whs113">&nbsp;</p>
+<p class="whs114">System.getProperty.put("java.protocol.handler.pkgs",</p>
+<p class="whs115">"com.sun.net.ssl.internal.www.protocol");</p></td></tr>
+</table>
+
+<p class="whs116">&nbsp;</p>
+
+<p class="whs117">&nbsp;</p>
+
+<p class="whs118"><span style="FONT-SIZE: 12pt; FONT-FAMILY: Arial, sans-serif"><FONT SIZE=3 style="FONT-SIZE: 12pt">If 
+ you access Internet behind firewall, the connection’s Proxy Authorization 
+ property has to be set:</FONT></span></p>
+
+<p class="whs119">&nbsp;</p><!--(Table)=========================================================-->
+<table cellspacing ="0" width="100%" class="whs120" x-use-null-cells>
+  <COLGROUP>
+<col class="whs121">
+
+<tr valign=top>
+<td bgcolor="#ffffcb" width="100%" class="whs122">
+<p class="whs123">System.getProperties().put("https.proxyHost", 
+ proxy);</p>
+<p class="whs124">&nbsp;</p>
+<p class="whs125">System.getProperties().put("https.proxyPort", 
+ port);</p>
+<p class="whs126">&nbsp;</p>
+<p class="whs127">// Setup 
+ proxy authentication</p>
+<p class="whs128">&nbsp;</p>
+<p class="whs129">java.net.Authenticator.setDefault 
+      (new PasswordAuthenticator());</p> 
+   </td></tr>
+</table>
+
+<p class="whs130">&nbsp;</p>
+
+<p class="whs131">&nbsp;</p>
+
+<p class="whs132">Class PasswordAuthenticator 
+ is defined as the following:</p>
+
+<p class="whs133">&nbsp;</p><!--(Table)=========================================================-->
+<table cellspacing ="0" width="100%" class="whs134" x-use-null-cells>
+  <COLGROUP>
+<col class="whs135">
+
+<tr valign=top>
+<td bgcolor="#ffffcb" width="100%" class="whs136">
+<p class="whs137"><span 
+ style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New', monospace"><FONT SIZE=2 style="FONT-SIZE: 10pt">import 
+ java.net.Authenticator;</FONT></span></p>
+<p class="whs138">import 
+ java.net.PasswordAuthentication;</p>
+<p class="whs139">&nbsp;</p>
+<p class="whs140">class 
+ PasswordAuthenticator extends Authenticator {</p>
+<p class="whs141">&nbsp;</p>
+<p class="whs142"><!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->protected 
+ PasswordAuthentication getPasswordAuthentication() {</p>
+<p class="whs143"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->System.out.println("getPasswordAuthentication() 
+ called for https connection!!!");</p>
+<p class="whs144"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->return 
+ new PasswordAuthentication(strUser, "password".toCharArray());</p>
+<p class="whs145"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->}</p>
+<p class="whs146">}</p></td></tr>
+</table>
+
+<p class="whs147">&nbsp;</p>
+
+<p class="whs148">&nbsp;</p>
+
+<p class="whs149">JDK version 
+ 1.2.1 or greater is required for the class java.net.Authenticator.</p>
+
+<p class="whs150">&nbsp;</p>
+
+<p class="whs151">&nbsp;</p>
+
+<p class="whs152"><A href="#Using"><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../baby_up.jpg' x-save-file='TRUE' x-save-method='compute-relative' width='20' height='23' border='0'>");}
+else
+{ document.write("<img src='../baby_up.jpg' x-save-file='TRUE' x-save-method='compute-relative' style='border: none; float: none; width: 20px; height: 23px;' width='20' height='23' border='0'>");}
+//--></SCRIPT><span style="FONT-SIZE: 12pt; FONT-FAMILY: Arial, sans-serif"><FONT SIZE=3 style="FONT-SIZE: 12pt">Return 
+ to Top</FONT></span></a></p>
+
+<p class="whs153">&nbsp;</p>
+
+<p class="whs154"><span style="FONT-SIZE: 8pt; FONT-FAMILY: Arial, sans-serif"><FONT SIZE=1 style="FONT-SIZE: 8pt">Copyright 
+ © 2006 United Parcel Service of America, Inc.</FONT></span></p>
+
+<p>&nbsp;</p>
+
+</body>
+
+</html>

@@ -1,0 +1,489 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<!--(==============================================================)-->
+<!--(Document created with RoboEditor. )============================-->
+<!--(==============================================================)-->
+
+<head>
+
+<title>XML Programming Information</title>
+
+<!--(Meta)==========================================================-->
+
+<meta name=generator content="RoboHELP by eHelp Corporation - www.ehelp.com">
+<meta name=generator-major-version content=0.1>
+<meta name=generator-minor-version content=1>
+<meta name=filetype content=kadov>
+<meta name=filetype-version content=1>
+<meta name=page-count content=1>
+<meta name=layout-height content=2774>
+<meta name=layout-width content=695>
+<meta name=date content="07 12, 2001 1:25:12 PM">
+
+
+<!--(Links)=========================================================-->
+
+<SCRIPT language="javascript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../default_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='../default.css'>");}
+//-->
+</SCRIPT>
+<style>
+<!--
+p.whs1 {font-family: Arial, sans-serif; font-size: 12pt;}
+table.whs2 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs3 {width: 100%;}
+td.whs4 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs5 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs6 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs7 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs8 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs9 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs10 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs11 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs12 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs13 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs14 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs15 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs16 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs17 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs18 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs19 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs20 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs21 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs22 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs23 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs24 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs25 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs26 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs27 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs28 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs29 {font-family: Arial, sans-serif; font-size: 12pt;}
+table.whs30 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs31 {width: 100%;}
+td.whs32 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs33 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs34 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs35 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs36 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs37 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs38 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs39 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs40 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs41 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs42 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs43 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs44 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs45 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs46 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs47 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs48 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs49 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs50 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs51 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs52 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs53 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs54 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs55 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs56 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs57 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs58 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs59 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs60 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs61 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs62 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs63 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs64 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs65 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs66 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs67 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs68 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs69 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs70 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs71 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs72 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs73 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs74 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs75 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs76 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs77 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs78 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs79 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs80 {font-family: Arial, sans-serif; font-size: 12pt;}
+table.whs81 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs82 {width: 100%;}
+td.whs83 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs84 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs85 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs86 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs87 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs88 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs89 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs90 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs91 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs92 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs93 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs94 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs95 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs96 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs97 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs98 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs99 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs100 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs101 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs102 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs103 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs104 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs105 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs106 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs107 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs108 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs109 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs110 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs111 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs112 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs113 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs114 {font-family: Arial, sans-serif; font-size: 8pt;}
+
+-->
+</style>
+<script language="javascript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//-->
+</script>
+<style>
+<!--
+  div.WebHelpPopupMenu {position:absolute; left:0px; top:0px; z-index:4; visibility:hidden;}
+  p.WebHelpNavBar {text-align:right;}
+-->
+</style>
+</head>
+
+<!--(Body)==========================================================-->
+
+
+<body>
+
+
+<h1><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../un_global_upslogo.gif' x-maintain-ratio='TRUE' width='50' height='51' border='0'>");}
+else
+{ document.write("<img src='../un_global_upslogo.gif' x-maintain-ratio='TRUE' style='border: none; width: 50px; height: 51px; float: none;' width='50' height='51' border='0'>");}
+//--></SCRIPT><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../un_global_hed.gif' x-maintain-ratio='TRUE' width='550' height='51' border='0'>");}
+else
+{ document.write("<img src='../un_global_hed.gif' x-maintain-ratio='TRUE' style='border: none; width: 550px; height: 51px; float: none;' width='550' height='51' border='0'>");}
+//--></SCRIPT></h1>
+
+<h1><a name=XML></a>XML Programming Information for VB</h1>
+
+<p><a href="#Building_XML">Building XML</a></p>
+
+<p>&nbsp;</p>
+
+<p><a href="#Parsing_XML">Parsing XML</a></p>
+
+<h2><a name=Building_XML></a>Building XML</h2>
+
+<h4>Creating an XML Document</h4>
+
+<p class="whs1">A document 
+ can be created using the MSXML3 Dom object. After the document has been 
+ created the node can added by calling the addNode function. To build an 
+ XML Document the AddNode function takes the tag of the parent node and 
+ generates a child then appends the child node to the parent node using 
+ calls to the DOM object.</p>
+
+<h3>Code Example</h3>
+
+<p>The following code example illustrates creating an XML document:</p>
+
+<p>&nbsp;</p>
+
+<!--(Table)=========================================================-->
+<table x-use-null-cells cellspacing="0" width="100%" class="whs2">
+<col class="whs3">
+
+<tr valign=top>
+<td bgcolor="#FFFFCB" width="100%" class="whs4">
+<p class="whs5"><span 
+ style="font-family: 'Courier New', monospace; font-size: 10pt;"><FONT SIZE=2 style="font-size:10pt;">Public 
+ Function createXMLDocument(rootname As String, xml As MSXML2.DOMDocument30) 
+ As Boolean</FONT></span></p>
+<p class="whs6"><!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->On 
+ Error GoTo ErrHand</p>
+<p class="whs7"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}--></p>
+<p class="whs8"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ docXML As New MSXML2.DOMDocument30</p>
+<p class="whs9"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ parentNode As IXMLDOMNode</p>
+<p class="whs10"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ root <!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->As 
+ IXMLDOMElement</p>
+<p class="whs11"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ Prop As MSXML2.IXMLDOMProcessingInstruction</p>
+<p class="whs12"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}--></p>
+<p class="whs13"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->docXML.async 
+ = False</p>
+<p class="whs14"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Set 
+ root = docXML.createElement(rootname)</p>
+<p class="whs15"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->docXML.loadXML 
+ root.xml</p>
+<p class="whs16"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Set 
+ parentNode = root</p>
+<p class="whs17"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}--></p>
+<p class="whs18"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Set 
+ Prop = docXML.createProcessingInstruction(&quot;xml&quot;, &quot;version 
+ = '1.0'&quot;)</p>
+<p class="whs19"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->docXML.loadXML 
+ (Prop.xml &amp; root.xml)</p>
+<p class="whs20"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}--></p>
+<p class="whs21"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Set 
+ xml = docXML</p>
+<p class="whs22"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->createXMLDocument 
+ = True</p>
+<p class="whs23"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Exit 
+ Function</p>
+<p class="whs24"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}--></p>
+<p class="whs25">ErrHand:</p>
+<p class="whs26">createXMLDocument 
+ = False</p>
+<p class="whs27">End 
+ Function</td></tr>
+</table>
+
+<p class="whs28">&nbsp;</p>
+
+<h4>Adding a Node</h4>
+
+<p class="whs29">The Parent 
+ node and the newTagName are required for the AddNode subroutine. If the 
+ textString is passed then the node is added to the parentnode with textString 
+ as the node value. If the &quot;EMPTY_NODE&quot; tag is passed in the 
+ textString field then a container node (newTagName) is added to the parent 
+ node. If the textString field is empty and the attrName and attrValue 
+ the attribute is added the parentnode. Otherwise no node is added.</p>
+
+<h3>Code Example</h3>
+
+<p>The following code example illustrates adding a node:</p>
+
+<p>&nbsp;</p>
+
+<!--(Table)=========================================================-->
+<table x-use-null-cells cellspacing="0" width="100%" class="whs30">
+<col class="whs31">
+
+<tr valign=top>
+<td bgcolor="#FFFFCB" width="100%" class="whs32">
+<p class="whs33"><span 
+ style="font-family: 'Courier New', monospace; font-size: 10pt;"><FONT SIZE=2 style="font-size:10pt;">Public 
+ Function AddNode(doc As MSXML2.DOMDocument30, strParentTag As String, 
+ newTagName As String, _</FONT></span></p>
+<p class="whs34"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->textString 
+ As String, attrName As String, AttrValue As String)</p>
+<p class="whs35"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->On 
+ Error GoTo ErrHand</p>
+<p class="whs36"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ Item As MSXML2.IXMLDOMElement</p>
+<p class="whs37"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ root As MSXML2.IXMLDOMElement</p>
+<p class="whs38"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ oAttr As MSXML2.IXMLDOMAttribute</p>
+<p class="whs39"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ parentTag As MSXML2.IXMLDOMNode</p>
+<p class="whs40"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ Node As MSXML2.IXMLDOMNode</p>
+<p class="whs41"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ pNode As MSXML2.IXMLDOMNode</p>
+<p class="whs42"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ child As MSXML2.IXMLDOMNode</p>
+<p class="whs43"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ ThisNode As MSXML2.IXMLDOMText</p>
+<p class="whs44"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->AddNode 
+ = True</p>
+<p class="whs45"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->' 
+ we are getting a nodelist because it allows us to specify the parent element</p>
+<p class="whs46"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->' 
+ by its string name; that way, we don't have to pass Elements around</p>
+<p class="whs47"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Dim 
+ N1 As MSXML2.IXMLDOMNodeList</p>
+<p class="whs48"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Set 
+ parentTag = doc</p>
+<p class="whs49"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Set 
+ N1 = doc.getElementsByTagName(strParentTag)</p>
+<p class="whs50"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->If 
+ N1.length &gt; 0 Then</p>
+<p class="whs51"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Set 
+ Parent = N1.Item(N1.length - 1)</p>
+<p class="whs52"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Else</p>
+<p class="whs53"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Set 
+ Parent = parentTag</p>
+<p class="whs54"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->End 
+ If</p>
+<p class="whs55"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->If 
+ Not (StrComp(textString, &quot;&quot;) = 0) Then</p>
+<p class="whs56"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}--></p>
+<p class="whs57"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Set 
+ Node = doc.createNode(NODE_ELEMENT, newTagName, &quot;&quot;)</p>
+<p class="whs58"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->If 
+ Not (StrComp(textString, &quot;EMPTY_NODE&quot;) = 0) Then</p>
+<p class="whs59"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Node.nodeTypedValue 
+ = textString</p>
+<p class="whs60"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->End 
+ If</p>
+<p class="whs61"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Parent.appendChild 
+ Node</p>
+<p class="whs62"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}--></p>
+<p class="whs63"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->AddNode 
+ = True</p>
+<p class="whs64"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}--></p>
+<p class="whs65"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Else</p>
+<p class="whs66"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->If 
+ Not (((StrComp(attrName, &quot;&quot;) = 0) Or (StrComp(AttrValue, &quot;&quot;) 
+ = 0))) Then</p>
+<p class="whs67"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Set 
+ oAttr = doc.createAttribute(attrName)</p>
+<p class="whs68"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Parent.setAttribute 
+ attrName, AttrValue</p>
+<p class="whs69"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}--></p>
+<p class="whs70"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->AddNode 
+ = True</p>
+<p class="whs71"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Else</p>
+<p class="whs72"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->AddNode 
+ = False</p>
+<p class="whs73"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->End 
+ If</p>
+<p class="whs74"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->End 
+ If</p>
+<p class="whs75"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->Exit 
+ Function</p>
+<p class="whs76">ErrHand:</p>
+<p class="whs77"><!--kadov_tag{{<spaces>}}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--kadov_tag{{</spaces>}}-->AddNode 
+ = False</p>
+<p class="whs78">End 
+ Function</td></tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p class="whs79">&nbsp;</p>
+
+<h2><a name=Parsing_XML></a>Parsing XML</h2>
+
+<p class="whs80">Parsing XML 
+ with VB6. The <!--kadov_tag{{<ignored>}}-->DOM<!--kadov_tag{{</ignored>}}--> 
+ Object parses the document when it is loaded. If the document is not valid 
+ then the appropriate <!--kadov_tag{{<ignored>}}-->DOM<!--kadov_tag{{</ignored>}}--> 
+ Exception is returned. The &quot;<!--kadov_tag{{<ignored>}}-->getElementsByTagName(<!--kadov_tag{{</ignored>}}-->)&quot; 
+ function can be used to access nodes within the Document as shown below.</p>
+
+<h3>Code Example</h3>
+
+<p>The following code example illustrates parsing an XML document:</p>
+
+<p>&nbsp;</p>
+
+<!--(Table)=========================================================-->
+<table x-use-null-cells cellspacing="0" width="100%" class="whs81">
+<col class="whs82">
+
+<tr valign=top>
+<td bgcolor="#FFFFCB" width="100%" class="whs83">
+<p class="whs84"><span 
+ style="font-family: 'Courier New', monospace; font-size: 10pt;"><FONT SIZE=2 style="font-size:10pt;">Public 
+ Function FillXML(xnodes() As String, strXML As String) As String</FONT></span></p>
+<p class="whs85">'This 
+ method requires that the array size be greater than or equal to the amount 
+ 'of &quot;writable&quot; nodes in the XML document. Also, the order of 
+ the values in the 'array should sync up with the order of their respective 
+ &quot;writable&quot; nodes in the 'XML document.</p>
+<p class="whs86">On Error 
+ GoTo ErrFill</p>
+<p class="whs87">Dim 
+ I As Integer</p>
+<p class="whs88">Dim 
+ str As String</p>
+<p class="whs89">Dim 
+ objXMl As DOMDocument30</p>
+<p class="whs90">Dim 
+ objXMLList As IXMLDOMNodeList</p>
+<p class="whs91">Set 
+ objXMl = New DOMDocument30</p>
+<p class="whs92">objXMl.loadXML 
+ strXML</p>
+<p class="whs93">Set 
+ objXMLList = objXMl.getElementsByTagName(&quot;*&quot;)</p>
+<p class="whs94">t = 
+ 0</p>
+<p class="whs95">MaxNodes 
+ = objXMl.getElementsByTagName(&quot;*&quot;).length</p>
+<p class="whs96">For 
+ I = 0 To MaxNodes - 1</p>
+<p class="whs97">'Here 
+ we make a list of child nodes for every element in the list.</p>
+<p class="whs98">Set 
+ ElementList = objXMLList.Item(I).childNodes</p>
+<p class="whs99">'If 
+ there is only one child in the list then we write the value in the array 
+ to 'that node.</p>
+<p class="whs100">If ElementList.length 
+ = 1 Then</p>
+<p class="whs101">objXMl.getElementsByTagName(&quot;*&quot;).Item(I).Text 
+ = xnodes(t)</p>
+<p class="whs102">t = 
+ t + 1</p>
+<p class="whs103">End 
+ If</p>
+<p class="whs104">Next 
+ I</p>
+<p class="whs105">FillXML 
+ = True</p>
+<p class="whs106">strXML 
+ = objXMl.xml</p>
+<p class="whs107">Exit 
+ Function</p>
+<p class="whs108">ErrFill:</p>
+<p class="whs109">FillXML 
+ = False</p>
+<p class="whs110">End 
+ Function</td></tr>
+</table>
+
+<p class="whs111">&nbsp;</p>
+
+<p class="whs112">&nbsp;</p>
+
+<p class="whs113"><a href="#XML"><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../baby_up.jpg' x-save-file='TRUE' x-save-method='compute-relative' width='20' height='23' border='0'>");}
+else
+{ document.write("<img src='../baby_up.jpg' x-save-file='TRUE' x-save-method='compute-relative' style='border: none; float: none; width: 20px; height: 23px;' width='20' height='23' border='0'>");}
+//--></SCRIPT>Return to Top</a></p>
+
+<p>&nbsp;</p>
+
+<p class="whs114"><span style="font-family: Arial, sans-serif; font-size: 8pt;"><FONT SIZE=1 style="font-size:8pt;">Copyright 
+ © 2006 United Parcel Service of America, Inc.</FONT></span></p>
+
+<p>&nbsp;</p>
+
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+Protocol = https 
+Hostname = wwwcie.ups.com
+Prefix = ups.app/xml
+KeyRing = .\\track_refguide\\code_samples\\java_Sample_Code\\config\\KeyRing.pfx

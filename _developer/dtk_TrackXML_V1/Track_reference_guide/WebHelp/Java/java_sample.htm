@@ -1,0 +1,193 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<!--(==============================================================)-->
+<!--(Document created with RoboEditor. )============================-->
+<!--(==============================================================)-->
+
+<head>
+
+<title>Working with Sample Code</title>
+
+<!--(Meta)==========================================================-->
+
+<meta name=generator content="RoboHELP by eHelp Corporation - www.ehelp.com">
+<meta name=generator-major-version content=0.1>
+<meta name=generator-minor-version content=1>
+<meta name=filetype content=kadov>
+<meta name=filetype-version content=1>
+<meta name=page-count content=1>
+<meta name=layout-height content=735>
+<meta name=layout-width content=687>
+<meta name=date content="10 5, 2001 11:12:16 AM">
+
+
+<!--(Links)=========================================================-->
+
+<SCRIPT language="javascript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../default_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='../default.css'>");}
+//-->
+</SCRIPT>
+<style>
+<!--
+p.whs1 {font-family: Arial, sans-serif; font-size: 8pt;}
+
+-->
+</style>
+<script language="javascript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//-->
+</script>
+<style>
+<!--
+  div.WebHelpPopupMenu {position:absolute; left:0px; top:0px; z-index:4; visibility:hidden;}
+  p.WebHelpNavBar {text-align:right;}
+-->
+</style>
+<SCRIPT language="JavaScript">
+<!--
+ onerror = null; 
+//-->
+</SCRIPT>
+<SCRIPT language="JavaScript" src="../ehlpdht1.js" title="WebHelpEhlpDhtmExtJs" name="EHELP_DHTM">
+</SCRIPT>
+<SCRIPT language="JavaScript1.2" src="../ehlpdht2.js" title="WebHelpEhlpDhtmExtJs" name="EHELP_DHTM">
+</SCRIPT>
+</head>
+
+<!--(Body)==========================================================-->
+
+
+<body>
+
+
+<!--(Generated Script Links)========================================-->
+<!--(Generated Code)================================================-->
+<!--(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)==================-->
+<!--begin!kadov{{===================================================-->
+<script type="text/javascript"
+		language=JavaScript1.2>
+<!-- 
+if( typeof( kadovInitEffects ) != 'function' ) kadovInitEffects = new Function();if( typeof( kadovInitTrigger ) != 'function' ) kadovInitTrigger = new Function();if( typeof( kadovFilePopupInit ) != 'function' ) kadovFilePopupInit = new Function();if( typeof( kadovTextPopupInit ) != 'function' ) kadovTextPopupInit = new Function();
+ //-->
+</script>
+
+<!--}}end!kadov=====================================================-->
+<!--(==============================================================)-->
+
+
+<h1><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../un_global_upslogo.gif' x-maintain-ratio='TRUE' width='50' height='51' border='0'>");}
+else
+{ document.write("<img src='../un_global_upslogo.gif' x-maintain-ratio='TRUE' style='border: none; width: 50px; height: 51px; float: none;' width='50' height='51' border='0'>");}
+//--></SCRIPT><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../un_global_hed.gif' x-maintain-ratio='TRUE' width='550' height='51' border='0'>");}
+else
+{ document.write("<img src='../un_global_hed.gif' x-maintain-ratio='TRUE' style='border: none; width: 550px; height: 51px; float: none;' width='550' height='51' border='0'>");}
+//--></SCRIPT></h1>
+
+<h1><a name=Working></a>Working with Java Sample Code</h1>
+
+<p><a href="../code_samples/java_Sample_Code/code/xmltransmitter.zip">XmlTransmitter.zip</a> 
+ contains completed source code which handles reading the XML request file, 
+ sending the request to UPS Online Tool server, and writing the XML response 
+ to a file. Within the XmlTransmitter zip file are an IBM and Sun version 
+ both of which require xmlsample.jar to be added to the client machine's 
+ <a href="javascript:void(0);" id="a1" onMouseOver="if (parseInt(navigator.appVersion) >= 4 && typeof(BSPSPopupOnMouseOver) == 'function') BSPSPopupOnMouseOver(event);" class="BSSCPopup" onclick="BSSCPopup('../Classpath.htm');return false;">classpath</a><!--begin!kadov{{--><script type="text/javascript"
+													language=JavaScript1.2><!--
+kadovFilePopupInit('a1');
+//--></script><!--}}end!kadov-->. 
+ The IBM version, XmlTransmitterIBM.java, uses SSLite along with Java (To 
+ download JDK/JRE 1.1.6 or greater, go to <a href="http://java.sun.com/products/jdk/1.1/index.html"
+											target=_blank>http://java.sun.com/products/jdk/1.1/index.html</a>) 
+ . In order for the sample code to function, the file <a href="../code_samples/java_Sample_Code/sslite.zip">sslite.zip</a> 
+ must be added to the client machine's <a href="javascript:void(0);" id="a2" onMouseOver="if (parseInt(navigator.appVersion) >= 4 && typeof(BSPSPopupOnMouseOver) == 'function') BSPSPopupOnMouseOver(event);" class="BSSCPopup" onclick="BSSCPopup('../Classpath.htm');return false;">classpath</a><!--begin!kadov{{--><script 
+ type="text/javascript"
+	language=JavaScript1.2><!--
+kadovFilePopupInit('a2');
+//--></script><!--}}end!kadov-->. 
+ The file <a href="../code_samples/java_Sample_Code/config/KeyRing.pfx">KeyRing.pfx</a> 
+ must be used with the SSLite/IBM implementation. The XmlTransmitterSUN.java 
+ file requires Sun's Java Secure Socket Extension 1.0.2 (JSSE) which can 
+ be download at <a href="http://java.sun.com/products/jsse/"
+					target=_blank>http://java.sun.com/products/jsse/</a>. 
+ <!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->It is recommended 
+ that you follow the examples provided by your particular SSL package when 
+ implementing that respective code.</p>
+
+<p>&nbsp;</p>
+
+<p>If you already have the XML files of Access Request (see the <span style="color: #ff0000;"><FONT COLOR=red ><a 
+ href="../code_samples/java_Sample_Code/access.xml"
+	target=_blank>Access Request sample</a></FONT></span>) and Service Request(see 
+ the <span style="color: #ff0000;"><FONT COLOR=red ><a href="../code_samples/java_Sample_Code/sample_request.html"
+										target=_blank>Service Request sample</a></FONT></span>), 
+ and you want to have the XML response write to a file (see the <span style="color: #ff0000;"><FONT COLOR=red ><a 
+ href="../code_samples/java_Sample_Code/sample_response.html"
+	target=_blank>Service Response sample</a></FONT></span>), you can run: </p>
+
+<p>&nbsp;</p>
+
+<p><span style="font-family: 'Courier New', monospace;
+				font-size: 10pt;
+				font-style: italic;"><FONT SIZE=2 style="font-size:10pt;"><I>XmlTransmitter &lt;service&gt; <!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->&lt;configuration 
+ filename&gt; <!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->&lt;AccessRequest 
+ filename&gt; <!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->&lt;ServiceRequest 
+ Filename&gt; <!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->&lt;xml 
+ response filename&gt;</I></FONT></span>. </p>
+
+<p>&nbsp;</p>
+
+<p>The configuration file sets the server's host name, connection protocol, 
+ location of the file <a href="../code_samples/java_Sample_Code/config/KeyRing.pfx">KeyRing.pfx</a>, 
+ and proxy server properties. A sample configuration file is <a href="../code_samples/java_Sample_Code/config/config.htm"
+	target=_blank>here</a>. Please modify the values based on your environment.</p>
+
+<p>&nbsp;</p>
+
+<p>To quickly view the result of sending Tracking Request to XML OnLine 
+ tool server, run the batch file <a href="../code_samples/java_Sample_Code/testXmlTransmitterIBM.bat">testXmlTransmitterIBM.bat</a> 
+ or <a href="../code_samples/java_Sample_Code/testXmlTransmitterSUN.bat">testXmlTransmitterSUN.bat</a> 
+ (Be sure the <a href="javascript:void(0);" id="a3" onMouseOver="if (parseInt(navigator.appVersion) >= 4 && typeof(BSPSPopupOnMouseOver) == 'function') BSPSPopupOnMouseOver(event);" class="BSSCPopup" onclick="BSSCPopup('../Path.htm');return false;">path</a><!--begin!kadov{{--><script type="text/javascript"
+															language=JavaScript1.2><!--
+kadovFilePopupInit('a3');
+//--></script><!--}}end!kadov--> 
+ of the java executable is in your system path).</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="#Working"><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../baby_up.jpg' x-save-file='TRUE' x-save-method='compute-relative' width='20' height='23' border='0'>");}
+else
+{ document.write("<img src='../baby_up.jpg' x-save-file='TRUE' x-save-method='compute-relative' style='border: none; float: none; width: 20px; height: 23px;' width='20' height='23' border='0'>");}
+//--></SCRIPT>Return to Top</a></p>
+
+<p>&nbsp;</p>
+
+<p class="whs1"><span style="font-family: Arial, sans-serif; font-size: 8pt;"><FONT SIZE=1 style="font-size:8pt;">Copyright 
+ © 2006 United Parcel Service of America, Inc.</FONT></span></p>
+
+<p>&nbsp;</p>
+
+</body>
+
+</html>

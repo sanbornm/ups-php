@@ -1,0 +1,10 @@
+<ShipConfig>
+   <host>proxy.ups.com</host>
+   <hostname>www.ups.com</hostname>
+   <protocol>https</protocol>
+   <proxy>proxy.corp.ups.com</proxy>
+   <service>Ship</service>
+   <port>8080</port>
+   <username>testUser</username>
+   <password>testPW</password>
+</ShipConfig>
