@@ -2,9 +2,7 @@
 <TrackRequest xml:lang="en-US">
 	<Request>
 		<TransactionReference>
-			<CustomerContext>
-				<InternalKey>{TRACKING_KEY}</InternalKey>
-			</CustomerContext>
+			<CustomerContext>upsPHP Framework</CustomerContext>
 			<XpciVersion />
 		</TransactionReference>
 		<RequestAction>Track</RequestAction>
