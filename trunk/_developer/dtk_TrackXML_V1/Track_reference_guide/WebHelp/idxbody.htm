@@ -1,0 +1,1442 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="RoboHELP by eHelp Corporation www.ehelp.com">
+<title>Index</title>
+<base target="bsscright">
+<!-- version 4.00.00 -->
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+<SCRIPT LANGUAGE="JavaScript" src="webhelp4.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+//the browser information itself
+var gBsBrowser		= null;
+function _BSPSBrowserItself()
+{
+	var agent  = navigator.userAgent.toLowerCase();
+	this.major = parseInt(navigator.appVersion);
+	this.minor = parseFloat(navigator.appVersion);
+	this.ns    = ((agent.indexOf('mozilla') != -1) && ((agent.indexOf('spoofer') == -1) && (agent.indexOf('compatible') == -1)));
+	this.ns2   = ((this.ns) && (this.major == 2));
+	this.ns3   = ((this.ns) && (this.major == 3));
+	this.ns4   = ((this.ns) && (this.major >= 4));
+	this.ie	   = (agent.indexOf("msie") != -1);
+	this.ie3   = ((this.ie) && (this.major == 2));
+	this.ie4   = ((this.ie) && (this.major >= 4));
+	this.op3   = (agent.indexOf("opera") != -1);
+	this.mac   = (agent.indexOf('mac') != -1);
+
+	if (this.ns4)
+	{
+		gBsDoc		= "document";
+		gBsSty		= "";
+		gBsHtm		= ".document";
+		gBsStyVisShow	= "show";
+		gBsStyVisHide	= "hide";
+
+	}
+	else if (this.ie4)
+	{
+		gBsDoc		 = "document.all";
+		gBsSty 		= ".style";
+		gBsHtm 		= "";
+		gBsStyVisShow	= "visible";
+		gBsStyVisHide	= "hidden";
+	}
+}
+
+//Here is the browser type 
+function _BSPSGetBrowserInfo()
+{
+	gBsBrowser	= new _BSPSBrowserItself();
+}
+
+//Get client size info
+function _BSPSGetClientSize()
+{
+	if (gBsBrowser.ns4)
+	{
+		gBsClientWidth	= innerWidth;
+		gBsClientHeight = innerHeight;
+
+	}
+	else if (gBsBrowser.ie4)
+	{
+		gBsClientWidth	= document.body.clientWidth;
+		gBsClientHeight = document.body.clientHeight;
+	}
+}
+
+//If webHelp needs Related Topics DHTMLcode, it's supposed to add it here
+var gbPopupMenuTimeoutExpired = false;
+var gbInPopupMenu = false;
+var gbPopupMenuTopicList = null;
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//
+// Popup Menu code
+//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+var g_bIsPopupMenuInit = false;
+function WritePopupMenuLayer()
+{
+	if (!g_bIsPopupMenuInit)
+        {
+	  if (gBsBrowser.ns4) {
+//Do not try to write ininle styles for NS!  NS can not handle it and will not stop downloading the html page...
+	   document.write("<DIV CLASS='WebHelpPopupMenu' ID='PopupMenu'></DIV>");
+	  } else{
+	  document.write("<DIV ID='PopupMenu' STYLE='position:absolute; left:0px; top:0px; z-index:4; visibility:hidden;'></DIV>");
+	  if (gBsBrowser.ie4) {
+		document.write("<STYLE TYPE='text/css'>");
+		if (gBsBrowser.mac) {
+			document.write(".PopupOver {font-family:'Arial'; color:white; background:navy; font-size:10pt; text-decoration:none;}");
+			document.write(".PopupNotOver {font-family:'Arial'; color:black; background:#c0c0c0; font-size:10pt; text-decoration:none;}");
+		} else {
+			document.write(".PopupOver {font-family:'Arial'; color:white; background:navy; font-size:8pt; text-decoration:none;}");
+			document.write(".PopupNotOver {font-family:'Arial'; color:black; background:#c0c0c0; font-size:8pt; text-decoration:none;}");
+		}
+		document.write("</STYLE>");
+	   }
+          }
+	  g_bIsPopupMenuInit = true;
+	}
+}
+
+//Define variable arguments as: strTitle, strUrl
+function MTE() 
+{
+	this.strTitle = MTE.arguments[0];
+	if (MTE.arguments.length > 1)
+		this.strURL = MTE.arguments[1];
+	else
+		this.strURL = this.strTitle;
+}
+
+// If the topic list is set, it is an array of TopicEntry objects (defined in WebHelp3.js)
+function PopupMenu_SetTopicList(aPopupTopicArray)
+{
+	gbPopupMenuTopicList = aPopupTopicArray;
+}
+
+//Seek for the bsscright frame 
+function _SeekFrameByName( cRoot, strName )
+{
+	if( cRoot == null )	return null;
+	if( cRoot.frames == null )	return null;
+	if( cRoot.frames[strName] != null )	return cRoot.frames[strName];
+	for (var i=0; i<cRoot.frames.length; i++)
+	{
+		var cObj = _SeekFrameByName( cRoot.frames(i).document, strName );
+		if( cObj != null )		return cObj;
+	};
+	return null;
+}
+function _GetFrameByName( cRoot, strName )
+{
+	if( cRoot == null )	return null;
+	var cRet = _SeekFrameByName(cRoot, strName);
+	if( cRet != null )	return cRet;
+	if (cRoot.parent != cRoot)
+		return _GetFrameByName( cRoot.parent, strName );
+	else
+		return null;
+}
+
+//var gbOriPopupMenuClick = null;
+
+function PopupMenu_Invoke()
+{	
+	if (document.readyState != "complete")
+		return false;
+	var fn_arguments = PopupMenu_Invoke.arguments; 
+	// Make sure we have reasonable arguments
+	var argLen = fn_arguments.length;
+	if (argLen < 3) {
+		return false;
+	}
+
+	// Check to see if we only have one target
+	var strTarget = "";
+	var targetDoc = null;
+	if (fn_arguments[1] == '') {
+		if (BSSCPopup_IsPopup()) {
+			targetDoc = parent;
+			strTarget = "TARGET= _parent";
+		}
+		else
+			targetDoc = window.document;
+	} else {
+		targetDoc = _GetFrameByName( parent, fn_arguments[1] );
+
+		strTarget = "TARGET='" + fn_arguments[1] + "'";
+	}
+
+	if ((!gBsBrowser.ie4 && !gBsBrowser.ns4) || ((gBsBrowser.mac) && (gBsBrowser.ie4) && (window.event.srcElement.tagName == "AREA"))) {
+	
+		var argLen 	= fn_arguments.length;
+
+		// Create the window that the hyperlinks will go into
+		var nHeight = argLen * 15;
+		var nWidth = 400;
+		var strParam = "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=auto";
+		strParam += ",height=" + nHeight + ",width=200";
+		strParam += ",resizable";
+
+		// Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = window.open("", "temp", strParam);
+
+		// Create the real popup window
+		var wndPopupLinks = window.open("", "popuplinks", strParam);
+
+		// Close the temporary
+		wndTemp.close();
+
+		wndPopupLinks.document.open("text/html");
+		wndPopupLinks.document.write("<html><head></head>");
+		wndPopupLinks.document.write("<body onBlur=\'self.focus();\'>");
+		var strParaLine = "";
+		for (var i = 0; i < (argLen - 2) / 2; i++) {
+			strParaLine = "";
+			strParaLine += "<a href=\"javascript:";
+			if (gbBsIE) {
+				strParaLine += "onBlur=null; ";
+			}
+			strParaLine += "opener.location=\'";
+			strParaLine += fn_arguments[2 * i + 3];
+			strParaLine += "\';close();\"";
+			strParaLine += strTarget;
+
+			strParaLine += ">";
+			strParaLine += fn_arguments[2 * i + 2];
+			strParaLine += "</a>";
+			strParaLine += "<br>";
+			wndPopupLinks.document.write(strParaLine);
+		}
+		wndPopupLinks.document.write("</body></html>");
+		wndPopupLinks.document.close();
+		window.gbInPopupMenu = true;
+		if (!gbBsIE) {
+			wndPopupLinks.focus();
+		}
+
+		return false;
+	}
+
+
+	if (((argLen < 5) && ((isNaN(fn_arguments[2])) || (gbPopupMenuTopicList == null))) ||
+		((argLen < 4) && ((!isNaN(fn_arguments[2])) && (gbPopupMenuTopicList != null)))) {
+
+		// Get the place that we will be putting the topic into
+		var strURL = "";
+		if (isNaN(fn_arguments[2]) ||  (gbPopupMenuTopicList == null)) {
+			strURL = fn_arguments[3];
+		}
+		else 	{
+			strURL = gbPopupMenuTopicList[fn_arguments[2]].strURL;
+		}
+
+		if (targetDoc != null) {
+			targetDoc.location.href = strURL;
+		}
+		else {
+			window.open(strURL);
+		}		
+		window.gbInPopupMenu = true;
+		return false;
+	}
+	
+	var strMenu = "";
+	if (gBsBrowser.ns4) {
+		strMenu = '<TABLE BORDER="1" CELLSPACING=0 CELLPADDING=3 BGCOLOR="#c0c0c0">';
+	} else {
+		strMenu = '<TABLE STYLE="border:2px outset white;" CELLSPACING=0';
+		if (gBsBrowser.mac) {
+			strMenu += ' CELLPADDING=4';
+		} else {
+			strMenu += ' CELLPADDING=2';
+		}	
+		strMenu += ' BGCOLOR=#c0c0c0>';
+	}
+
+	// Add each of the items
+	var i = 2;
+	while (i <= argLen - 1) {
+		strMenu += '<TR><TD><NOBR>'
+		// If the destination is a number then look it up in the topic list
+		if (isNaN(fn_arguments[i]) ||  (gbPopupMenuTopicList == null)) {
+			strMenu += '<DIV STYLE="padding-left:3pt; padding-right:3pt;"><A HREF="' + fn_arguments[i + 1] + '"' + strTarget;
+		} else {
+			strMenu += '<DIV STYLE="padding-left:3pt; padding-right:3pt;"><A HREF="' + gbPopupMenuTopicList[fn_arguments[i]].strURL + '"' + strTarget;
+		}
+		strMenu += ' onclick="PopupMenu_HandleClick(event);"';
+		strMenu += ' onmouseover="PopupMenu_Over(event);"';
+		strMenu += ' onmouseout="PopupMenu_Out(event);"';
+		strMenu += '>';
+		if (isNaN(fn_arguments[i]) || (gbPopupMenuTopicList == null)) {
+			strMenu += '<SPAN CLASS="PopupNotOver">' + fn_arguments[i] + '</SPAN>';
+		} else {
+			strMenu += '<SPAN CLASS="PopupNotOver">' + gbPopupMenuTopicList[fn_arguments[i]].strTitle + '</SPAN>';
+		}
+		strMenu += '</A></DIV></NOBR></TD></TR>';
+
+		if (isNaN(fn_arguments[i]) || (gbPopupMenuTopicList == null)) {
+			i += 2;
+		} else {
+			i += 1;
+		}
+	}
+	strMenu += "</TABLE>";
+
+	if (gBsBrowser.mac) {
+	// totally hack. because ie5 in mac need something. </TABLE> is one of them. mac is mad.
+		strMenu +="<TABLE></TABLE>";
+	}
+
+	var layerPopup = null;
+	var stylePopup = null;
+	var nEventX = 0;
+	var nEventY = 0;
+	var nWindowWidth = 0;
+	if (gBsBrowser.ie4) {
+
+		layerPopup = document.all["PopupMenu"];
+		layerPopup.innerHTML = strMenu;
+		stylePopup = layerPopup.style;
+
+		_BSPSGetClientSize();
+
+		// Get the position of the item causing the event (relative to its parent)
+		//if (gBsBrowser.mac) {
+		if (true) {
+			nEventX = window.event.clientX;
+			nEventY = window.event.clientY;
+		} else {
+			//??? YJ: Can not remember why we calculate envent position by following code...
+			//but it is wrong in a case like: CENTER->P->TABLE:
+			//the offset positions of TABLE, P and CENTER are same (same offsetTop,offsetLeft)
+			//so we get triple times of offset of x and y as we expect... 
+
+			nEventX = window.event.srcElement.offsetLeft - document.body.scrollLeft;
+			nEventY = window.event.srcElement.offsetTop - document.body.scrollTop;
+
+			// Get the location of the parent
+			var nParentLocX = 0;
+			var nParentLocY = 0;
+
+			var ParentItem = window.event.srcElement.offsetParent;
+			while (ParentItem != null) {
+				if (ParentItem.offsetLeft)	{
+					nParentLocX += ParentItem.offsetLeft;
+					nParentLocY += ParentItem.offsetTop;
+				}
+				ParentItem = ParentItem.parentElement;
+			}
+
+			// Adjust the location of the item using the location of the parent(s)
+			nEventX += nParentLocX;
+			nEventY += nParentLocY;
+		}
+
+		if (nEventY + layerPopup.scrollHeight + 10 < gBsClientHeight) {
+			nEventY += document.body.scrollTop + 10;
+		} else {
+			nEventY = (document.body.scrollTop + gBsClientHeight) - layerPopup.scrollHeight - 20;
+		}
+		stylePopup.top = nEventY;
+
+		if (nEventX + layerPopup.scrollWidth + 20 > gBsClientWidth) {
+			if (gBsClientWidth - layerPopup.scrollWidth < 5) {
+				stylePopup.left = 5;
+			} else {
+				stylePopup.left = gBsClientWidth - layerPopup.scrollWidth - 5;
+			}
+		} else {
+			stylePopup.left = nEventX + document.body.scrollLeft + 20;
+		}
+
+		stylePopup.visibility = "visible";
+//		gbOriPopupMenuClick = document.onclick;
+		document.onclick = PopupMenu_HandleClick;
+		
+	} else if (gBsBrowser.ns4) {
+		layerPopup = document.layers.PopupMenu;
+		layerPopup.visibility = "hide";
+		stylePopup = layerPopup.document;
+		stylePopup.write(strMenu);
+		stylePopup.close();
+		var e = fn_arguments[0];
+		nEventX = e.pageX;
+		nEventY = e.pageY;
+		_BSPSGetClientSize();
+		if (nEventY + layerPopup.clip.height + 20 < window.pageYOffset + gBsClientHeight) {
+			nEventY += 20;
+		} else {
+			nEventY = gBsClientHeight + window.pageYOffset- layerPopup.clip.height - 20;
+		}
+		layerPopup.top = nEventY;
+
+		if (nEventX + layerPopup.clip.width + 20 > gBsClientWidth + window.pageXOffset) {
+			if (gBsClientWidth + window.pageXOffset - layerPopup.clip.width < 20) {
+				nEventX = 5;
+			} else {
+				nEventX = gBsClientWidth + window.pageXOffset - layerPopup.clip.width - 20;
+			}
+		} else {
+			nEventX += 20;
+		}
+
+		layerPopup.left = nEventX;
+
+		layerPopup.visibility = "show";
+
+//		window.captureEvents(Event.CLICK | Event.MOUSEDOWN);
+		window.captureEvents(Event.MOUSEDOWN);
+//		window.onclick = PopupMenu_HandleClick;
+		window.onmousedown = PopupMenu_HandleClick;
+	}
+
+	window.gbInPopupMenu = true;
+	window.gbPopupMenuTimeoutExpired = false;
+	setTimeout("PopupMenu_Timeout();", 100);
+	return false;
+}
+
+
+function PopupMenu_Timeout()
+{
+	window.gbPopupMenuTimeoutExpired = true;
+}
+
+function PopupMenu_Over(e)
+{
+    if (gBsBrowser.ie4) {
+		e.srcElement.className = "PopupOver";
+    } else if (gBsBrowser.ns4) {
+//		this.bgColor = "red";
+//        e.target.document.className = "PopupOver";
+    }
+	return;
+}
+
+function PopupMenu_Out(e)
+{
+    if (gBsBrowser.ie4) {
+		e.srcElement.className = "PopupNotOver";
+    } else if (gBsBrowser.ns4) {
+        this.bgColor = "#f0f0f0";
+    }
+	return;
+}
+
+
+function PopupMenu_HandleClick(e)
+{
+	if (!window.gbPopupMenuTimeoutExpired) {
+		return;
+	}
+
+	window.gbInPopupMenu = false;
+
+	if (gBsBrowser.ns4) {
+//		window.releaseEvents(Event.CLICK);
+		window.releaseEvents(Event.MOUSEDOWN);
+	}
+
+	var layerPopup = null;
+	var stylePopup = null;
+	if (gBsBrowser.ie4) {
+		layerPopup = document.all["PopupMenu"];
+		stylePopup = layerPopup.style;
+		stylePopup.visibility = "hidden";
+	} else if (gBsBrowser.ns4) {
+		layerPopup = document.layers.PopupMenu;
+		layerPopup.visibility = "hide";
+	}
+
+//	if (gbOriPopupMenuClick!= null)
+//		document.onclick = gbOriPopupMenuClick;
+
+	return;
+}
+
+// This function should be deleted when all old projects are cleaned up
+function BSPSWritePopupFrameForIE4()
+{
+	return false;
+}
+
+/////////////////////////////////////////////////////////////////////
+function BSSCPopup_ClickMac()
+{
+	if ((!DHTMLPopupSupport()) && (gBsBrowser.ie4))
+	{	
+		var bClickOnAnchor = false;
+		var el;
+		if ((window.event != null) &&
+		    (window.event.srcElement != null))
+		{
+		    el = window.event.srcElement;
+			while (el != null)
+			{
+				if ((el.tagName == "A") || (el.tagName == "AREA")) 	{
+					bClickOnAnchor = true;
+					break;
+				}
+				if (el.tagName == "BODY") {
+					break;
+				}
+				el = el.parentElement;
+			}
+		}
+		if (BSSCPopup_IsPopup())
+		{
+			if (!bClickOnAnchor) {
+				parent.window.gPopupWindow = null;
+				self.close();
+			}
+		}
+		else
+		{
+			bClosePopupWindow = true;
+			if ((bClickOnAnchor) &&
+				(el.href) &&
+			    (el.href.indexOf("javascript:BSSCPopup") != -1))
+			{
+				bClosePopupWindow = false;
+			}
+			if (bClosePopupWindow)
+			{
+				if (window.gPopupWindow != null)
+				{
+					var strParam = "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=300,width=400";
+					window.gPopupWindow = window.open("", gstrPopupSecondWindowName,strParam);
+					window.gPopupWindow.close();
+					window.gPopupWindow = null;
+				}
+			}
+		}
+	}
+ }
+
+//////////////////////////////////////////////////////////////////////
+
+_BSPSGetBrowserInfo();
+
+
+function BsPopupOnClick()
+{
+	if (!gBsBrowser.ie4)
+		return;
+
+	BSSCPopup_ClickMac();
+}
+
+function _BSSCOnError(message)
+{
+	if(-1 != message.indexOf("denied") 
+		|| -1 != message.indexOf("Object required"))
+	 return true;
+}
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+IndexWriteClassStyle();
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+gITE[1] = new MTE("Tracking DTDs","dtd.htm");
+gITE[11] = new MTE("Using UPS Images","images.htm");
+gITE[12] = new MTE("HTTP Post","Java/java_HTTP_Post.htm");
+gITE[14] = new MTE("Introduction to Developing with Java","Java/java_intro.htm");
+gITE[16] = new MTE("Proxy Authentication","Java/java_proxy_authentication.htm");
+gITE[18] = new MTE("Working with Sample Code","Java/java_sample.htm");
+gITE[20] = new MTE("Using Secure Socket Layer (SSL)","Java/java_ssl.htm");
+gITE[22] = new MTE("XML Programming Information","Java/java_xml.htm");
+gITE[31] = new MTE("Technical Support","Technical_Support.htm");
+gITE[32] = new MTE("Introduction to OnLine Tool Programming","Tool_Specific/tool_programming.htm");
+gITE[34] = new MTE("OnLine Tool Overview","UPS_Online/overview.htm");
+gITE[36] = new MTE("HTTP Post","Visual_Basic/vb_HTTP_Post.htm");
+gITE[38] = new MTE("Introduction to Developing with Visual Basic","Visual_Basic/vb_intro.htm");
+gITE[40] = new MTE("Proxy Authentication","Visual_Basic/vb_proxy_authentication.htm");
+gITE[42] = new MTE("Working with Sample Code","Visual_Basic/vb_sample.htm");
+gITE[44] = new MTE("Using Secure Socket Layer (SSL)","Visual_Basic/vb_ssl.htm");
+gITE[46] = new MTE("XML Programming Information","Visual_Basic/vb_xml.htm");
+gITE[50] = new MTE("Introduction to Tracking","XML_Sample/toolintro.htm");
+gITE[51] = new MTE("XML Request","XML_Sample/xmlrequest.htm");
+gITE[53] = new MTE("XML Response","XML_Sample/xmlresponse.htm");
+PopupMenu_SetTopicList(gITE);
+//-->
+</SCRIPT>
+</HEAD>
+<BODY bgcolor=white>
+<DIV ID="Book0Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book0'); return false"><B>A</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book0Child" CLASS=child >
+  <P ID="Item1530" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Acc.getLicenseNumber</A></NOBR></P>
+  <P ID="Item1531" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Acc.getPassword</A></NOBR></P>
+  <P ID="Item1532" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Acc.getUserId</A></NOBR></P>
+  <P ID="Item1533" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Accept-Language</A></NOBR></P>
+  <P ID="Item1534" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18,51);return false;">Access&nbsp;Request</A></NOBR></P>
+  <P ID="Item1535" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">AccessAdapter</A></NOBR></P>
+  <P ID="Item1536" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">AccessLicense</A></NOBR></P>
+  <P ID="Item1537" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">AccessLicenseAgreementRequest</A></NOBR></P>
+  <P ID="Item1538" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">AccessLicenseNumber</A></NOBR></P>
+  <P ID="Item1539" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">AccessLicenseProfile</A></NOBR></P>
+  <P ID="Item1540" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18,51);return false;">AccessRequest</A></NOBR></P>
+  <P ID="Item1541" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22,51);return false;">AccessRequest&nbsp;XML</A></NOBR></P>
+  <P ID="Item1542" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">ActivityLocation</A></NOBR></P>
+  <P ID="Item1543" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Adaptee</A></NOBR></P>
+  <P ID="Item1544" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">AdapteeReader</A></NOBR></P>
+  <P ID="Item1545" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">AdaptFromObject</A></NOBR></P>
+  <P ID="Item1546" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',40,20,42,46);return false;">Adding</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">HTTPS</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,46);return false;">Nodes</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',40);return false;">Proxy&nbsp;Authentication</A></NOBR></H6>
+  <P ID="Item1550" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,46);return false;">AddNode</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">calling</A></NOBR></H6>
+  <P ID="Item1552" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">AllTools</A></NOBR></P>
+  <P ID="Item1553" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Alphaworks</A></NOBR></P>
+  <P ID="Item1554" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">API</A></NOBR></P>
+  <P ID="Item1555" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Application/x-www-form-urlencoded</A></NOBR></P>
+  <P ID="Item1556" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">As&nbsp;Integer</A></NOBR></P>
+  <P ID="Item1557" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">As&nbsp;IXMLDOMElement</A></NOBR></P>
+  <P ID="Item1558" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">As&nbsp;MSXML2.DOMDocument30</A></NOBR></P>
+  <P ID="Item1559" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">As&nbsp;MSXML2.IXMLDOMElement</A></NOBR></P>
+  <P ID="Item1560" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">As&nbsp;MSXML2.IXMLDOMNode</A></NOBR></P>
+  <P ID="Item1561" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">As&nbsp;New&nbsp;MSXML2.DOMDocument30</A></NOBR></P>
+  <P ID="Item1562" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">As&nbsp;String</A></NOBR></P>
+  <P ID="Item1563" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">AttrName</A></NOBR></P>
+  <P ID="Item1564" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">AttrName&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1565" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">AttrValue</A></NOBR></P>
+  <P ID="Item1566" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">AttrValue&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1567" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">Authenticator</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book1Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book1'); return false"><B>B</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book1Child" CLASS=child >
+  <P ID="Item1568" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">BDoLoop</A></NOBR></P>
+  <P ID="Item1569" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Boolean</A></NOBR></P>
+  <P ID="Item1570" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Buffer.append</A></NOBR></P>
+  <P ID="Item1571" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Buffer.toString</A></NOBR></P>
+  <P ID="Item1572" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">BufferedReader</A></NOBR></P>
+  <P ID="Item1573" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">BufferString</A></NOBR></P>
+  <P ID="Item1574" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,46);return false;">Building</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Access&nbsp;License&nbsp;Agreement&nbsp;Request</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">shipment</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,46);return false;">XML</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">XML&nbsp;Document</A></NOBR></H6>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book2Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book2'); return false"><B>C</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book2Child" CLASS=child >
+  <P ID="Item1579" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20,46);return false;">Calling</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">addNode</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">DOM</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">https</A></NOBR></H6>
+  <P ID="Item1583" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Case&nbsp;HTTP_STATUS_DENIED</A></NOBR></P>
+  <P ID="Item1584" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Case&nbsp;HTTP_STATUS_PROXY_AUTH_REQ</A></NOBR></P>
+  <P ID="Item1585" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">CBool</A></NOBR></P>
+  <P ID="Item1586" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">ChildNodes</A></NOBR></P>
+  <P ID="Item1587" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Class</A></NOBR></P>
+  <P ID="Item1588" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Class&nbsp;PasswordAuthenticator</A></NOBR></P>
+  <P ID="Item1589" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16);return false;">Class&nbsp;Proxy</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">JAXP</A></NOBR></H6>
+  <P ID="Item1591" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Client/server</A></NOBR></P>
+  <P ID="Item1592" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Closing</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">URLReader</A></NOBR></H6>
+  <P ID="Item1594" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,16,44,42,46);return false;">Code&nbsp;Example</A></NOBR></P>
+  <P ID="Item1595" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Com.ibm.pkcs11</A></NOBR></P>
+  <P ID="Item1596" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Com.ibm.pkcs11.nat</A></NOBR></P>
+  <P ID="Item1597" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Com.ibm.sslite</A></NOBR></P>
+  <P ID="Item1598" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Com.ibm.sslite.https</A></NOBR></P>
+  <P ID="Item1599" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16);return false;">Com.ibm.sslite.https.HttpsAuthenticator</A></NOBR></P>
+  <P ID="Item1600" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">Com.ibm.sslite.https.HttpsClient.resetProperties</A></NOBR></P>
+  <P ID="Item1601" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">Com.ibm.sslite.https.HttpsURLConnection.setDefaultAuthenticator</A></NOBR></P>
+  <P ID="Item1602" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Com.ibm.sslite.https.SSLNetworkClient.setContext</A></NOBR></P>
+  <P ID="Item1603" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Com.ibm.sslite.SSLContext</A></NOBR></P>
+  <P ID="Item1604" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Com.ibm.sslite.SSLPKCS12Token</A></NOBR></P>
+  <P ID="Item1605" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Com.ibm.xml.parser.TXDocument</A></NOBR></P>
+  <P ID="Item1606" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Com.ibm.xml.parsers.DOMParser</A></NOBR></P>
+  <P ID="Item1607" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Com.sun.net.ssl.internal.ssl.Provider</A></NOBR></P>
+  <P ID="Item1608" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Com.sun.net.ssl.internal.www.protocol</A></NOBR></P>
+  <P ID="Item1609" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Connection.getOutputStream</A></NOBR></P>
+  <P ID="Item1610" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,16,20);return false;">Connection’s&nbsp;Proxy&nbsp;Authorization</A></NOBR></P>
+  <P ID="Item1611" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Const</A></NOBR></P>
+  <P ID="Item1612" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Const&nbsp;URL&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1613" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Const&nbsp;URLObject&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1614" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Const&nbsp;username&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1615" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Content-Length</A></NOBR></P>
+  <P ID="Item1616" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Content-Type</A></NOBR></P>
+  <P ID="Item1617" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Context.importToken</A></NOBR></P>
+  <P ID="Item1618" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">CountryCode</A></NOBR></P>
+  <P ID="Item1619" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,46);return false;">CreateXMLDocument</A></NOBR></P>
+  <P ID="Item1620" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',44,42,46);return false;">Creating</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',44);return false;">SSL</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,46);return false;">XML</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">XML&nbsp;Document</A></NOBR></H6>
+  <P ID="Item1624" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',31);return false;">Customer&nbsp;Support</A></NOBR></P>
+  <P ID="Item1625" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">CustomerContext</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book3Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book3'); return false"><B>D</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book3Child" CLASS=child >
+  <P ID="Item1626" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Demo22</A></NOBR></P>
+  <P ID="Item1627" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Dfactory.newDocumentBuilder</A></NOBR></P>
+  <P ID="Item1628" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Dfactory.setNamespaceAware</A></NOBR></P>
+  <P ID="Item1629" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Digital&nbsp;Certificates</A></NOBR></P>
+  <P ID="Item1630" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;bDoLoop&nbsp;As&nbsp;Boolean</A></NOBR></P>
+  <P ID="Item1631" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Dim&nbsp;doc1&nbsp;As&nbsp;MSXML2.DOMDocument30</A></NOBR></P>
+  <P ID="Item1632" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;docXML&nbsp;As&nbsp;New&nbsp;MSXML2.DOMDocument30</A></NOBR></P>
+  <P ID="Item1633" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;dwStatus&nbsp;As&nbsp;Long</A></NOBR></P>
+  <P ID="Item1634" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;dwTimeOut&nbsp;As&nbsp;Long</A></NOBR></P>
+  <P ID="Item1635" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;iRetVal&nbsp;As&nbsp;Integer</A></NOBR></P>
+  <P ID="Item1636" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;Item&nbsp;As&nbsp;MSXML2.IXMLDOMElement</A></NOBR></P>
+  <P ID="Item1637" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;lblMajor&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1638" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;lblMinor&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1639" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;lBufferLen&nbsp;&nbsp;As&nbsp;Long</A></NOBR></P>
+  <P ID="Item1640" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;lNumberOfBytesRead&nbsp;&nbsp;As&nbsp;Long</A></NOBR></P>
+  <P ID="Item1641" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;lOptionBufferLen&nbsp;As&nbsp;Long</A></NOBR></P>
+  <P ID="Item1642" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;N1&nbsp;As&nbsp;MSXML2.IXMLDOMNodeList</A></NOBR></P>
+  <P ID="Item1643" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;Node&nbsp;As&nbsp;MSXML2.IXMLDOMNode</A></NOBR></P>
+  <P ID="Item1644" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;oAttr&nbsp;As&nbsp;MSXML2.IXMLDOMAttribute</A></NOBR></P>
+  <P ID="Item1645" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;objXMl&nbsp;As&nbsp;DOMDocument30</A></NOBR></P>
+  <P ID="Item1646" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;objXMLList&nbsp;As&nbsp;IXMLDOMNodeList</A></NOBR></P>
+  <P ID="Item1647" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;parentNode&nbsp;As&nbsp;IXMLDOMNode</A></NOBR></P>
+  <P ID="Item1648" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;parentTag&nbsp;As&nbsp;MSXML2.IXMLDOMNode</A></NOBR></P>
+  <P ID="Item1649" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;pNode&nbsp;As&nbsp;MSXML2.IXMLDOMNode</A></NOBR></P>
+  <P ID="Item1650" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;Prop&nbsp;As&nbsp;MSXML2.IXMLDOMProcessingInstruction</A></NOBR></P>
+  <P ID="Item1651" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Dim&nbsp;ReqFile&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1652" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Dim&nbsp;RespFile&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1653" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Dim&nbsp;rNode&nbsp;As&nbsp;MSXML2.IXMLDOMElement</A></NOBR></P>
+  <P ID="Item1654" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Dim&nbsp;Service&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1655" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;sOptionBuffer&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1656" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;sReadBuffer&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1657" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;sResponseBuffer&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1658" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;sStatus&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1659" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;str&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1660" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Dim&nbsp;ThisNode&nbsp;As&nbsp;MSXML2.IXMLDOMText</A></NOBR></P>
+  <P ID="Item1661" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Dim&nbsp;vDllVersion&nbsp;As&nbsp;tWinInetDLLVersion</A></NOBR></P>
+  <P ID="Item1662" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',11);return false;">Displaying&nbsp;the&nbsp;UPS&nbsp;Mark</A></NOBR></P>
+  <P ID="Item1663" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Doc.appendChild</A></NOBR></P>
+  <P ID="Item1664" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Doc.createAttribute</A></NOBR></P>
+  <P ID="Item1665" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Doc.createElement</A></NOBR></P>
+  <P ID="Item1666" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Doc.createNode</A></NOBR></P>
+  <P ID="Item1667" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Doc.createTextNode</A></NOBR></P>
+  <P ID="Item1668" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Doc.getDocumentElement</A></NOBR></P>
+  <P ID="Item1669" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Doc.getElementsByTagName</A></NOBR></P>
+  <P ID="Item1670" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Doc.getFirstChild</A></NOBR></P>
+  <P ID="Item1671" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Doc.save</A></NOBR></P>
+  <P ID="Item1672" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">DocBuilder.newDocument</A></NOBR></P>
+  <P ID="Item1673" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">DocToBuffer</A></NOBR></P>
+  <P ID="Item1674" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Document</A></NOBR></P>
+  <P ID="Item1675" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Document&nbsp;createXMLDocument</A></NOBR></P>
+  <P ID="Item1676" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Document&nbsp;getDocument</A></NOBR></P>
+  <P ID="Item1677" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',1);return false;">Document&nbsp;Type&nbsp;Definition</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">StringBuffer</A></NOBR></H6>
+  <P ID="Item1679" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">DocXML</A></NOBR></P>
+  <P ID="Item1680" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">DocXML.async</A></NOBR></P>
+  <P ID="Item1681" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">DocXML.createElement</A></NOBR></P>
+  <P ID="Item1682" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">DocXML.createProcessingInstruction</A></NOBR></P>
+  <P ID="Item1683" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">DocXML.loadXML</A></NOBR></P>
+  <P ID="Item1684" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">DocXML.loadXML&nbsp;root.xml</A></NOBR></P>
+  <P ID="Item1685" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">DOM</A></NOBR></P>
+  <P ID="Item1686" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">DOM&nbsp;Exception</A></NOBR></P>
+  <P ID="Item1687" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">DOM&nbsp;Object</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">calls</A></NOBR></H6>
+  <P ID="Item1689" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',1);return false;">DTD</A></NOBR></P>
+  <P ID="Item1690" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">DwStatus</A></NOBR></P>
+  <P ID="Item1691" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">DwStatusSize</A></NOBR></P>
+  <P ID="Item1692" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">DwStatusSize&nbsp;As&nbsp;Long</A></NOBR></P>
+  <P ID="Item1693" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">DwTimeOut</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book4Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book4'); return false"><B>E</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book4Child" CLASS=child >
+  <P ID="Item1694" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">E.getMessage</A></NOBR></P>
+  <P ID="Item1695" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">E.printStackTrace</A></NOBR></P>
+  <P ID="Item1696" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">E.toString</A></NOBR></P>
+  <P ID="Item1697" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">E1.toString</A></NOBR></P>
+  <P ID="Item1698" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">ElementList.length</A></NOBR></P>
+  <P ID="Item1699" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Elements</A></NOBR></P>
+  <P ID="Item1700" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,46);return false;">EMPTY_NODE</A></NOBR></P>
+  <P ID="Item1701" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Encryption</A></NOBR></P>
+  <P ID="Item1702" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,46);return false;">End&nbsp;Function</A></NOBR></P>
+  <P ID="Item1703" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,42,46);return false;">End&nbsp;If</A></NOBR></P>
+  <P ID="Item1704" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">End&nbsp;Select</A></NOBR></P>
+  <P ID="Item1705" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">End&nbsp;Sub</A></NOBR></P>
+  <P ID="Item1706" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">EqualsIgnoreCase</A></NOBR></P>
+  <P ID="Item1707" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Err.LastDllError</A></NOBR></P>
+  <P ID="Item1708" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">ErrFill</A></NOBR></P>
+  <P ID="Item1709" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,46);return false;">ErrHand</A></NOBR></P>
+  <P ID="Item1710" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,42);return false;">Error</A></NOBR></P>
+  <P ID="Item1711" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Error&nbsp;GoTo&nbsp;ErrFill</A></NOBR></P>
+  <P ID="Item1712" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,46);return false;">Error&nbsp;GoTo&nbsp;ErrHand</A></NOBR></P>
+  <P ID="Item1713" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Error&nbsp;GoTo&nbsp;ErrorHandle</A></NOBR></P>
+  <P ID="Item1714" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',34);return false;">Error&nbsp;Handling</A></NOBR></P>
+  <P ID="Item1715" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">ErrorHandle</A></NOBR></P>
+  <P ID="Item1716" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Ex.printStackTrace</A></NOBR></P>
+  <P ID="Item1717" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12,22);return false;">Exception</A></NOBR></P>
+  <P ID="Item1718" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,46);return false;">Exit&nbsp;Function</A></NOBR></P>
+  <P ID="Item1719" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Exit&nbsp;Sub</A></NOBR></P>
+  <P ID="Item1720" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',34);return false;">Extensible&nbsp;Markup&nbsp;Language</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book5Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book5'); return false"><B>F</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book5Child" CLASS=child >
+  <P ID="Item1721" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">FileInputStream</A></NOBR></P>
+  <P ID="Item1722" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',44);return false;">Filename&gt;&lt;xml</A></NOBR></P>
+  <P ID="Item1723" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">FileNotFoundException&nbsp;fnf</A></NOBR></P>
+  <P ID="Item1724" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">FillXML</A></NOBR></P>
+  <P ID="Item1725" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Finish</A></NOBR></P>
+  <P ID="Item1726" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,16,20);return false;">Firewall</A></NOBR></P>
+  <P ID="Item1727" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Fnf</A></NOBR></P>
+  <P ID="Item1728" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Fnf.getMessage</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book6Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book6'); return false"><B>G</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book6Child" CLASS=child >
+  <P ID="Item1729" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,42);return false;">Generating</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">HTTP&nbsp;Post</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">XML</A></NOBR></H6>
+  <P ID="Item1732" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">GetChildNode</A></NOBR></P>
+  <P ID="Item1733" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">GetChildNodeValue</A></NOBR></P>
+  <P ID="Item1734" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">GetDocument</A></NOBR></P>
+  <P ID="Item1735" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">GetElementsByTagName</A></NOBR></P>
+  <P ID="Item1736" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">GetPasswordAuthentication</A></NOBR></P>
+  <P ID="Item1737" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Getting</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">nodelist</A></NOBR></H6>
+  <P ID="Item1739" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">GoTo&nbsp;Resend</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book7Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book7'); return false"><B>H</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book7Child" CLASS=child >
+  <P ID="Item1740" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,40,44);return false;">HHttpOpenRequest</A></NOBR></P>
+  <P ID="Item1741" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">HInternetConnect</A></NOBR></P>
+  <P ID="Item1742" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">HInternetSession</A></NOBR></P>
+  <P ID="Item1743" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Hostname</A></NOBR></P>
+  <P ID="Item1744" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,34,16,20);return false;">HTTP</A></NOBR></P>
+  <P ID="Item1745" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,42);return false;">HTTP&nbsp;Post</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">generating</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Java</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">performing</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">send</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">VB</A></NOBR></H6>
+  <P ID="Item1751" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">HTTP/1.0</A></NOBR></P>
+  <P ID="Item1752" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">HTTP_ADDREQ_FLAG_REPLACE&nbsp;Or&nbsp;HTTP_ADDREQ_FLAG_ADD</A></NOBR></P>
+  <P ID="Item1753" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">HTTP_QUERY_FLAG_NUMBER&nbsp;Or&nbsp;HTTP_QUERY_STATUS_CODE</A></NOBR></P>
+  <P ID="Item1754" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">HttpAddRequestHeaders</A></NOBR></P>
+  <P ID="Item1755" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">HttpOpenRequest</A></NOBR></P>
+  <P ID="Item1756" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">HttpQueryInfo&nbsp;hHttpOpenRequest</A></NOBR></P>
+  <P ID="Item1757" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12,16,20);return false;">HTTPS</A></NOBR></P>
+  <P ID="Item1758" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">HTTPS&nbsp;Proxy</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Add</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">called</A></NOBR></H6>
+  <P ID="Item1761" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">Https.proxyHost</A></NOBR></P>
+  <P ID="Item1762" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Https.proxyHost/https.proxyPort</A></NOBR></P>
+  <P ID="Item1763" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">Https.proxyPort</A></NOBR></P>
+  <P ID="Item1764" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">HttpSendRequest</A></NOBR></P>
+  <P ID="Item1765" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">HttpURLConnection</A></NOBR></P>
+  <P ID="Item1766" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">HttpUrlConnection’s</A></NOBR></P>
+  <P ID="Item1767" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Hypertext&nbsp;Transfer&nbsp;Protocol</A></NOBR></P>
+  <P ID="Item1768" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',34);return false;">Hypertext&nbsp;Transport&nbsp;Protocol</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book8Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book8'); return false"><B>I</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book8Child" CLASS=child >
+  <P ID="Item1769" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20,18,22);return false;">IBM</A></NOBR></P>
+  <P ID="Item1770" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">IBM's&nbsp;API</A></NOBR></P>
+  <P ID="Item1771" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">IBM's&nbsp;XML4J</A></NOBR></P>
+  <P ID="Item1772" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">IBM&nbsp;Implementation</A></NOBR></P>
+  <P ID="Item1773" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">ID</A></NOBR></P>
+  <P ID="Item1774" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',40);return false;">IE3.0x</A></NOBR></P>
+  <P ID="Item1775" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',40);return false;">IE4.0&nbsp;wininet</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',40);return false;">works</A></NOBR></H6>
+  <P ID="Item1777" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Importing</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">vendor’s</A></NOBR></H6>
+  <P ID="Item1779" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Indata</A></NOBR></P>
+  <P ID="Item1780" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',1);return false;">Input/output</A></NOBR></P>
+  <P ID="Item1781" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">InputBox</A></NOBR></P>
+  <P ID="Item1782" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">InputSource</A></NOBR></P>
+  <P ID="Item1783" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">InputStreamReader</A></NOBR></P>
+  <P ID="Item1784" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12,20);return false;">Int</A></NOBR></P>
+  <P ID="Item1785" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',44);return false;">Internet&nbsp;Connection</A></NOBR></P>
+  <P ID="Item1786" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',44);return false;">Internet&nbsp;Request</A></NOBR></P>
+  <P ID="Item1787" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Internet&nbsp;RFCs</A></NOBR></P>
+  <P ID="Item1788" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">INTERNET_DEFAULT_HTTPS_PORT</A></NOBR></P>
+  <P ID="Item1789" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">INTERNET_FLAG_RELOAD&nbsp;Or&nbsp;INTERNET_FLAG_MULTIPART&nbsp;Or&nbsp;INTERNET_FLAG_SECURE&nbsp;Or&nbsp;INTERNET_FLAG_IGNORE_CERT_CN_INVALID&nbsp;Or&nbsp;INTERNET_FL</A></NOBR></P>
+  <P ID="Item1790" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">INTERNET_OPEN_TYPE_PRECONFIG</A></NOBR></P>
+  <P ID="Item1791" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">INTERNET_OPTION_CONNECT_TIMEOUT</A></NOBR></P>
+  <P ID="Item1792" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">INTERNET_OPTION_PASSWORD</A></NOBR></P>
+  <P ID="Item1793" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,40);return false;">INTERNET_OPTION_PROXY_PASSWORD</A></NOBR></P>
+  <P ID="Item1794" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,40);return false;">INTERNET_OPTION_PROXY_USERNAME</A></NOBR></P>
+  <P ID="Item1795" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">INTERNET_OPTION_RECEIVE_TIMEOUT</A></NOBR></P>
+  <P ID="Item1796" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">INTERNET_OPTION_RECEIVE_TIMEOUT,INTERNET_OPTION_SEND_TIMEOUT</A></NOBR></P>
+  <P ID="Item1797" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">INTERNET_OPTION_SEND_TIMEOUT</A></NOBR></P>
+  <P ID="Item1798" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">INTERNET_OPTION_USERNAME</A></NOBR></P>
+  <P ID="Item1799" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">INTERNET_OPTION_VERSION</A></NOBR></P>
+  <P ID="Item1800" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">INTERNET_SERVICE_HTTP</A></NOBR></P>
+  <P ID="Item1801" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">InternetConnect</A></NOBR></P>
+  <P ID="Item1802" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">InternetOpen</A></NOBR></P>
+  <P ID="Item1803" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">InternetQueryOption&nbsp;hInternetSession</A></NOBR></P>
+  <P ID="Item1804" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">InternetReadFile</A></NOBR></P>
+  <P ID="Item1805" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">InternetSetOption</A></NOBR></P>
+  <P ID="Item1806" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,40);return false;">InternetSetOptionStr</A></NOBR></P>
+  <P ID="Item1807" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',14,38,32,50);return false;">Introduction</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',14,38);return false;">Developing</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',32);return false;">OnLine&nbsp;Tool&nbsp;Programming</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',50);return false;">Tracking</A></NOBR></H6>
+  <P ID="Item1811" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Io</A></NOBR></P>
+  <P ID="Item1812" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Ioe</A></NOBR></P>
+  <P ID="Item1813" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Ioe.getMessage</A></NOBR></P>
+  <P ID="Item1814" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">IOException&nbsp;io</A></NOBR></P>
+  <P ID="Item1815" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">IOException&nbsp;ioe</A></NOBR></P>
+  <P ID="Item1816" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,40);return false;">IRetVal</A></NOBR></P>
+  <P ID="Item1817" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Item.appendChild</A></NOBR></P>
+  <P ID="Item1818" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Item.setAttribute</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book9Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book9'); return false"><B>J</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book9Child" CLASS=child >
+  <P ID="Item1819" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12,14,38,34,16,20,18,22);return false;">Java</A></NOBR></P>
+  <P ID="Item1820" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Java&nbsp;1.1.x</A></NOBR></P>
+  <P ID="Item1821" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Java&nbsp;API</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML&nbsp;Parsing</A></NOBR></H6>
+  <P ID="Item1823" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12,22);return false;">Java&nbsp;application</A></NOBR></P>
+  <P ID="Item1824" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Java&nbsp;HttpUrlConnection’s</A></NOBR></P>
+  <P ID="Item1825" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">Java&nbsp;Sample&nbsp;Code</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">HTTP&nbsp;Post</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16);return false;">Proxy&nbsp;Authentication</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',14);return false;">samples</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML&nbsp;Programming&nbsp;Information</A></NOBR></H6>
+  <P ID="Item1830" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">Java.net.Authenticator</A></NOBR></P>
+  <P ID="Item1831" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">Java.net.Authenticator.setDefault</A></NOBR></P>
+  <P ID="Item1832" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">Java.net.PasswordAuthentication</A></NOBR></P>
+  <P ID="Item1833" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Java.protocol.handler.pkgs</A></NOBR></P>
+  <P ID="Item1834" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Java.security.Security.addProvider</A></NOBR></P>
+  <P ID="Item1835" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Java’s&nbsp;HttpUrlConnection&nbsp;Class</A></NOBR></P>
+  <P ID="Item1836" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Javax.xml.parsers</A></NOBR></P>
+  <P ID="Item1837" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Javax.xml.parsers.DocumentBuilder&nbsp;docBuilder</A></NOBR></P>
+  <P ID="Item1838" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Javax.xml.parsers.DocumentBuilderFactory&nbsp;dfactory</A></NOBR></P>
+  <P ID="Item1839" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Javax.xml.parsers.DocumentBuilderFactory.newInstance</A></NOBR></P>
+  <P ID="Item1840" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">JAXP</A></NOBR></P>
+  <P ID="Item1841" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">JAXP's&nbsp;API's</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">class</A></NOBR></H6>
+  <P ID="Item1843" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">JDK</A></NOBR></P>
+  <P ID="Item1844" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">JDK/JRE&nbsp;1.1.6</A></NOBR></P>
+  <P ID="Item1845" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20,18);return false;">JSSE</A></NOBR></P>
+  <P ID="Item1846" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">JSSE&nbsp;API</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book10Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book10'); return false"><B>K</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book10Child" CLASS=child >
+  <P ID="Item1847" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">KeyLocation</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">value</A></NOBR></H6>
+  <P ID="Item1849" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">KeyRing.pfx</A></NOBR></P>
+  <P ID="Item1850" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Kin.close</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book11Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book11'); return false"><B>L</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book11Child" CLASS=child >
+  <P ID="Item1851" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,22,51);return false;">Lang</A></NOBR></P>
+  <P ID="Item1852" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">LanguageCode</A></NOBR></P>
+  <P ID="Item1853" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">LblMajor</A></NOBR></P>
+  <P ID="Item1854" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">LblMinor</A></NOBR></P>
+  <P ID="Item1855" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">LBufferLen</A></NOBR></P>
+  <P ID="Item1856" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Left</A></NOBR></P>
+  <P ID="Item1857" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,40,44,42);return false;">Len</A></NOBR></P>
+  <P ID="Item1858" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">License&nbsp;Test</A></NOBR></P>
+  <P ID="Item1859" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">LOptionBufferLen</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book12Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book12'); return false"><B>M</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book12Child" CLASS=child >
+  <P ID="Item1860" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Main</A></NOBR></P>
+  <P ID="Item1861" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">MaxNodes</A></NOBR></P>
+  <P ID="Item1862" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Message&nbsp;Integrity</A></NOBR></P>
+  <P ID="Item1863" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">MsgBox</A></NOBR></P>
+  <P ID="Item1864" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">MSXML2&nbsp;DOM</A></NOBR></P>
+  <P ID="Item1865" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',44);return false;">MSXML3</A></NOBR></P>
+  <P ID="Item1866" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">MSXML3&nbsp;Dom</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book13Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book13'); return false"><B>N</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book13Child" CLASS=child >
+  <P ID="Item1867" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">N1.Item</A></NOBR></P>
+  <P ID="Item1868" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">N1.length</A></NOBR></P>
+  <P ID="Item1869" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Netscape&nbsp;Communications</A></NOBR></P>
+  <P ID="Item1870" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">New&nbsp;DOMDocument30</A></NOBR></P>
+  <P ID="Item1871" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">New&nbsp;MSXML2.DOMDocument30</A></NOBR></P>
+  <P ID="Item1872" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">NewTagName</A></NOBR></P>
+  <P ID="Item1873" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">NewTagName&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1874" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Nl.getLength</A></NOBR></P>
+  <P ID="Item1875" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Nl.item</A></NOBR></P>
+  <P ID="Item1876" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,46);return false;">Node</A></NOBR></P>
+  <P ID="Item1877" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Node&nbsp;parentTag</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,46);return false;">Adding</A></NOBR></H6>
+  <P ID="Item1879" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Node.nodeTypedValue</A></NOBR></P>
+  <P ID="Item1880" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">NODE_ELEMENT</A></NOBR></P>
+  <P ID="Item1881" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Nodelist</A></NOBR></P>
+  <P ID="Item1882" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">NodeList&nbsp;nl</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">getting</A></NOBR></H6>
+  <P ID="Item1884" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Not&nbsp;CBool</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book14Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book14'); return false"><B>O</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book14Child" CLASS=child >
+  <P ID="Item1885" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">ObjXMl.getElementsByTagName</A></NOBR></P>
+  <P ID="Item1886" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">ObjXMl.loadXML&nbsp;strXML</A></NOBR></P>
+  <P ID="Item1887" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">ObjXMl.xml</A></NOBR></P>
+  <P ID="Item1888" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">ObjXMLList.Item</A></NOBR></P>
+  <P ID="Item1889" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',32);return false;">OnLine&nbsp;Tool&nbsp;Programming</A></NOBR></P>
+  <P ID="Item1890" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',34);return false;">OnLine&nbsp;Tools&nbsp;application</A></NOBR></P>
+  <P ID="Item1891" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',34);return false;">OnLine&nbsp;Tools&nbsp;Overview</A></NOBR></P>
+  <P ID="Item1892" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">Open&nbsp;Connection</A></NOBR></P>
+  <P ID="Item1893" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Optional&nbsp;sResponse&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1894" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Org.w3c.dom.Document</A></NOBR></P>
+  <P ID="Item1895" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Org.w3c.dom.Node</A></NOBR></P>
+  <P ID="Item1896" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Org.w3c.dom.Node&nbsp;shipmentNode</A></NOBR></P>
+  <P ID="Item1897" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Out.write</A></NOBR></P>
+  <P ID="Item1898" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">OutputStream</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book15Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book15'); return false"><B>P</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book15Child" CLASS=child >
+  <P ID="Item1899" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">PackageWeight</A></NOBR></P>
+  <P ID="Item1900" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Parent</A></NOBR></P>
+  <P ID="Item1901" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Parent.appendChild&nbsp;Node</A></NOBR></P>
+  <P ID="Item1902" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Parent.setAttribute&nbsp;attrName</A></NOBR></P>
+  <P ID="Item1903" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Parentnode</A></NOBR></P>
+  <P ID="Item1904" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">ParentTag</A></NOBR></P>
+  <P ID="Item1905" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">ParentTag.appendChild</A></NOBR></P>
+  <P ID="Item1906" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Parser.getDocument</A></NOBR></P>
+  <P ID="Item1907" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Parser.parse</A></NOBR></P>
+  <P ID="Item1908" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Parsing</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">XML</A></NOBR></H6>
+  <P ID="Item1910" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Parties</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Internet</A></NOBR></H6>
+  <P ID="Item1912" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">Password&quot;.toCharArray</A></NOBR></P>
+  <P ID="Item1913" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51);return false;">Password&gt;testPW&lt;/Password</A></NOBR></P>
+  <P ID="Item1914" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">PasswordAuthentication</A></NOBR></P>
+  <P ID="Item1915" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">PasswordAuthentication&nbsp;getPasswordAuthentication</A></NOBR></P>
+  <P ID="Item1916" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">PasswordAuthenticator</A></NOBR></P>
+  <P ID="Item1917" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Performing</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">HTTP</A></NOBR></H6>
+  <P ID="Item1919" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">PickupDate&gt;20010219&lt;/PickupDate</A></NOBR></P>
+  <P ID="Item1920" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Platform</A></NOBR></P>
+  <P ID="Item1921" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Portion</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">URL</A></NOBR></H6>
+  <P ID="Item1923" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">POST</A></NOBR></P>
+  <P ID="Item1924" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Post&nbsp;Method</A></NOBR></P>
+  <P ID="Item1925" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">PostalCode&gt;30076&lt;/PostalCode</A></NOBR></P>
+  <P ID="Item1926" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Posted</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">UPS</A></NOBR></H6>
+  <P ID="Item1928" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">PostXML</A></NOBR></P>
+  <P ID="Item1929" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">PrintStream</A></NOBR></P>
+  <P ID="Item1930" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Processing</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">XML</A></NOBR></H6>
+  <P ID="Item1932" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Prop.xml</A></NOBR></P>
+  <P ID="Item1933" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Protocol.equalsIgnoreCase</A></NOBR></P>
+  <P ID="Item1934" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,16);return false;">Proxy&nbsp;Authentication</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',40);return false;">add</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16);return false;">Java</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',40);return false;">VB</A></NOBR></H6>
+  <P ID="Item1938" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Proxy.ups.com</A></NOBR></P>
+  <P ID="Item1939" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Psswd</A></NOBR></P>
+  <P ID="Item1940" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Public&nbsp;Class&nbsp;AccessAdapter</A></NOBR></P>
+  <P ID="Item1941" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Public&nbsp;Function&nbsp;AddNode</A></NOBR></P>
+  <P ID="Item1942" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Public&nbsp;Function&nbsp;createXMLDocument</A></NOBR></P>
+  <P ID="Item1943" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Public&nbsp;Function&nbsp;FillXML</A></NOBR></P>
+  <P ID="Item1944" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Public&nbsp;Function&nbsp;PostXML</A></NOBR></P>
+  <P ID="Item1945" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Public&nbsp;Sub&nbsp;Main</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book16Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book16'); return false"><B>Q</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book16Child" CLASS=child >
+  <P ID="Item1946" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">QueryString.getBytes</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book17Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book17'); return false"><B>R</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book17Child" CLASS=child >
+  <P ID="Item1947" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Reader.close</A></NOBR></P>
+  <P ID="Item1948" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Reader.read</A></NOBR></P>
+  <P ID="Item1949" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44,18);return false;">Reading</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">URL&nbsp;Connection</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44,18);return false;">XML</A></NOBR></H6>
+  <P ID="Item1952" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">ReadURLConnection</A></NOBR></P>
+  <P ID="Item1953" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Refer</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">API</A></NOBR></H6>
+  <P ID="Item1955" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',34);return false;">Reference&nbsp;Guide</A></NOBR></P>
+  <P ID="Item1956" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">ReferenceNumber</A></NOBR></P>
+  <P ID="Item1957" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">ReqFile</A></NOBR></P>
+  <P ID="Item1958" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,51);return false;">Request</A></NOBR></P>
+  <P ID="Item1959" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Request&nbsp;File</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51);return false;">Tracking</A></NOBR></H6>
+  <P ID="Item1961" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">RequestAction</A></NOBR></P>
+  <P ID="Item1962" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">RequestOption</A></NOBR></P>
+  <P ID="Item1963" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',1);return false;">Response&nbsp;DTDs</A></NOBR></P>
+  <P ID="Item1964" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">ResponseFile</A></NOBR></P>
+  <P ID="Item1965" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">ResponseStatusCode</A></NOBR></P>
+  <P ID="Item1966" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">ResponseStatusDescription</A></NOBR></P>
+  <P ID="Item1967" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Resync</A></NOBR></P>
+  <P ID="Item1968" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Return</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">XML</A></NOBR></H6>
+  <P ID="Item1970" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">RM</A></NOBR></P>
+  <P ID="Item1971" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Root.setAttribute</A></NOBR></P>
+  <P ID="Item1972" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Root.xml</A></NOBR></P>
+  <P ID="Item1973" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Rootname</A></NOBR></P>
+  <P ID="Item1974" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Rootname&nbsp;As&nbsp;String</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">String</A></NOBR></H6>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book18Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book18'); return false"><B>S</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book18Child" CLASS=child >
+  <P ID="Item1976" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">Sample&nbsp;Code</A></NOBR></P>
+  <P ID="Item1977" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',14,38);return false;">Samples</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',14);return false;">Java</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',38);return false;">Visual&nbsp;Basic</A></NOBR></H6>
+  <P ID="Item1980" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">SAXException</A></NOBR></P>
+  <P ID="Item1981" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">SAXException&nbsp;sx</A></NOBR></P>
+  <P ID="Item1982" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">SBuffer</A></NOBR></P>
+  <P ID="Item1983" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">SBuffer&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item1984" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">ScheduledDeliveryDate</A></NOBR></P>
+  <P ID="Item1985" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">ScUserAgent</A></NOBR></P>
+  <P ID="Item1986" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',44);return false;">SDK</A></NOBR></P>
+  <P ID="Item1987" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Secure&nbsp;Socket&nbsp;Layer</A></NOBR></P>
+  <P ID="Item1988" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Select&nbsp;Case&nbsp;dwStatus</A></NOBR></P>
+  <P ID="Item1989" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12,18);return false;">Sending</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">HTTP&nbsp;Post</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">Tracking&nbsp;Request</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">XML</A></NOBR></H6>
+  <P ID="Item1993" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Server&nbsp;Authentication</A></NOBR></P>
+  <P ID="Item1994" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">Service&nbsp;Request</A></NOBR></P>
+  <P ID="Item1995" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">ServiceRequest&nbsp;Filename</A></NOBR></P>
+  <P ID="Item1996" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">ServiceResponseContainer&nbsp;adaptFromXml</A></NOBR></P>
+  <P ID="Item1997" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Set</A></NOBR></P>
+  <P ID="Item1998" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Set&nbsp;DLL&nbsp;Major/Minor</A></NOBR></P>
+  <P ID="Item1999" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Set&nbsp;ElementList</A></NOBR></P>
+  <P ID="Item2000" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Set&nbsp;N1</A></NOBR></P>
+  <P ID="Item2001" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Set&nbsp;Node</A></NOBR></P>
+  <P ID="Item2002" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Set&nbsp;oAttr</A></NOBR></P>
+  <P ID="Item2003" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Set&nbsp;objXMl</A></NOBR></P>
+  <P ID="Item2004" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Set&nbsp;objXMLList</A></NOBR></P>
+  <P ID="Item2005" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Set&nbsp;Parent</A></NOBR></P>
+  <P ID="Item2006" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Set&nbsp;parentNode</A></NOBR></P>
+  <P ID="Item2007" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Set&nbsp;parentTag</A></NOBR></P>
+  <P ID="Item2008" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Set&nbsp;Prop</A></NOBR></P>
+  <P ID="Item2009" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Set&nbsp;xml</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Time</A></NOBR></H6>
+  <P ID="Item2011" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">SetHttpsContext</A></NOBR></P>
+  <P ID="Item2012" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">SHeader</A></NOBR></P>
+  <P ID="Item2013" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',11);return false;">Shield&nbsp;Design®</A></NOBR></P>
+  <P ID="Item2014" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Ship.setDeliveryZone</A></NOBR></P>
+  <P ID="Item2015" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Ship.setDescription</A></NOBR></P>
+  <P ID="Item2016" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Ship.setPickupDate</A></NOBR></P>
+  <P ID="Item2017" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Ship.setShipmentID</A></NOBR></P>
+  <P ID="Item2018" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Shipmenet</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">build</A></NOBR></H6>
+  <P ID="Item2020" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Shipment</A></NOBR></P>
+  <P ID="Item2021" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">ShipmentNode</A></NOBR></P>
+  <P ID="Item2022" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">ShipmentNode,XML_Shipment&nbsp;IdentificationNumber</A></NOBR></P>
+  <P ID="Item2023" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">ShipmentNode.getNextSibling</A></NOBR></P>
+  <P ID="Item2024" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">ShipmentNode.getNodeName</A></NOBR></P>
+  <P ID="Item2025" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">ShipTo</A></NOBR></P>
+  <P ID="Item2026" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16);return false;">Since&nbsp;HTTP</A></NOBR></P>
+  <P ID="Item2027" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">SOptionBuffer</A></NOBR></P>
+  <P ID="Item2028" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">SReadBuffer</A></NOBR></P>
+  <P ID="Item2029" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">SResponse</A></NOBR></P>
+  <P ID="Item2030" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">SResponseBuffer</A></NOBR></P>
+  <P ID="Item2031" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',44,18);return false;">SSL</A></NOBR></P>
+  <P ID="Item2032" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">SSL&nbsp;3.0</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',44);return false;">created</A></NOBR></H6>
+  <P ID="Item2034" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">SSlight</A></NOBR></P>
+  <P ID="Item2035" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20,18);return false;">SSLite</A></NOBR></P>
+  <P ID="Item2036" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">SSLite/IBM</A></NOBR></P>
+  <P ID="Item2037" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Standard&nbsp;Edition</A></NOBR></P>
+  <P ID="Item2038" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">StateProvinceCode&gt;GA&lt;/StateProvinceCode</A></NOBR></P>
+  <P ID="Item2039" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">StatusCode</A></NOBR></P>
+  <P ID="Item2040" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">StatusType</A></NOBR></P>
+  <P ID="Item2041" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">StrComp</A></NOBR></P>
+  <P ID="Item2042" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,20,46);return false;">String</A></NOBR></P>
+  <P ID="Item2043" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">String&nbsp;attrName</A></NOBR></P>
+  <P ID="Item2044" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">String&nbsp;attrValue</A></NOBR></P>
+  <P ID="Item2045" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">String&nbsp;newTagName</A></NOBR></P>
+  <P ID="Item2046" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">String&nbsp;psswd</A></NOBR></P>
+  <P ID="Item2047" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">String&nbsp;readURLConnection</A></NOBR></P>
+  <P ID="Item2048" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">String&nbsp;strParentTag</A></NOBR></P>
+  <P ID="Item2049" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">String&nbsp;textString</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">adaptee</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">rootName</A></NOBR></H6>
+  <P ID="Item2052" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12,22);return false;">StringBuffer</A></NOBR></P>
+  <P ID="Item2053" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">StringBuffer&nbsp;adaptFromObject</A></NOBR></P>
+  <P ID="Item2054" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">StringBuffer&nbsp;xmlBuf</A></NOBR></P>
+  <P ID="Item2055" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">StringBuffer&nbsp;xmlIn</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Document</A></NOBR></H6>
+  <P ID="Item2057" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">StringReader</A></NOBR></P>
+  <P ID="Item2058" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">StringReader&nbsp;adapteeReader</A></NOBR></P>
+  <P ID="Item2059" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">StrParentTag</A></NOBR></P>
+  <P ID="Item2060" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">StrParentTag&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item2061" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">StrUrl</A></NOBR></P>
+  <P ID="Item2062" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">StrUrl&nbsp;As&nbsp;String</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">take</A></NOBR></H6>
+  <P ID="Item2064" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">StrUser</A></NOBR></P>
+  <P ID="Item2065" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">StrXML</A></NOBR></P>
+  <P ID="Item2066" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">StrXML&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item2067" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">Sun</A></NOBR></P>
+  <P ID="Item2068" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Sun's&nbsp;API</A></NOBR></P>
+  <P ID="Item2069" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">Sun's&nbsp;Java&nbsp;Secure&nbsp;Socket&nbsp;Extension&nbsp;1.0.2</A></NOBR></P>
+  <P ID="Item2070" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Sun&nbsp;Microsystem's&nbsp;Implementation</A></NOBR></P>
+  <P ID="Item2071" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20,22);return false;">Sun&nbsp;Microsystems</A></NOBR></P>
+  <P ID="Item2072" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',11);return false;">Surround</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',11);return false;">UPS&nbsp;Mark</A></NOBR></H6>
+  <P ID="Item2074" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Sx</A></NOBR></P>
+  <P ID="Item2075" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Sx.getException</A></NOBR></P>
+  <P ID="Item2076" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Sx.printStackTrace</A></NOBR></P>
+  <P ID="Item2077" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">System.exit</A></NOBR></P>
+  <P ID="Item2078" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',16,20);return false;">System.getProperties</A></NOBR></P>
+  <P ID="Item2079" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">System.getProperty</A></NOBR></P>
+  <P ID="Item2080" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">System.getProperty.put</A></NOBR></P>
+  <P ID="Item2081" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12,16,20,22);return false;">System.out.println</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book19Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book19'); return false"><B>T</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book19Child" CLASS=child >
+  <P ID="Item2082" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Take</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">strUrl</A></NOBR></H6>
+  <P ID="Item2084" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',31);return false;">Technical&nbsp;Support</A></NOBR></P>
+  <P ID="Item2085" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">TextString</A></NOBR></P>
+  <P ID="Item2086" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">TextString&nbsp;As&nbsp;String</A></NOBR></P>
+  <P ID="Item2087" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">TextString.startsWith</A></NOBR></P>
+  <P ID="Item2088" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Then&nbsp;mvtxtUrl</A></NOBR></P>
+  <P ID="Item2089" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Time</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Set</A></NOBR></H6>
+  <P ID="Item2091" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">TimeInTransit</A></NOBR></P>
+  <P ID="Item2092" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">To&nbsp;MaxNodes</A></NOBR></P>
+  <P ID="Item2093" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Token.open</A></NOBR></P>
+  <P ID="Item2094" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">TotalBytesRead</A></NOBR></P>
+  <P ID="Item2095" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12,50,1,51,53);return false;">Tracking</A></NOBR></P>
+  <P ID="Item2096" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',1);return false;">Tracking&nbsp;DTDs</A></NOBR></P>
+  <P ID="Item2097" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',1,18);return false;">Tracking&nbsp;Request</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',1);return false;">DTDs</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',50);return false;">Integrating</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',50);return false;">Introduction</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51);return false;">Request</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">sending</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51);return false;">XML&nbsp;Request</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">XML&nbsp;Response</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51,53);return false;">XML&nbsp;Samples</A></NOBR></H6>
+  <P ID="Item2106" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51,53);return false;">TrackingNumber</A></NOBR></P>
+  <P ID="Item2107" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51);return false;">TrackRequest</A></NOBR></P>
+  <P ID="Item2108" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51);return false;">TrackRequest&nbsp;xml</A></NOBR></P>
+  <P ID="Item2109" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">TrackResponse</A></NOBR></P>
+  <P ID="Item2110" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,51,53);return false;">TransactionReference</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book20Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book20'); return false"><B>U</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book20Child" CLASS=child >
+  <P ID="Item2111" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Uc.getInputStream</A></NOBR></P>
+  <P ID="Item2112" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">UnitOfMeasurement</A></NOBR></P>
+  <P ID="Item2113" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',31);return false;">UPS&nbsp;e-business&nbsp;Web&nbsp;site</A></NOBR></P>
+  <P ID="Item2114" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',11);return false;">UPS&nbsp;Mark</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',11);return false;">displays</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',11);return false;">surround</A></NOBR></H6>
+  <P ID="Item2117" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12,14,38,34,16,31,20,22);return false;">UPS&nbsp;OnLine&nbsp;Tools</A></NOBR></P>
+  <P ID="Item2118" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">UPS&nbsp;OnLine&nbsp;Tools&nbsp;Server</A></NOBR></P>
+  <P ID="Item2119" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">UPS&nbsp;XML&nbsp;Online&nbsp;Tools</A></NOBR></P>
+  <P ID="Item2120" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Ups.app/xml/TimeInTransit</A></NOBR></P>
+  <P ID="Item2121" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">Ups.com</A></NOBR></P>
+  <P ID="Item2122" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">URL</A></NOBR></P>
+  <P ID="Item2123" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">URL&nbsp;Connection</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">reading</A></NOBR></H6>
+  <P ID="Item2125" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">URL&nbsp;url</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">portion</A></NOBR></H6>
+  <P ID="Item2127" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">Url.openConnection</A></NOBR></P>
+  <P ID="Item2128" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">URLConnection&nbsp;uc</A></NOBR></P>
+  <P ID="Item2129" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">URLObject</A></NOBR></P>
+  <P ID="Item2130" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">URLReader</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">closing</A></NOBR></H6>
+  <P ID="Item2132" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20,22);return false;">Use</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Digital&nbsp;Certificates</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML</A></NOBR></H6>
+  <P ID="Item2135" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51);return false;">UserId&gt;testUser&lt;/UserId</A></NOBR></P>
+  <P ID="Item2136" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,16);return false;">Username</A></NOBR></P>
+  <P ID="Item2137" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Username,password</A></NOBR></P>
+  <P ID="Item2138" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',44);return false;">Using&nbsp;Secure&nbsp;Socket&nbsp;Layer</A></NOBR></P>
+  <P ID="Item2139" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',44);return false;">Using&nbsp;SSL</A></NOBR></P>
+  <P ID="Item2140" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',11);return false;">Using&nbsp;UPS&nbsp;Image&nbsp;Files</A></NOBR></P>
+  <P ID="Item2141" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Using&nbsp;XML4J</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book21Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book21'); return false"><B>V</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book21Child" CLASS=child >
+  <P ID="Item2142" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,20,22);return false;">Value</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">INTERNET_OPTION_CONNECT_TIMEOUT</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">keyLocation</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML</A></NOBR></H6>
+  <P ID="Item2146" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">Value&gt;CUSTOMER&nbsp;SUPPLIED&nbsp;REFERENCE&nbsp;NUMBER&lt;/Value</A></NOBR></P>
+  <P ID="Item2147" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">Value&gt;TEST&lt;/Value</A></NOBR></P>
+  <P ID="Item2148" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">VB&nbsp;Sample&nbsp;Code</A></NOBR></P>
+  <P ID="Item2149" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,46);return false;">VB6</A></NOBR></P>
+  <P ID="Item2150" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,42);return false;">VbCrLf</A></NOBR></P>
+  <P ID="Item2151" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">VbNullString</A></NOBR></P>
+  <P ID="Item2152" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">VDllVersion</A></NOBR></P>
+  <P ID="Item2153" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">VDllVersion.lMajorVersion</A></NOBR></P>
+  <P ID="Item2154" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">VDllVersion.lMinorVersion</A></NOBR></P>
+  <P ID="Item2155" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',20);return false;">Vendor-specific&nbsp;implementations</A></NOBR></P>
+  <P ID="Item2156" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Vendor’s</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">importing</A></NOBR></H6>
+  <P ID="Item2158" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',14,38,34);return false;">Visual&nbsp;Basic</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',38);return false;">samples</A></NOBR></H6>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book22Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book22'); return false"><B>W</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book22Child" CLASS=child >
+  <P ID="Item2160" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44);return false;">WinInet</A></NOBR></P>
+  <P ID="Item2161" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">WinInet.dll</A></NOBR></P>
+  <P ID="Item2162" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',40);return false;">Works</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',40);return false;">IE4.0&nbsp;wininet</A></NOBR></H6>
+  <P ID="Item2164" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44,18);return false;">Writing</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44,18);return false;">XML</A></NOBR></H6>
+ </DIV>
+</BLOCKQUOTE>
+<DIV ID="Book23Parent" CLASS=parent>
+ <P><NOBR><A HREF="JavaScript:void(0);" onClick="IndexExpandIt('Book23'); return false"><B>X</B></A></NOBR></P>
+</DIV>
+<BLOCKQUOTE>
+ <DIV ID="Book23Child" CLASS=child >
+  <P ID="Item2166" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,50,34,1,44,18,46,51,53);return false;">XML</A></NOBR></P>
+  <P ID="Item2167" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Xml&nbsp;As&nbsp;MSXML2.DOMDocument30</A></NOBR></P>
+  <P ID="Item2168" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">XML&nbsp;Document</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">build</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Creating</A></NOBR></H6>
+  <P ID="Item2171" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">XML&nbsp;OnLine&nbsp;tool</A></NOBR></P>
+  <P ID="Item2172" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML&nbsp;Parsing</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Java&nbsp;API</A></NOBR></H6>
+  <P ID="Item2174" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">XML&nbsp;Programming&nbsp;Information</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">Java</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">VB</A></NOBR></H6>
+  <P ID="Item2177" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51);return false;">XML&nbsp;Request&nbsp;Sample</A></NOBR></P>
+  <P ID="Item2178" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,46,51);return false;">XML&nbsp;Requests</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">formatting</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51);return false;">Tracking</A></NOBR></H6>
+  <P ID="Item2181" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">XML&nbsp;Response</A></NOBR></P>
+  <P ID="Item2182" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">XML&nbsp;Response&nbsp;Sample</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',53);return false;">Tracking</A></NOBR></H6>
+  <P ID="Item2184" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51,53);return false;">XML&nbsp;Samples</A></NOBR></P>
+  <H6 class="firstsub" style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Building</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">builds</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42,22);return false;">create</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">creating</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">generate</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Parsing</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">processing</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44,18);return false;">reading</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">return</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',12);return false;">send</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',51,53);return false;">Tracking</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">use</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">value</A></NOBR></H6>
+  <H6 style="margin-left:8pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44,18);return false;">writing</A></NOBR></H6>
+  <P ID="Item2199" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML_AccessLicenseNumber</A></NOBR></P>
+  <P ID="Item2200" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML_AccessRequest</A></NOBR></P>
+  <P ID="Item2201" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML_DeliveryZone</A></NOBR></P>
+  <P ID="Item2202" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML_Description</A></NOBR></P>
+  <P ID="Item2203" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML_Password</A></NOBR></P>
+  <P ID="Item2204" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML_PickupDate</A></NOBR></P>
+  <P ID="Item2205" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML_Shipment</A></NOBR></P>
+  <P ID="Item2206" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML_UserId</A></NOBR></P>
+  <P ID="Item2207" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XML4J</A></NOBR></P>
+  <P ID="Item2208" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XmlBuf</A></NOBR></P>
+  <P ID="Item2209" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',22);return false;">XmlIn.toString</A></NOBR></P>
+  <P ID="Item2210" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">Xmlsample.jar</A></NOBR></P>
+  <P ID="Item2211" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36,44,18);return false;">XmlTransmitter</A></NOBR></P>
+  <P ID="Item2212" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',36);return false;">XmlTransmitter&nbsp;Service&nbsp;RequestFile</A></NOBR></P>
+  <P ID="Item2213" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">XmlTransmitterIBM.java</A></NOBR></P>
+  <P ID="Item2214" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',18);return false;">XmlTransmitterSUN.java&nbsp;file</A></NOBR></P>
+  <P ID="Item2215" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Xnodes</A></NOBR></P>
+  <P ID="Item2216" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',46);return false;">Xpaths</A></NOBR></P>
+  <P ID="Item2217" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',1);return false;">XPCI&nbsp;Interchange&nbsp;DTD</A></NOBR></P>
+  <P ID="Item2218" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',1);return false;">XPCI&nbsp;Vocabulary&nbsp;DTD</A></NOBR></P>
+  <P ID="Item2219" style="margin-left:0pt"><NOBR><A HREF="JavaScript:void(0);" onClick=" PopupMenu_Invoke('','bsscright',42);return false;">XpicVersion</A></NOBR></P>
+ </DIV>
+</BLOCKQUOTE>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+WritePopupMenuLayer();
+IndexInitPage();
+//-->
+</SCRIPT>
+</BODY>
+</HTML>
+

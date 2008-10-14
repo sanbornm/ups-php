@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ShipmentAcceptRequest>
+    <Request>
+        <TransactionReference>
+            <CustomerContext>Customer Comment</CustomerContext>
+        </TransactionReference>
+        <RequestAction>ShipAccept</RequestAction>
+        <RequestOption>1</RequestOption>
+    </Request>
+    <ShipmentDigest>{SHIPMENT_DIGEST}</ShipmentDigest>
+</ShipmentAcceptRequest>

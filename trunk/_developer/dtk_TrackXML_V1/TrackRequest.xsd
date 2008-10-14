@@ -1,0 +1,91 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified">
+	<xsd:element name="TrackRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Request"/>
+				<xsd:choice>
+					<xsd:element ref="TrackingNumber"/>
+					<xsd:element ref="ShipmentIdentificationNumber"/>
+					<xsd:element ref="CandidateBookmark"/>
+					<xsd:sequence>
+						<xsd:element ref="ReferenceNumber"/>
+						<xsd:element ref="PickupDateRange" minOccurs="0"/>
+						<xsd:element ref="ShipperNumber" minOccurs="0"/>
+						<xsd:element ref="DestinationPostalCode" minOccurs="0"/>
+						<xsd:element ref="DestinationCountryCode" minOccurs="0"/>
+						<xsd:element ref="OriginPostalCode" minOccurs="0"/>
+						<xsd:element ref="OriginCountryCode" minOccurs="0"/>
+						<xsd:element name="ShipmentType" type="CodeType" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:choice>
+				<xsd:element ref="IncludeFreight" minOccurs="0"/>
+				<xsd:element ref="ShipperAccountInfo" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<!-- Elements used by Track Request-->
+	<xsd:element name="BeginDate" type="xsd:string"/>
+	<xsd:element name="CandidateBookmark" type="xsd:string"/>
+	<xsd:element name="Code" type="xsd:string"/>
+	<xsd:complexType name="CodeType">
+		<xsd:sequence>
+			<xsd:element ref="Code"/>
+			<xsd:element ref="Description" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="CountryCode" type="xsd:string"/>
+	<xsd:element name="Description" type="xsd:string"/>
+	<xsd:element name="DestinationCountryCode" type="xsd:string"/>
+	<xsd:element name="DestinationPostalCode" type="xsd:string"/>
+	<xsd:element name="EndDate" type="xsd:string"/>
+	<xsd:element name="EventFilter" type="xsd:string"/>
+	<xsd:element name="IncludeFreight" type="xsd:string"/>
+	<xsd:element name="OriginCountryCode" type="xsd:string"/>
+	<xsd:element name="OriginPostalCode" type="xsd:string"/>
+	<xsd:element name="PickupDateRange">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="BeginDate"/>
+				<xsd:element ref="EndDate"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PostalCode" type="xsd:string"/>
+	<xsd:element name="ReferenceNumber">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Value"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Request">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="TransactionReference"/>
+				<xsd:element ref="RequestAction"/>
+				<xsd:element ref="RequestOption" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RequestAction" type="xsd:string"/>
+	<xsd:element name="RequestOption" type="xsd:string"/>
+	<xsd:element name="ShipperAccountInfo">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PostalCode" minOccurs="0"/>
+				<xsd:element ref="CountryCode"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ShipperNumber" type="xsd:string"/>
+	<xsd:element name="ShipmentIdentificationNumber" type="xsd:string"/>
+	<xsd:element name="TrackingNumber" type="xsd:string"/>
+	<xsd:element name="Value" type="xsd:string"/>
+	<xsd:element name="TransactionReference">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ToolVersion" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

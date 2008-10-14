@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<AccessRequest xml:lang="en-US">
+   <AccessLicenseNumber>TEST262223144CAT</AccessLicenseNumber>
+   <UserId>testUser</UserId>
+   <Password>testPW</Password>
+</AccessRequest>

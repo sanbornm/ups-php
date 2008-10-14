@@ -1,0 +1,391 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<!--(==============================================================)-->
+<!--(Document created with RoboEditor. )============================-->
+<!--(==============================================================)-->
+
+<head>
+
+<title>HTTP Post</title>
+
+<!--(Meta)==========================================================-->
+
+<meta name=generator content="RoboHELP by eHelp Corporation - www.ehelp.com">
+<meta name=generator-major-version content=0.1>
+<meta name=generator-minor-version content=1>
+<meta name=filetype content=kadov>
+<meta name=filetype-version content=1>
+<meta name=page-count content=1>
+<meta name=layout-height content=2276>
+<meta name=layout-width content=687>
+<meta name=date content="10 11, 2001 3:44:59 PM">
+
+
+<!--(Links)=========================================================-->
+
+<SCRIPT language="javascript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../default_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='../default.css'>");}
+//-->
+</SCRIPT>
+<style>
+<!--
+ul.whs1 {list-style: disc;}
+p.whs2 {margin-left: 40px;}
+ul.whs3 {list-style: disc;}
+p.whs4 {margin-left: 40px;}
+table.whs5 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs6 {width: 100%;}
+td.whs7 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-style: Solid; border-top-color: #000000; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcc;}
+p.whs8 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs9 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs10 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs11 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs12 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs13 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs14 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs15 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs16 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs17 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs18 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs19 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs20 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs21 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs22 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs23 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs24 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs25 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs26 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs27 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs28 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs29 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs30 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs31 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs32 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs33 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs34 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs35 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs36 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs37 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs38 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs39 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs40 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs41 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs42 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs43 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs44 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs45 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs46 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs47 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs48 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs49 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs50 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs51 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs52 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs53 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs54 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs55 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs56 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs57 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs58 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs59 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs60 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs61 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs62 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs63 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs64 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs65 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs66 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs67 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs68 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs69 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs70 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs71 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs72 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs73 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs74 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs75 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs76 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs77 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs78 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs79 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs80 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs81 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs82 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs83 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs84 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs85 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs86 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs87 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs88 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs89 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs90 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs91 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs92 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs93 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs94 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs95 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs96 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs97 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs98 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs99 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs100 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs101 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs102 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs103 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs104 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs105 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs106 {font-style: italic;}
+p.whs107 {font-family: Arial, sans-serif; font-size: 8pt;}
+
+-->
+</style>
+<script language="javascript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//-->
+</script>
+<style>
+<!--
+  div.WebHelpPopupMenu {position:absolute; left:0px; top:0px; z-index:4; visibility:hidden;}
+  p.WebHelpNavBar {text-align:right;}
+-->
+</style>
+</head>
+
+<!--(Body)==========================================================-->
+
+
+<body>
+
+
+<h1><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../un_global_upslogo.gif' x-maintain-ratio='TRUE' width='50' height='51' border='0'>");}
+else
+{ document.write("<img src='../un_global_upslogo.gif' x-maintain-ratio='TRUE' style='border: none; width: 50px; height: 51px; float: none;' width='50' height='51' border='0'>");}
+//--></SCRIPT><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../un_global_hed.gif' x-maintain-ratio='TRUE' width='550' height='51' border='0'>");}
+else
+{ document.write("<img src='../un_global_hed.gif' x-maintain-ratio='TRUE' style='border: none; width: 550px; height: 51px; float: none;' width='550' height='51' border='0'>");}
+//--></SCRIPT></h1>
+
+<h1><a name=HTTP></a>HTTP Post for Java</h1>
+
+<p>To send an XML request to the UPS OnLine Tools server, an HTTP (Hypertext 
+ Transfer Protocol) with a request method of &quot;post&quot; is performed. 
+ For additional information on HTTP protocol, go to <a href="http://www.rfc-editor.org/rfc.html"
+														target=_blank>http://<!--kadov_tag{{<ignored>}}-->www.rfc-editor.org<!--kadov_tag{{</ignored>}}-->/<!--kadov_tag{{<ignored>}}-->rfc.html<!--kadov_tag{{</ignored>}}--></a> 
+ and view the following Internet <!--kadov_tag{{<ignored>}}-->RFCs<!--kadov_tag{{</ignored>}}-->: 
+ </p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p class="whs2"><a href="ftp://ftp.isi.edu/in-notes/rfc1945.txt"
+														target=_blank>HTTP/1.0 
+ - RFC 1945</a></p></li>
+</ul>
+
+<ul type="disc" class="whs3">
+	
+	<li class=kadov-p><p class="whs4"><a href="ftp://ftp.isi.edu/in-notes/rfc2616.txt"
+														target=_blank>HTTP/1.1 
+ - RFC 2616</a></p></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p>If a Java application is used, the recommended method for performing 
+ HTTP post to the server is using Java’s HttpUrlConnection Class.</p>
+
+<p>&nbsp;</p>
+
+<h3>Code Example</h3>
+
+<p>The following code example illustrates how to write data to a Java HttpUrlConnection’s 
+ output stream and read the response from the HttpUrlConnection’s input 
+ stream:</p>
+
+<p>&nbsp;</p>
+
+<!--(Table)=========================================================-->
+<table x-use-null-cells cellspacing="0" width="100%" class="whs5">
+<col class="whs6">
+
+<tr valign=top>
+<td bgcolor="#FFFFCC" width="100%" class="whs7">
+<p class="whs8">&nbsp;</p>
+<p class="whs9">try 
+ {</p>
+<p class="whs10">&nbsp;</p>
+<p class="whs11">// Create new URL and connect</p>
+<p class="whs12">&nbsp;</p>
+<p class="whs13">//the value of protocol should be either 
+ HTTP or HTTPS. </p>
+<p class="whs14">&nbsp;</p>
+<p class="whs15">URL url = new URL(protocol + &quot;://&quot; 
+ + hostname + &quot;/&quot; + prefix + &quot;/&quot; + service);</p>
+<p class="whs16">&nbsp;</p>
+<p class="whs17">HttpURLConnection connection = (HttpURLConnection) 
+ url.openConnection();</p>
+<p class="whs18">&nbsp;</p>
+<p class="whs19">// POST data</p>
+<p class="whs20">&nbsp;</p>
+<p class="whs21">OutputStream out = connection.getOutputStream();</p>
+<p class="whs22">&nbsp;</p>
+<p class="whs23">out.write(queryString.getBytes());</p>
+<p class="whs24">&nbsp;</p>
+<p class="whs25">// get data from URL connection and return 
+ the XML document as a String</p>
+<p class="whs26">&nbsp;</p>
+<p class="whs27">String data = &quot;&quot;;</p>
+<p class="whs28">&nbsp;</p>
+<p class="whs29">try</p>
+<p class="whs30">&nbsp;</p>
+<p class="whs31">{</p>
+<p class="whs32">&nbsp;</p>
+<p class="whs33">data = readURLConnection(connection);</p>
+<p class="whs34">&nbsp;</p>
+<p class="whs35">}catch (Exception e)</p>
+<p class="whs36">&nbsp;</p>
+<p class="whs37">{</p>
+<p class="whs38">&nbsp;</p>
+<p class="whs39">System.out.println(&quot;Error in reading 
+ URL Connection&quot; + e.toString());</p>
+<p class="whs40">&nbsp;</p>
+<p class="whs41">}</p>
+<p class="whs42">&nbsp;</p>
+<p class="whs43">}catch 
+ (Exception e1)</p>
+<p class="whs44">&nbsp;</p>
+<p class="whs45">{</p>
+<p class="whs46">&nbsp;</p>
+<p class="whs47">System.out.println(&quot;Error 
+ sending data to server&quot; + e1.toString());</p>
+<p class="whs48">&nbsp;</p>
+<p class="whs49">}</p>
+<p class="whs50">&nbsp;</p>
+<p class="whs51"><!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}-->private 
+ static String readURLConnection(URLConnection uc) throws Exception</p>
+<p class="whs52">&nbsp;</p>
+<p class="whs53">{</p>
+<p class="whs54">&nbsp;</p>
+<p class="whs55">StringBuffer 
+ buffer = new StringBuffer();</p>
+<p class="whs56">&nbsp;</p>
+<p class="whs57">BufferedReader 
+ reader = null;</p>
+<p class="whs58">&nbsp;</p>
+<p class="whs59">try</p>
+<p class="whs60">&nbsp;</p>
+<p class="whs61">{</p>
+<p class="whs62">&nbsp;</p>
+<p class="whs63">reader 
+ = new BufferedReader(new InputStreamReader(uc.getInputStream()));</p>
+<p class="whs64">&nbsp;</p>
+<p class="whs65">String 
+ line = null;</p>
+<p class="whs66">&nbsp;</p>
+<p class="whs67">int 
+ letter = 0;</p>
+<p class="whs68">&nbsp;</p>
+<p class="whs69">while 
+ ((letter = reader.read()) != -1)</p>
+<p class="whs70">&nbsp;</p>
+<p class="whs71">buffer.append((char) 
+ letter);</p>
+<p class="whs72">&nbsp;</p>
+<p class="whs73">} catch 
+ (Exception e)</p>
+<p class="whs74">&nbsp;</p>
+<p class="whs75">{</p>
+<p class="whs76">&nbsp;</p>
+<p class="whs77">System.out.println(&quot;Cannot 
+ read from URL&quot; + e.toString());</p>
+<p class="whs78">&nbsp;</p>
+<p class="whs79">throw 
+ e;</p>
+<p class="whs80">&nbsp;</p>
+<p class="whs81">} finally</p>
+<p class="whs82">&nbsp;</p>
+<p class="whs83">{</p>
+<p class="whs84">&nbsp;</p>
+<p class="whs85">try</p>
+<p class="whs86">&nbsp;</p>
+<p class="whs87">{</p>
+<p class="whs88">&nbsp;</p>
+<p class="whs89">reader.close();</p>
+<p class="whs90">&nbsp;</p>
+<p class="whs91">} catch 
+ (IOException io)</p>
+<p class="whs92">&nbsp;</p>
+<p class="whs93">{</p>
+<p class="whs94">&nbsp;</p>
+<p class="whs95">System.out.println(&quot;Error 
+ closing URLReader!&quot;);</p>
+<p class="whs96">&nbsp;</p>
+<p class="whs97">throw 
+ io;</p>
+<p class="whs98">&nbsp;</p>
+<p class="whs99">}</p>
+<p class="whs100">&nbsp;</p>
+<p class="whs101">}</p>
+<p class="whs102">&nbsp;</p>
+<p class="whs103">return 
+ buffer.toString();</p>
+<p class="whs104">&nbsp;</p>
+<p class="whs105">}</td></tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>The values of protocol, hostname, and prefix in the sample class <span 
+ style="color: #ff0000;"><FONT COLOR=red ><a href="../code_samples/java_Sample_Code/code/xmltransmitter.zip">XmlTransmitter</a></FONT></span> 
+ are from the <span style="color: #ff0000;"><FONT COLOR=red ><a href="../code_samples/java_Sample_Code/config/config.htm"
+												target=_blank>configuration 
+ file</a></FONT></span>. The value of service (such as Track, AV, etc.) is the 
+ first parameter when the class XmlTransmitter is run.</p>
+
+<p>&nbsp;</p>
+
+<p class="whs106">Please refer to &quot;Working with Java 
+ Sample Code&quot; before executing or compiling and source code found 
+ within this documentation.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="#HTTP"><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../baby_up.jpg' x-save-file='TRUE' x-save-method='compute-relative' width='20' height='23' border='0'>");}
+else
+{ document.write("<img src='../baby_up.jpg' x-save-file='TRUE' x-save-method='compute-relative' style='border: none; float: none; width: 20px; height: 23px;' width='20' height='23' border='0'>");}
+//--></SCRIPT>Return to Top</a></p>
+
+<p>&nbsp;</p>
+
+<p class="whs107"><span style="font-family: Arial, sans-serif; font-size: 8pt;"><FONT SIZE=1 style="font-size:8pt;">Copyright 
+ © 2006 United Parcel Service of America, Inc.</FONT></span></p>
+
+<p>&nbsp;</p>
+
+</body>
+
+</html>

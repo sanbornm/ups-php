@@ -1,0 +1,1111 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+
+<html>
+
+<!--(==============================================================)-->
+<!--(Document created with RoboEditor. )============================-->
+<!--(==============================================================)-->
+
+<head>
+
+<title>XML Programming Information</title>
+
+<!--(Meta)==========================================================-->
+
+<meta name=generator content="RoboHELP by eHelp Corporation - www.ehelp.com">
+<meta name=generator-major-version content=0.1>
+<meta name=generator-minor-version content=1>
+<meta name=filetype content=kadov>
+<meta name=filetype-version content=1>
+<meta name=page-count content=1>
+<meta name=layout-height content=7191>
+<meta name=layout-width content=687>
+<meta name=date content="10 12, 2001 11:40:52 AM">
+
+
+<!--(Links)=========================================================-->
+
+<SCRIPT language="javascript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='../default_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='../default.css'>");}
+//-->
+</SCRIPT>
+<style>
+<!--
+ul.whs1 {list-style: disc;}
+ul.whs2 {list-style: disc;}
+p.whs3 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs4 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs5 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs6 {font-family: Arial, sans-serif; font-size: 12pt;}
+table.whs7 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs8 {width: 100%;}
+td.whs9 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs10 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs11 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs12 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs13 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs14 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs15 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs16 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs17 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs18 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs19 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs20 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs21 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs22 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs23 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs24 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs25 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs26 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs27 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs28 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs29 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs30 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs31 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs32 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs33 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs34 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs35 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs36 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs37 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs38 {font-size: 12pt; font-family: Arial, sans-serif;}
+table.whs39 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs40 {width: 100%;}
+td.whs41 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs42 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs43 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs44 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs45 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs46 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs47 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs48 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs49 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs50 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs51 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs52 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs53 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs54 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs55 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs56 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs57 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs58 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs59 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs60 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs61 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs62 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs63 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs64 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs65 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs66 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs67 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs68 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs69 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs70 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs71 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs72 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs73 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs74 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs75 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs76 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs77 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs78 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs79 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs80 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs81 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs82 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs83 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs84 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs85 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs86 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs87 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs88 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs89 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs90 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs91 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs92 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs93 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs94 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs95 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs96 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs97 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs98 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs99 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs100 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs101 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs102 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs103 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs104 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs105 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs106 {font-family: 'Courier New', monospace; font-size: 10pt;}
+table.whs107 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs108 {width: 100%;}
+td.whs109 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs110 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs111 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs112 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs113 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs114 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs115 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs116 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs117 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs118 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs119 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs120 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs121 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs122 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs123 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs124 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs125 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs126 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs127 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs128 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs129 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs130 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px; margin-right: -5px;}
+p.whs131 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs132 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs133 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs134 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs135 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs136 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs137 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs138 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs139 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs140 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs141 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs142 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs143 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs144 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs145 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs146 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs147 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs148 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs149 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs150 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs151 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs152 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs153 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs154 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs155 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs156 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs157 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs158 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs159 {font-size: 12pt; font-family: Arial, sans-serif;}
+table.whs160 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs161 {width: 100%;}
+td.whs162 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs163 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs164 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs165 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs166 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs167 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs168 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs169 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs170 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs171 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs172 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs173 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs174 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs175 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs176 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs177 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs178 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs179 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs180 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs181 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs182 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs183 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs184 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs185 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs186 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs187 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs188 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs189 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs190 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs191 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs192 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs193 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs194 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs195 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs196 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs197 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs198 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs199 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs200 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs201 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs202 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs203 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs204 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs205 {font-size: 12pt; font-family: Arial, sans-serif;}
+table.whs206 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs207 {width: 100%;}
+td.whs208 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs209 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs210 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs211 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs212 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs213 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs214 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs215 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs216 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs217 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs218 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs219 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs220 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs221 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs222 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs223 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs224 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs225 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs226 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs227 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs228 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs229 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs230 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs231 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs232 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs233 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs234 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs235 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs236 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs237 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs238 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs239 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs240 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs241 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs242 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs243 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs244 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs245 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs246 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs247 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs248 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs249 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs250 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs251 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs252 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs253 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs254 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs255 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs256 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs257 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs258 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs259 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs260 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs261 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs262 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs263 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs264 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs265 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs266 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs267 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs268 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs269 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs270 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs271 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs272 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs273 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs274 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs275 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs276 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs277 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs278 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs279 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs280 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs281 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs282 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs283 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs284 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs285 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs286 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs287 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs288 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs289 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs290 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs291 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs292 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs293 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs294 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs295 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs296 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs297 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs298 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs299 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs300 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs301 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs302 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs303 {font-size: 12pt; font-family: Arial, sans-serif;}
+table.whs304 {x-cell-content-align: top; width: 100%; border-spacing: 0;}
+col.whs305 {width: 100%;}
+td.whs306 {padding-right: 10px; padding-left: 10px; border-left-style: Solid; border-left-color: #000000; border-top-color: #000000; border-top-style: Solid; border-right-style: Solid; border-right-color: #000000; border-bottom-color: #000000; border-bottom-style: Solid; border-left-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-right-width: 1px; background-color: #ffffcb;}
+p.whs307 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs308 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs309 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs310 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs311 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs312 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs313 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs314 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs315 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs316 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs317 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs318 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs319 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs320 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs321 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs322 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs323 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs324 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs325 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs326 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs327 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs328 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs329 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs330 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs331 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs332 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs333 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs334 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs335 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs336 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs337 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs338 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs339 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs340 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs341 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs342 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs343 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs344 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs345 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs346 {font-family: 'Courier New', monospace; font-size: 10pt; margin-left: 40px;}
+p.whs347 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs348 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs349 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs350 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs351 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs352 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs353 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs354 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs355 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs356 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs357 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs358 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs359 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs360 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs361 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs362 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs363 {font-size: 12pt; font-family: Arial, sans-serif;}
+p.whs364 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs365 {font-family: 'Courier New', monospace; font-size: 10pt;}
+p.whs366 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs367 {font-family: Arial, sans-serif; font-size: 12pt;}
+p.whs368 {font-family: Arial, sans-serif; font-size: 8pt;}
+
+-->
+</style>
+<script>
+<!--
+if (navigator.appName == "Netscape")
+{
+  var strNSS = "<style>";
+  strNSS += "p.whs130 {margin-right:1; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script language="javascript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+//-->
+</script>
+<style>
+<!--
+  div.WebHelpPopupMenu {position:absolute; left:0px; top:0px; z-index:4; visibility:hidden;}
+  p.WebHelpNavBar {text-align:right;}
+-->
+</style>
+</head>
+
+<!--(Body)==========================================================-->
+
+
+<body>
+
+
+<h1><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../un_global_upslogo.gif' x-maintain-ratio='TRUE' width='50' height='51' border='0'>");}
+else
+{ document.write("<img src='../un_global_upslogo.gif' x-maintain-ratio='TRUE' style='border: none; width: 50px; height: 51px; float: none;' width='50' height='51' border='0'>");}
+//--></SCRIPT><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../un_global_hed.gif' x-maintain-ratio='TRUE' width='550' height='51' border='0'>");}
+else
+{ document.write("<img src='../un_global_hed.gif' x-maintain-ratio='TRUE' style='border: none; width: 550px; height: 51px; float: none;' width='550' height='51' border='0'>");}
+//--></SCRIPT></h1>
+
+<h1><a name=XML></a>XML Programming Information for Java</h1>
+
+<p><a href="#Building_XML">Building XML</a></p>
+
+<ul type="disc" class="whs1">
+	
+	<li class=kadov-p><p><a href="#Building_IBM">Building XML with IBM's 
+ API</a></p></li>
+	
+	<li class=kadov-p><p><a href="#Building_Sun">Building XML with Sun's 
+ API</a></p></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><a href="#Parsing_XML">Parsing XML</a></p>
+
+<ul type="disc" class="whs2">
+	
+	<li class=kadov-p><p><a href="#Parsing_IBM">Parsing XML with IBM's 
+ API</a></p></li>
+	
+	<li class=kadov-p><p><a href="#Parsing_Sun">Parsing XML with Sun's 
+ API</a></p></li>
+</ul>
+
+<h2><a name=Building_XML></a>Building XML</h2>
+
+<p>Before sending the request to the UPS OnLine Tools server, the request 
+ in the XML format has to be built. Each request is made up of two separate 
+ XML request documents-- the <span style="color: #ff0000;"><FONT COLOR=red ><a href="../code_samples/java_Sample_Code/access.xml"
+	target=_blank>Access Request</a></FONT></span> and the <span style="color: #ff0000;"><FONT COLOR=red ><a 
+ href="../code_samples/java_Sample_Code/sample_request.html"
+	target=_blank>Service Request</a></FONT></span>. These requests are concatenated 
+ and posted to the UPS web servers using a <span style="color: #ff0000;"><FONT COLOR=red ><a 
+ href="../code_samples/java_Sample_Code/sample_request2.html"
+	target=_blank>single HTTPS Post</a></FONT></span>. </p>
+
+<p>&nbsp;</p>
+
+<p>When validating the request XML documents, do not treat the two concatenated 
+ documents as a single XML document. XML parsers can not parse two concatenated 
+ documents. Validate each XML Request separately. UPS will separate the 
+ two documents and parse them individually. To ensure this occurs, verify 
+ that <span style="font-family: 'Courier New', monospace; font-size: 10pt;"><FONT SIZE=2 style="font-size:10pt;">&lt;?xml 
+ version=&quot;1.0&quot;?&gt;</FONT></span> is at the top of each XML request 
+ document. </p>
+
+<h4><a name=Building_IBM></a>Building XML with IBM's API</h4>
+
+<p class="whs3">IBM's XML4J 
+ is a 100% pure Java solution for building XML document and parse XML, 
+ and is available for both Java1 and Java2 VM. Refer to the API documentation 
+ from Alphaworks for more information on XML4J <a href="http://alphaworks.ibm.com"
+													target=_blank>http://alphaworks.ibm.com</a>.</p>
+
+<p class="whs4">&nbsp;</p>
+
+<h3>Code Examples</h3>
+
+<p class="whs5">The following 
+ code example shows how to create an XML document using XML4J:</p>
+
+<p class="whs6">&nbsp;</p>
+
+<!--(Table)=========================================================-->
+<table x-use-null-cells cellspacing="0" width="100%" class="whs7">
+<col class="whs8">
+
+<tr valign=top>
+<td bgcolor="#FFFFCB" width="100%" class="whs9">
+<p class="whs10"><span 
+ style="font-family: 'Courier New', monospace; font-size: 10pt;"><FONT SIZE=2 style="font-size:10pt;">protected 
+ Document createXMLDocument(String rootName) throws Exception</FONT></span></p>
+<p class="whs11">&nbsp;</p>
+<p class="whs12">{</p>
+<p class="whs13">&nbsp;</p>
+<p class="whs14">try{</p>
+<p class="whs15">&nbsp;</p>
+<p class="whs16">//use 
+ the XML parser provided by IBM: XML4J </p>
+<p class="whs17">&nbsp;</p>
+<p class="whs18">Document doc = new com.ibm.xml.parser.TXDocument();</p>
+<p class="whs19">&nbsp;</p>
+<p class="whs20">Element 
+ root = doc.createElement(rootName);</p>
+<p class="whs21">&nbsp;</p>
+<p class="whs22">doc.appendChild(root);</p>
+<p class="whs23">&nbsp;</p>
+<p class="whs24">return 
+ doc;</p>
+<p class="whs25">&nbsp;</p>
+<p class="whs26">}catch(Exception 
+ e)</p>
+<p class="whs27">&nbsp;</p>
+<p class="whs28">{</p>
+<p class="whs29">&nbsp;</p>
+<p class="whs30">System.out.println(&quot;Error 
+ in createXMLDocument&quot; + e.getMessage());</p>
+<p class="whs31">&nbsp;</p>
+<p class="whs32">throw 
+ new Exception (&quot;Error in createXMLDocument&quot; + e);</p>
+<p class="whs33">&nbsp;</p>
+<p class="whs34">}</td></tr>
+</table>
+
+<p class="whs35">&nbsp;</p>
+
+<p class="whs36">&nbsp;</p>
+
+<p class="whs37">The following 
+ code shows how to add a node and its value to the XML document:</p>
+
+<p class="whs38">&nbsp;</p>
+
+<!--(Table)=========================================================-->
+<table x-use-null-cells cellspacing="0" width="100%" class="whs39">
+<col class="whs40">
+
+<tr valign=top>
+<td bgcolor="#FFFFCB" width="100%" class="whs41">
+<p class="whs42"><span 
+ style="font-family: 'Courier New', monospace; font-size: 10pt;"><FONT SIZE=2 style="font-size:10pt;">public 
+ static void addNode(Document doc, String strParentTag, String newTagName, 
+ String textString, String attrName, String attrValue</FONT></span></p>
+<p class="whs43">&nbsp;</p>
+<p class="whs44">{</p>
+<p class="whs45">&nbsp;</p>
+<p class="whs46">Element 
+ item = doc.createElement(newTagName); // this creates the new element 
+ tag</p>
+<p class="whs47">&nbsp;</p>
+<p class="whs48">Node 
+ parentTag = doc.getDocumentElement(); // default parent to root</p>
+<p class="whs49">&nbsp;</p>
+<p class="whs50">// we 
+ are getting a nodelist because it allows us to specify the parent element</p>
+<p class="whs51">&nbsp;</p>
+<p class="whs52">// by 
+ its string name; that way, we don't have to pass Elements around</p>
+<p class="whs53">&nbsp;</p>
+<p class="whs54">NodeList 
+ nl = doc.getDocumentElement().getElementsByTagName(strParentTag);</p>
+<p class="whs55">&nbsp;</p>
+<p class="whs56">parentTag 
+ = nl.item(nl.getLength()-1);</p>
+<p class="whs57">&nbsp;</p>
+<p class="whs58">try 
+ </p>
+<p class="whs59">&nbsp;</p>
+<p class="whs60">{</p>
+<p class="whs61">&nbsp;</p>
+<p class="whs62">if (textString 
+ != null) </p>
+<p class="whs63">&nbsp;</p>
+<p class="whs64">{</p>
+<p class="whs65">&nbsp;</p>
+<p class="whs66">// we 
+ support #RM, which means, 'do not add this node'</p>
+<p class="whs67">&nbsp;</p>
+<p class="whs68">if(!textString.startsWith(&quot;#RM&quot;) 
+ &amp;&amp; !textString.startsWith(&quot;#rm&quot;))</p>
+<p class="whs69">&nbsp;</p>
+<p class="whs70">{</p>
+<p class="whs71">&nbsp;</p>
+<p class="whs72">item.appendChild(doc.createTextNode(textString));</p>
+<p class="whs73">&nbsp;</p>
+<p class="whs74">parentTag.appendChild(item);</p>
+<p class="whs75">&nbsp;</p>
+<p class="whs76">}</p>
+<p class="whs77">&nbsp;</p>
+<p class="whs78">}</p>
+<p class="whs79">&nbsp;</p>
+<p class="whs80">else 
+ </p>
+<p class="whs81">&nbsp;</p>
+<p class="whs82">{</p>
+<p class="whs83">&nbsp;</p>
+<p class="whs84">if(attrName 
+ != null &amp;&amp; attrValue != null)</p>
+<p class="whs85">&nbsp;</p>
+<p class="whs86">item.setAttribute(attrName, 
+ attrValue);</p>
+<p class="whs87">&nbsp;</p>
+<p class="whs88">parentTag.appendChild(item);</p>
+<p class="whs89">&nbsp;</p>
+<p class="whs90">}</p>
+<p class="whs91">&nbsp;</p>
+<p class="whs92">}</p>
+<p class="whs93">&nbsp;</p>
+<p class="whs94">catch 
+ (Exception e)</p>
+<p class="whs95">&nbsp;</p>
+<p class="whs96">{</p>
+<p class="whs97">&nbsp;</p>
+<p class="whs98">e.printStackTrace();</p>
+<p class="whs99">&nbsp;</p>
+<p class="whs100">}</p>
+<p class="whs101">&nbsp;</p>
+<p class="whs102">}</td></tr>
+</table>
+
+<p class="whs103">&nbsp;</p>
+
+<p class="whs104">&nbsp;</p>
+
+<p class="whs105">Calling the 
+ above two methods, AccessAdapter builds the AccessRequest XML document 
+ from an Access object as illustrated in the code example below:</p>
+
+<p class="whs106">&nbsp;</p>
+
+<!--(Table)=========================================================-->
+<table x-use-null-cells cellspacing="0" width="100%" class="whs107">
+<col class="whs108">
+
+<tr valign=top>
+<td bgcolor="#FFFFCB" width="100%" class="whs109">
+<p class="whs110"><span 
+ style="font-family: 'Courier New', monospace; font-size: 10pt;"><FONT SIZE=2 style="font-size:10pt;">Public 
+ Class AccessAdapter </FONT></span></p>
+<p class="whs111">&nbsp;</p>
+<p class="whs112">{</p>
+<p class="whs113">&nbsp;</p>
+<p class="whs114">public 
+ StringBuffer adaptFromObject(Access acc) throws Exception</p>
+<p class="whs115">&nbsp;</p>
+<p class="whs116">{</p>
+<p class="whs117">&nbsp;</p>
+<p class="whs118">StringBuffer 
+ xmlBuf = new StringBuffer();</p>
+<p class="whs119">&nbsp;</p>
+<p class="whs120">try{</p>
+<p class="whs121">&nbsp;</p>
+<p class="whs122">Document 
+ doc = createXMLDocument(XML_AccessRequest);</p>
+<p class="whs123">&nbsp;</p>
+<p class="whs124">Element 
+ root = doc.getDocumentElement();</p>
+<p class="whs125">&nbsp;</p>
+<p class="whs126">root.setAttribute(&quot;xml:lang&quot;, 
+ &quot;en-US&quot;);</p>
+<p class="whs127">&nbsp;</p>
+<p class="whs128">// build 
+ access info</p>
+<p class="whs129">&nbsp;</p>
+<p class="whs130">addNode(doc, XML_AccessRequest, XML_AccessLicenseNumber, 
+ acc.getLicenseNumber(), <span style="font-family: 'Courier New', monospace;
+										font-size: 10pt;
+										margin-left: 40px;
+										margin-right: -17px;"><FONT SIZE=2 style="font-size:10pt;">null, null);</FONT></span></p>
+<p class="whs131">&nbsp;</p>
+<p class="whs132">addNode(doc, 
+ XML_AccessRequest, XML_UserId, acc.getUserId(), null, null);</p>
+<p class="whs133">&nbsp;</p>
+<p class="whs134">addNode(doc, 
+ XML_AccessRequest, XML_Password, acc.getPassword(), null, null);</p>
+<p class="whs135">&nbsp;</p>
+<p class="whs136"><!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}--></p>
+<p class="whs137">&nbsp;</p>
+<p class="whs138">// convert 
+ Document to StringBuffer</p>
+<p class="whs139">&nbsp;</p>
+<p class="whs140">xmlBuf 
+ = docToBuffer(doc);</p>
+<p class="whs141">&nbsp;</p>
+<p class="whs142">} catch 
+ (Exception e)</p>
+<p class="whs143">&nbsp;</p>
+<p class="whs144">{</p>
+<p class="whs145">&nbsp;</p>
+<p class="whs146">System.out.println(&quot;Error 
+ in adaptFromObject --&gt; &quot; + e.getMessage());</p>
+<p class="whs147">&nbsp;</p>
+<p class="whs148">}</p>
+<p class="whs149">&nbsp;</p>
+<p class="whs150">return 
+ xmlBuf;</p>
+<p class="whs151">&nbsp;</p>
+<p class="whs152">}</p>
+<p class="whs153">&nbsp;</p>
+<p class="whs154">}</td></tr>
+</table>
+
+<p class="whs155">&nbsp;</p>
+
+<h4><a name=Building_Sun></a>Building XML with Sun's API</h4>
+
+<p class="whs156">Sun Microsystems 
+ provides a Java API for XML Parsing (JAXP). JAXP enables loose coupling 
+ between a vendor implementation and a Java application using JAXP's API's. 
+ With JAXP, a system property can be used to specify the parser to use 
+ instead of importing a vendor’s parser class directly in the code. In 
+ this way, changing the parser implementation to be used requires only 
+ a change to the system property specifying the parser class to JAXP without 
+ changing the application codes. For more information on JAXP, refer to 
+ <a href="http://java.sun.com/xml/"
+	target=_blank>http://java.sun.com/xml/</a>. </p>
+
+<p class="whs157">&nbsp;</p>
+
+<h3>Code Example</h3>
+
+<p class="whs158">The following 
+ sample code shows how to create XML document with JAXP API:</p>
+
+<p class="whs159">&nbsp;</p>
+
+<!--(Table)=========================================================-->
+<table x-use-null-cells cellspacing="0" width="100%" class="whs160">
+<col class="whs161">
+
+<tr valign=top>
+<td bgcolor="#FFFFCB" width="100%" class="whs162">
+<p class="whs163"><span 
+ style="font-family: 'Courier New', monospace; font-size: 10pt;"><FONT SIZE=2 style="font-size:10pt;">// This 
+ method creates the XML document and its root node </FONT></span></p>
+<p class="whs164">&nbsp;</p>
+<p class="whs165">protected 
+ Document createXMLDocument(String rootName) throws Exception</p>
+<p class="whs166">&nbsp;</p>
+<p class="whs167">{</p>
+<p class="whs168">&nbsp;</p>
+<p class="whs169">try{</p>
+<p class="whs170">&nbsp;</p>
+<p class="whs171">//use 
+ package javax.xml.parsers</p>
+<p class="whs172">&nbsp;</p>
+<p class="whs173">javax.xml.parsers.DocumentBuilderFactory 
+ dfactory =</p>
+<p class="whs174">&nbsp;</p>
+<p class="whs175">javax.xml.parsers.DocumentBuilderFactory.newInstance();</p>
+<p class="whs176">&nbsp;</p>
+<p class="whs177">dfactory.setNamespaceAware(true);</p>
+<p class="whs178">&nbsp;</p>
+<p class="whs179">javax.xml.parsers.DocumentBuilder 
+ docBuilder = dfactory.newDocumentBuilder();</p>
+<p class="whs180">&nbsp;</p>
+<p class="whs181">org.w3c.dom.Document 
+ doc = docBuilder.newDocument();</p>
+<p class="whs182">&nbsp;</p>
+<p class="whs183">Element 
+ root = doc.createElement(rootName);</p>
+<p class="whs184">&nbsp;</p>
+<p class="whs185">doc.appendChild(root);</p>
+<p class="whs186">&nbsp;</p>
+<p class="whs187">return 
+ doc;</p>
+<p class="whs188">&nbsp;</p>
+<p class="whs189">}catch(Exception 
+ e)</p>
+<p class="whs190">&nbsp;</p>
+<p class="whs191">{</p>
+<p class="whs192">&nbsp;</p>
+<p class="whs193">System.out.println(&quot;Error 
+ in createXMLDocument&quot; + e.getMessage());</p>
+<p class="whs194">&nbsp;</p>
+<p class="whs195">throw 
+ new Exception (&quot;Error in createXMLDocument&quot; + e);</p>
+<p class="whs196">&nbsp;</p>
+<p class="whs197">}</p>
+<p class="whs198">&nbsp;</p>
+<p class="whs199">}</td></tr>
+</table>
+
+<p class="whs200">&nbsp;</p>
+
+<p class="whs201">&nbsp;</p>
+
+<h2><a name=Parsing_XML></a>Parsing XML</h2>
+
+<p>The response returned from UPS XML Online Tools is a String in XML format. 
+ A customer application to process the XML response is needed. <span style="color: #ff0000;"><FONT COLOR=red ><a 
+ href="../code_samples/java_Sample_Code/sample_response.html"
+	target=_blank>Here</a></FONT></span> is a sample XML response returned from 
+ the UPS OnLine Tools server. <!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}--></p>
+
+<h4><a name=Parsing_IBM></a>Parsing XML with IBM's API</h4>
+
+<p class="whs202">IBM's XML4J 
+ is a 100% pure Java solution for building XML document and parse XML, 
+ and is available for both Java1 and Java2 VM. Refer to the API documentation 
+ from alphaworks for more information on XML4J <a href="http://alphaworks.ibm.com"
+													target=_blank>http://alphaworks.ibm.com</a>.</p>
+
+<p class="whs203">&nbsp;</p>
+
+<h3>Code Example</h3>
+
+<p class="whs204">Using XML4J, 
+ an XML string can be parsed into a usable DOM object as seen in the code 
+ example below:</p>
+
+<p class="whs205">&nbsp;</p>
+
+<!--(Table)=========================================================-->
+<table x-use-null-cells cellspacing="0" width="100%" class="whs206">
+<col class="whs207">
+
+<tr valign=top>
+<td bgcolor="#FFFFCB" width="100%" class="whs208">
+<p class="whs209"><span 
+ style="font-family: 'Courier New', monospace; font-size: 10pt;"><FONT SIZE=2 style="font-size:10pt;">protected 
+ Document getDocument(String adaptee) throws Exception</FONT></span></p>
+<p class="whs210">&nbsp;</p>
+<p class="whs211">{</p>
+<p class="whs212">&nbsp;</p>
+<p class="whs213">com.ibm.xml.parsers.DOMParser 
+ parser = null;</p>
+<p class="whs214">&nbsp;</p>
+<p class="whs215">org.w3c.dom.Document 
+ doc = null;</p>
+<p class="whs216">&nbsp;</p>
+<p class="whs217">try</p>
+<p class="whs218">&nbsp;</p>
+<p class="whs219">{</p>
+<p class="whs220">&nbsp;</p>
+<p class="whs221">StringReader 
+ adapteeReader = new StringReader(adaptee);</p>
+<p class="whs222">&nbsp;</p>
+<p class="whs223">InputSource 
+ input = new InputSource(adapteeReader);</p>
+<p class="whs224">&nbsp;</p>
+<p class="whs225">//call 
+ IBM's XML4J parser</p>
+<p class="whs226">&nbsp;</p>
+<p class="whs227">parser 
+ = new com.ibm.xml.parsers.DOMParser();</p>
+<p class="whs228">&nbsp;</p>
+<p class="whs229">if (parser 
+ != null)</p>
+<p class="whs230">&nbsp;</p>
+<p class="whs231">{</p>
+<p class="whs232">&nbsp;</p>
+<p class="whs233">parser.parse(input);</p>
+<p class="whs234">&nbsp;</p>
+<p class="whs235">doc 
+ = parser.getDocument();</p>
+<p class="whs236">&nbsp;</p>
+<p class="whs237">}else</p>
+<p class="whs238">&nbsp;</p>
+<p class="whs239">System.out.println(&quot;Failed 
+ to create a parser in getDocument.&quot;);</p>
+<p class="whs240">&nbsp;</p>
+<p class="whs241">}</p>
+<p class="whs242">&nbsp;</p>
+<p class="whs243">catch 
+ (SAXException sx)</p>
+<p class="whs244">&nbsp;</p>
+<p class="whs245">{</p>
+<p class="whs246">&nbsp;</p>
+<p class="whs247">Exception 
+ ex = sx.getException();</p>
+<p class="whs248">&nbsp;</p>
+<p class="whs249">if (ex 
+ != null)</p>
+<p class="whs250">&nbsp;</p>
+<p class="whs251">{</p>
+<p class="whs252">&nbsp;</p>
+<p class="whs253">PrintStream 
+ stream = null;</p>
+<p class="whs254">&nbsp;</p>
+<p class="whs255">ex.printStackTrace(stream);</p>
+<p class="whs256">&nbsp;</p>
+<p class="whs257">}</p>
+<p class="whs258">&nbsp;</p>
+<p class="whs259">else</p>
+<p class="whs260">&nbsp;</p>
+<p class="whs261">{</p>
+<p class="whs262">&nbsp;</p>
+<p class="whs263">PrintStream 
+ stream = null;</p>
+<p class="whs264">&nbsp;</p>
+<p class="whs265">sx.printStackTrace(stream);</p>
+<p class="whs266">&nbsp;</p>
+<p class="whs267">}</p>
+<p class="whs268">&nbsp;</p>
+<p class="whs269">System.out.println(&quot;SAXException 
+ in getDocument.&quot;);</p>
+<p class="whs270">&nbsp;</p>
+<p class="whs271">throw 
+ sx;</p>
+<p class="whs272">&nbsp;</p>
+<p class="whs273">}</p>
+<p class="whs274">&nbsp;</p>
+<p class="whs275">catch 
+ (FileNotFoundException fnf)</p>
+<p class="whs276">&nbsp;</p>
+<p class="whs277">{</p>
+<p class="whs278">&nbsp;</p>
+<p class="whs279">System.out.println(fnf.getMessage());</p>
+<p class="whs280">&nbsp;</p>
+<p class="whs281">throw 
+ fnf;</p>
+<p class="whs282">&nbsp;</p>
+<p class="whs283">}</p>
+<p class="whs284">&nbsp;</p>
+<p class="whs285">catch 
+ (IOException ioe)</p>
+<p class="whs286">&nbsp;</p>
+<p class="whs287">{</p>
+<p class="whs288">&nbsp;</p>
+<p class="whs289">System.out.println(ioe.getMessage());</p>
+<p class="whs290">&nbsp;</p>
+<p class="whs291">throw 
+ ioe;</p>
+<p class="whs292">&nbsp;</p>
+<p class="whs293">}</p>
+<p class="whs294">&nbsp;</p>
+<p class="whs295">return 
+ doc;</p>
+<p class="whs296">&nbsp;</p>
+<p class="whs297">}</td></tr>
+</table>
+
+<p class="whs298">&nbsp;</p>
+
+<p class="whs299">&nbsp;</p>
+
+<h4><a name=Parsing_Sun></a>Parsing XML with Sun's API</h4>
+
+<p class="whs300">Sun Microsystems 
+ provides a Java API for XML Parsing (JAXP). JAXP enables loose coupling 
+ between a vendor implementation and a Java application using JAXP's API's. 
+ With JAXP, a system property can be used to specify the parser to use 
+ instead of importing a vendor’s parser class directly in the code. In 
+ this way, changing the parser implementation to be used requires only 
+ a change to the system property specifying the parser class to JAXP without 
+ changing the application codes. For more information on JAXP, refer to 
+ <a href="http://java.sun.com/xml/"
+	target=_blank>http://java.sun.com/xml/</a>.</p>
+
+<p class="whs301">&nbsp;</p>
+
+<h3>Code Example</h3>
+
+<p class="whs302">The method 
+ to parse an XML string into a usable DOM object with JAXP is illustrated 
+ below:</p>
+
+<p class="whs303">&nbsp;</p>
+
+<!--(Table)=========================================================-->
+<table x-use-null-cells cellspacing="0" width="100%" class="whs304">
+<col class="whs305">
+
+<tr valign=top>
+<td bgcolor="#FFFFCB" width="100%" class="whs306">
+<p class="whs307"><span 
+ style="font-family: 'Courier New', monospace; font-size: 10pt;"><FONT SIZE=2 style="font-size:10pt;">javax.xml.parsers.DocumentBuilderFactory 
+ dfactory =</FONT></span></p>
+<p class="whs308">&nbsp;</p>
+<p class="whs309">javax.xml.parsers.DocumentBuilderFactory.newInstance();</p>
+<p class="whs310">&nbsp;</p>
+<p class="whs311">dfactory.setNamespaceAware(true);</p>
+<p class="whs312">&nbsp;</p>
+<p class="whs313">parser 
+ = dfactory.newDocumentBuilder();</p>
+<p class="whs314">&nbsp;</p>
+<p class="whs315">org.w3c.dom.Document 
+ doc = parser.parse(input);</p>
+<p class="whs316"><!--kadov_tag{{<spaces>}}-->&nbsp;<!--kadov_tag{{</spaces>}}--></p>
+<p class="whs317">The 
+ following example shows how to build a shipmenet object from a BufferString 
+ containing xml.</p>
+<p class="whs318">&nbsp;</p>
+<p class="whs319">public 
+ ServiceResponseContainer adaptFromXml(StringBuffer xmlIn) throws Exception</p>
+<p class="whs320">&nbsp;</p>
+<p class="whs321">{</p>
+<p class="whs322">&nbsp;</p>
+<p class="whs323">try</p>
+<p class="whs324">&nbsp;</p>
+<p class="whs325">{</p>
+<p class="whs326">&nbsp;</p>
+<p class="whs327">Document 
+ doc = getDocument(xmlIn.toString());</p>
+<p class="whs328">&nbsp;</p>
+<p class="whs329">org.w3c.dom.Node 
+ root = doc.getFirstChild();</p>
+<p class="whs330">&nbsp;</p>
+<p class="whs331">org.w3c.dom.Node 
+ shipmentNode = null;</p>
+<p class="whs332">&nbsp;</p>
+<p class="whs333">for 
+ (shipmentNode = getChildNode(root, XML_Shipment); shipmentNode != null; 
+ </p>
+<p class="whs334">shipmentNode 
+ = shipmentNode.getNextSibling())</p>
+<p class="whs335">&nbsp;</p>
+<p class="whs336">{</p>
+<p class="whs337">&nbsp;</p>
+<p class="whs338">if (shipmentNode.getNodeName().equalsIgnoreCase(XML_Shipment))</p>
+<p class="whs339">&nbsp;</p>
+<p class="whs340">{</p>
+<p class="whs341">&nbsp;</p>
+<p class="whs342">Shipment 
+ ship = new Shipment();</p>
+<p class="whs343">&nbsp;</p>
+<p class="whs344">ship.setDescription(getChildNodeValue(shipmentNode, 
+ XML_Description));</p>
+<p class="whs345">&nbsp;</p>
+<p class="whs346">ship.setShipmentID(getChildNodeValue(shipmentNode,XML_Shipment 
+ IdentificationNumber))<span style="font-family: 'Courier New', monospace; font-size: 10pt;"><FONT SIZE=2 style="font-size:10pt;">;</FONT></span></p>
+<p class="whs347">&nbsp;</p>
+<p class="whs348">ship.setDeliveryZone(getChildNodeValue(shipmentNode, 
+ XML_DeliveryZone));</p>
+<p class="whs349">&nbsp;</p>
+<p class="whs350">ship.setPickupDate(getChildNodeValue(shipmentNode, 
+ XML_PickupDate));</p>
+<p class="whs351">&nbsp;</p>
+<p class="whs352">…</p>
+<p class="whs353">&nbsp;</p>
+<p class="whs354">}</p>
+<p class="whs355">&nbsp;</p>
+<p class="whs356">}</p>
+<p class="whs357">&nbsp;</p>
+<p class="whs358">…</p>
+<p class="whs359">&nbsp;</p>
+<p class="whs360">}</td></tr>
+</table>
+
+<p class="whs361">&nbsp;</p>
+
+<p class="whs362">&nbsp;</p>
+
+<p class="whs363">The sample 
+ class <a href="../code_samples/java_Sample_Code/code/Adapter.java">Adapter</a> 
+ provides complete methods to build XML document, and parse XML using <a 
+ href="../code_samples/java_Sample_Code/xml4j.jar">XML4J</a> and for Java 
+ 1.1.x .</p>
+
+<p class="whs364">&nbsp;</p>
+
+<p class="whs365">&nbsp;</p>
+
+<p class="whs366"><a href="#XML"><SCRIPT LANGUAGE="JavaScript"><!--
+if (navigator.appName=="Netscape")
+{ document.write("<img src='../baby_up.jpg' x-save-file='TRUE' x-save-method='compute-relative' width='20' height='23' border='0'>");}
+else
+{ document.write("<img src='../baby_up.jpg' x-save-file='TRUE' x-save-method='compute-relative' style='border: none; float: none; width: 20px; height: 23px;' width='20' height='23' border='0'>");}
+//--></SCRIPT>Return to Top</a></p>
+
+<p class="whs367">&nbsp;</p>
+
+<p class="whs368"><span style="font-family: Arial, sans-serif; font-size: 8pt;"><FONT SIZE=1 style="font-size:8pt;">Copyright 
+ © 2006 United Parcel Service of America, Inc.</FONT></span></p>
+
+<p>&nbsp;</p>
+
+</body>
+
+</html>

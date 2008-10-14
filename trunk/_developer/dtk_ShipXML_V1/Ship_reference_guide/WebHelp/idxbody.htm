@@ -1,0 +1,565 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="RoboHELP by eHelp Corporation www.ehelp.com">
+<title>Index</title>
+<base target="bsscright">
+<!-- version 4.00.00 -->
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+<SCRIPT LANGUAGE="JavaScript" src="webhelp4.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+//the browser information itself
+var gBsBrowser		= null;
+function _BSPSBrowserItself()
+{
+	var agent  = navigator.userAgent.toLowerCase();
+	this.major = parseInt(navigator.appVersion);
+	this.minor = parseFloat(navigator.appVersion);
+	this.ns    = ((agent.indexOf('mozilla') != -1) && ((agent.indexOf('spoofer') == -1) && (agent.indexOf('compatible') == -1)));
+	this.ns2   = ((this.ns) && (this.major == 2));
+	this.ns3   = ((this.ns) && (this.major == 3));
+	this.ns4   = ((this.ns) && (this.major >= 4));
+	this.ie	   = (agent.indexOf("msie") != -1);
+	this.ie3   = ((this.ie) && (this.major == 2));
+	this.ie4   = ((this.ie) && (this.major >= 4));
+	this.op3   = (agent.indexOf("opera") != -1);
+	this.mac   = (agent.indexOf('mac') != -1);
+
+	if (this.ns4)
+	{
+		gBsDoc		= "document";
+		gBsSty		= "";
+		gBsHtm		= ".document";
+		gBsStyVisShow	= "show";
+		gBsStyVisHide	= "hide";
+
+	}
+	else if (this.ie4)
+	{
+		gBsDoc		 = "document.all";
+		gBsSty 		= ".style";
+		gBsHtm 		= "";
+		gBsStyVisShow	= "visible";
+		gBsStyVisHide	= "hidden";
+	}
+}
+
+//Here is the browser type 
+function _BSPSGetBrowserInfo()
+{
+	gBsBrowser	= new _BSPSBrowserItself();
+}
+
+//Get client size info
+function _BSPSGetClientSize()
+{
+	if (gBsBrowser.ns4)
+	{
+		gBsClientWidth	= innerWidth;
+		gBsClientHeight = innerHeight;
+
+	}
+	else if (gBsBrowser.ie4)
+	{
+		gBsClientWidth	= document.body.clientWidth;
+		gBsClientHeight = document.body.clientHeight;
+	}
+}
+
+//If webHelp needs Related Topics DHTMLcode, it's supposed to add it here
+var gbPopupMenuTimeoutExpired = false;
+var gbInPopupMenu = false;
+var gbPopupMenuTopicList = null;
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//
+// Popup Menu code
+//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+var g_bIsPopupMenuInit = false;
+function WritePopupMenuLayer()
+{
+	if (!g_bIsPopupMenuInit)
+        {
+	  if (gBsBrowser.ns4) {
+//Do not try to write ininle styles for NS!  NS can not handle it and will not stop downloading the html page...
+	   document.write("<DIV CLASS='WebHelpPopupMenu' ID='PopupMenu'></DIV>");
+	  } else{
+	  document.write("<DIV ID='PopupMenu' STYLE='position:absolute; left:0px; top:0px; z-index:4; visibility:hidden;'></DIV>");
+	  if (gBsBrowser.ie4) {
+		document.write("<STYLE TYPE='text/css'>");
+		if (gBsBrowser.mac) {
+			document.write(".PopupOver {font-family:'Arial'; color:white; background:navy; font-size:10pt; text-decoration:none;}");
+			document.write(".PopupNotOver {font-family:'Arial'; color:black; background:#c0c0c0; font-size:10pt; text-decoration:none;}");
+		} else {
+			document.write(".PopupOver {font-family:'Arial'; color:white; background:navy; font-size:8pt; text-decoration:none;}");
+			document.write(".PopupNotOver {font-family:'Arial'; color:black; background:#c0c0c0; font-size:8pt; text-decoration:none;}");
+		}
+		document.write("</STYLE>");
+	   }
+          }
+	  g_bIsPopupMenuInit = true;
+	}
+}
+
+//Define variable arguments as: strTitle, strUrl
+function MTE() 
+{
+	this.strTitle = MTE.arguments[0];
+	if (MTE.arguments.length > 1)
+		this.strURL = MTE.arguments[1];
+	else
+		this.strURL = this.strTitle;
+}
+
+// If the topic list is set, it is an array of TopicEntry objects (defined in WebHelp3.js)
+function PopupMenu_SetTopicList(aPopupTopicArray)
+{
+	gbPopupMenuTopicList = aPopupTopicArray;
+}
+
+//Seek for the bsscright frame 
+function _SeekFrameByName( cRoot, strName )
+{
+	if( cRoot == null )	return null;
+	if( cRoot.frames == null )	return null;
+	if( cRoot.frames[strName] != null )	return cRoot.frames[strName];
+	for (var i=0; i<cRoot.frames.length; i++)
+	{
+		var cObj = _SeekFrameByName( cRoot.frames(i).document, strName );
+		if( cObj != null )		return cObj;
+	};
+	return null;
+}
+function _GetFrameByName( cRoot, strName )
+{
+	if( cRoot == null )	return null;
+	var cRet = _SeekFrameByName(cRoot, strName);
+	if( cRet != null )	return cRet;
+	if (cRoot.parent != cRoot)
+		return _GetFrameByName( cRoot.parent, strName );
+	else
+		return null;
+}
+
+//var gbOriPopupMenuClick = null;
+
+function PopupMenu_Invoke()
+{	
+	if (document.readyState != "complete")
+		return false;
+	var fn_arguments = PopupMenu_Invoke.arguments; 
+	// Make sure we have reasonable arguments
+	var argLen = fn_arguments.length;
+	if (argLen < 3) {
+		return false;
+	}
+
+	// Check to see if we only have one target
+	var strTarget = "";
+	var targetDoc = null;
+	if (fn_arguments[1] == '') {
+		if (BSSCPopup_IsPopup()) {
+			targetDoc = parent;
+			strTarget = "TARGET= _parent";
+		}
+		else
+			targetDoc = window.document;
+	} else {
+		targetDoc = _GetFrameByName( parent, fn_arguments[1] );
+
+		strTarget = "TARGET='" + fn_arguments[1] + "'";
+	}
+
+	if ((!gBsBrowser.ie4 && !gBsBrowser.ns4) || ((gBsBrowser.mac) && (gBsBrowser.ie4) && (window.event.srcElement.tagName == "AREA"))) {
+	
+		var argLen 	= fn_arguments.length;
+
+		// Create the window that the hyperlinks will go into
+		var nHeight = argLen * 15;
+		var nWidth = 400;
+		var strParam = "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=auto";
+		strParam += ",height=" + nHeight + ",width=200";
+		strParam += ",resizable";
+
+		// Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = window.open("", "temp", strParam);
+
+		// Create the real popup window
+		var wndPopupLinks = window.open("", "popuplinks", strParam);
+
+		// Close the temporary
+		wndTemp.close();
+
+		wndPopupLinks.document.open("text/html");
+		wndPopupLinks.document.write("<html><head></head>");
+		wndPopupLinks.document.write("<body onBlur=\'self.focus();\'>");
+		var strParaLine = "";
+		for (var i = 0; i < (argLen - 2) / 2; i++) {
+			strParaLine = "";
+			strParaLine += "<a href=\"javascript:";
+			if (gbBsIE) {
+				strParaLine += "onBlur=null; ";
+			}
+			strParaLine += "opener.location=\'";
+			strParaLine += fn_arguments[2 * i + 3];
+			strParaLine += "\';close();\"";
+			strParaLine += strTarget;
+
+			strParaLine += ">";
+			strParaLine += fn_arguments[2 * i + 2];
+			strParaLine += "</a>";
+			strParaLine += "<br>";
+			wndPopupLinks.document.write(strParaLine);
+		}
+		wndPopupLinks.document.write("</body></html>");
+		wndPopupLinks.document.close();
+		window.gbInPopupMenu = true;
+		if (!gbBsIE) {
+			wndPopupLinks.focus();
+		}
+
+		return false;
+	}
+
+
+	if (((argLen < 5) && ((isNaN(fn_arguments[2])) || (gbPopupMenuTopicList == null))) ||
+		((argLen < 4) && ((!isNaN(fn_arguments[2])) && (gbPopupMenuTopicList != null)))) {
+
+		// Get the place that we will be putting the topic into
+		var strURL = "";
+		if (isNaN(fn_arguments[2]) ||  (gbPopupMenuTopicList == null)) {
+			strURL = fn_arguments[3];
+		}
+		else 	{
+			strURL = gbPopupMenuTopicList[fn_arguments[2]].strURL;
+		}
+
+		if (targetDoc != null) {
+			targetDoc.location.href = strURL;
+		}
+		else {
+			window.open(strURL);
+		}		
+		window.gbInPopupMenu = true;
+		return false;
+	}
+	
+	var strMenu = "";
+	if (gBsBrowser.ns4) {
+		strMenu = '<TABLE BORDER="1" CELLSPACING=0 CELLPADDING=3 BGCOLOR="#c0c0c0">';
+	} else {
+		strMenu = '<TABLE STYLE="border:2px outset white;" CELLSPACING=0';
+		if (gBsBrowser.mac) {
+			strMenu += ' CELLPADDING=4';
+		} else {
+			strMenu += ' CELLPADDING=2';
+		}	
+		strMenu += ' BGCOLOR=#c0c0c0>';
+	}
+
+	// Add each of the items
+	var i = 2;
+	while (i <= argLen - 1) {
+		strMenu += '<TR><TD><NOBR>'
+		// If the destination is a number then look it up in the topic list
+		if (isNaN(fn_arguments[i]) ||  (gbPopupMenuTopicList == null)) {
+			strMenu += '<DIV STYLE="padding-left:3pt; padding-right:3pt;"><A HREF="' + fn_arguments[i + 1] + '"' + strTarget;
+		} else {
+			strMenu += '<DIV STYLE="padding-left:3pt; padding-right:3pt;"><A HREF="' + gbPopupMenuTopicList[fn_arguments[i]].strURL + '"' + strTarget;
+		}
+		strMenu += ' onclick="PopupMenu_HandleClick(event);"';
+		strMenu += ' onmouseover="PopupMenu_Over(event);"';
+		strMenu += ' onmouseout="PopupMenu_Out(event);"';
+		strMenu += '>';
+		if (isNaN(fn_arguments[i]) || (gbPopupMenuTopicList == null)) {
+			strMenu += '<SPAN CLASS="PopupNotOver">' + fn_arguments[i] + '</SPAN>';
+		} else {
+			strMenu += '<SPAN CLASS="PopupNotOver">' + gbPopupMenuTopicList[fn_arguments[i]].strTitle + '</SPAN>';
+		}
+		strMenu += '</A></DIV></NOBR></TD></TR>';
+
+		if (isNaN(fn_arguments[i]) || (gbPopupMenuTopicList == null)) {
+			i += 2;
+		} else {
+			i += 1;
+		}
+	}
+	strMenu += "</TABLE>";
+
+	if (gBsBrowser.mac) {
+	// totally hack. because ie5 in mac need something. </TABLE> is one of them. mac is mad.
+		strMenu +="<TABLE></TABLE>";
+	}
+
+	var layerPopup = null;
+	var stylePopup = null;
+	var nEventX = 0;
+	var nEventY = 0;
+	var nWindowWidth = 0;
+	if (gBsBrowser.ie4) {
+
+		layerPopup = document.all["PopupMenu"];
+		layerPopup.innerHTML = strMenu;
+		stylePopup = layerPopup.style;
+
+		_BSPSGetClientSize();
+
+		// Get the position of the item causing the event (relative to its parent)
+		//if (gBsBrowser.mac) {
+		if (true) {
+			nEventX = window.event.clientX;
+			nEventY = window.event.clientY;
+		} else {
+			//??? YJ: Can not remember why we calculate envent position by following code...
+			//but it is wrong in a case like: CENTER->P->TABLE:
+			//the offset positions of TABLE, P and CENTER are same (same offsetTop,offsetLeft)
+			//so we get triple times of offset of x and y as we expect... 
+
+			nEventX = window.event.srcElement.offsetLeft - document.body.scrollLeft;
+			nEventY = window.event.srcElement.offsetTop - document.body.scrollTop;
+
+			// Get the location of the parent
+			var nParentLocX = 0;
+			var nParentLocY = 0;
+
+			var ParentItem = window.event.srcElement.offsetParent;
+			while (ParentItem != null) {
+				if (ParentItem.offsetLeft)	{
+					nParentLocX += ParentItem.offsetLeft;
+					nParentLocY += ParentItem.offsetTop;
+				}
+				ParentItem = ParentItem.parentElement;
+			}
+
+			// Adjust the location of the item using the location of the parent(s)
+			nEventX += nParentLocX;
+			nEventY += nParentLocY;
+		}
+
+		if (nEventY + layerPopup.scrollHeight + 10 < gBsClientHeight) {
+			nEventY += document.body.scrollTop + 10;
+		} else {
+			nEventY = (document.body.scrollTop + gBsClientHeight) - layerPopup.scrollHeight - 20;
+		}
+		stylePopup.top = nEventY;
+
+		if (nEventX + layerPopup.scrollWidth + 20 > gBsClientWidth) {
+			if (gBsClientWidth - layerPopup.scrollWidth < 5) {
+				stylePopup.left = 5;
+			} else {
+				stylePopup.left = gBsClientWidth - layerPopup.scrollWidth - 5;
+			}
+		} else {
+			stylePopup.left = nEventX + document.body.scrollLeft + 20;
+		}
+
+		stylePopup.visibility = "visible";
+//		gbOriPopupMenuClick = document.onclick;
+		document.onclick = PopupMenu_HandleClick;
+		
+	} else if (gBsBrowser.ns4) {
+		layerPopup = document.layers.PopupMenu;
+		layerPopup.visibility = "hide";
+		stylePopup = layerPopup.document;
+		stylePopup.write(strMenu);
+		stylePopup.close();
+		var e = fn_arguments[0];
+		nEventX = e.pageX;
+		nEventY = e.pageY;
+		_BSPSGetClientSize();
+		if (nEventY + layerPopup.clip.height + 20 < window.pageYOffset + gBsClientHeight) {
+			nEventY += 20;
+		} else {
+			nEventY = gBsClientHeight + window.pageYOffset- layerPopup.clip.height - 20;
+		}
+		layerPopup.top = nEventY;
+
+		if (nEventX + layerPopup.clip.width + 20 > gBsClientWidth + window.pageXOffset) {
+			if (gBsClientWidth + window.pageXOffset - layerPopup.clip.width < 20) {
+				nEventX = 5;
+			} else {
+				nEventX = gBsClientWidth + window.pageXOffset - layerPopup.clip.width - 20;
+			}
+		} else {
+			nEventX += 20;
+		}
+
+		layerPopup.left = nEventX;
+
+		layerPopup.visibility = "show";
+
+//		window.captureEvents(Event.CLICK | Event.MOUSEDOWN);
+		window.captureEvents(Event.MOUSEDOWN);
+//		window.onclick = PopupMenu_HandleClick;
+		window.onmousedown = PopupMenu_HandleClick;
+	}
+
+	window.gbInPopupMenu = true;
+	window.gbPopupMenuTimeoutExpired = false;
+	setTimeout("PopupMenu_Timeout();", 100);
+	return false;
+}
+
+
+function PopupMenu_Timeout()
+{
+	window.gbPopupMenuTimeoutExpired = true;
+}
+
+function PopupMenu_Over(e)
+{
+    if (gBsBrowser.ie4) {
+		e.srcElement.className = "PopupOver";
+    } else if (gBsBrowser.ns4) {
+//		this.bgColor = "red";
+//        e.target.document.className = "PopupOver";
+    }
+	return;
+}
+
+function PopupMenu_Out(e)
+{
+    if (gBsBrowser.ie4) {
+		e.srcElement.className = "PopupNotOver";
+    } else if (gBsBrowser.ns4) {
+        this.bgColor = "#f0f0f0";
+    }
+	return;
+}
+
+
+function PopupMenu_HandleClick(e)
+{
+	if (!window.gbPopupMenuTimeoutExpired) {
+		return;
+	}
+
+	window.gbInPopupMenu = false;
+
+	if (gBsBrowser.ns4) {
+//		window.releaseEvents(Event.CLICK);
+		window.releaseEvents(Event.MOUSEDOWN);
+	}
+
+	var layerPopup = null;
+	var stylePopup = null;
+	if (gBsBrowser.ie4) {
+		layerPopup = document.all["PopupMenu"];
+		stylePopup = layerPopup.style;
+		stylePopup.visibility = "hidden";
+	} else if (gBsBrowser.ns4) {
+		layerPopup = document.layers.PopupMenu;
+		layerPopup.visibility = "hide";
+	}
+
+//	if (gbOriPopupMenuClick!= null)
+//		document.onclick = gbOriPopupMenuClick;
+
+	return;
+}
+
+// This function should be deleted when all old projects are cleaned up
+function BSPSWritePopupFrameForIE4()
+{
+	return false;
+}
+
+/////////////////////////////////////////////////////////////////////
+function BSSCPopup_ClickMac()
+{
+	if ((!DHTMLPopupSupport()) && (gBsBrowser.ie4))
+	{	
+		var bClickOnAnchor = false;
+		var el;
+		if ((window.event != null) &&
+		    (window.event.srcElement != null))
+		{
+		    el = window.event.srcElement;
+			while (el != null)
+			{
+				if ((el.tagName == "A") || (el.tagName == "AREA")) 	{
+					bClickOnAnchor = true;
+					break;
+				}
+				if (el.tagName == "BODY") {
+					break;
+				}
+				el = el.parentElement;
+			}
+		}
+		if (BSSCPopup_IsPopup())
+		{
+			if (!bClickOnAnchor) {
+				parent.window.gPopupWindow = null;
+				self.close();
+			}
+		}
+		else
+		{
+			bClosePopupWindow = true;
+			if ((bClickOnAnchor) &&
+				(el.href) &&
+			    (el.href.indexOf("javascript:BSSCPopup") != -1))
+			{
+				bClosePopupWindow = false;
+			}
+			if (bClosePopupWindow)
+			{
+				if (window.gPopupWindow != null)
+				{
+					var strParam = "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=300,width=400";
+					window.gPopupWindow = window.open("", gstrPopupSecondWindowName,strParam);
+					window.gPopupWindow.close();
+					window.gPopupWindow = null;
+				}
+			}
+		}
+	}
+ }
+
+//////////////////////////////////////////////////////////////////////
+
+_BSPSGetBrowserInfo();
+
+
+function BsPopupOnClick()
+{
+	if (!gBsBrowser.ie4)
+		return;
+
+	BSSCPopup_ClickMac();
+}
+
+function _BSSCOnError(message)
+{
+	if(-1 != message.indexOf("denied") 
+		|| -1 != message.indexOf("Object required"))
+	 return true;
+}
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+IndexWriteClassStyle();
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+PopupMenu_SetTopicList(gITE);
+//-->
+</SCRIPT>
+</HEAD>
+<BODY bgcolor=white>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+WritePopupMenuLayer();
+IndexInitPage();
+//-->
+</SCRIPT>
+</BODY>
+</HTML>
+

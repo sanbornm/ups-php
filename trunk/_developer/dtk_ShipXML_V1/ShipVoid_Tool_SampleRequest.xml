@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AccessRequest xml:lang="en-US">
+    <AccessLicenseNumber>Your_License</AccessLicenseNumber>
+    <UserId>Your_ID</UserId>
+    <Password>Your_Password</Password>
+</AccessRequest>
+<?xml version="1.0" encoding="UTF-8"?>
+<VoidShipmentRequest>
+    <Request>
+        <TransactionReference>
+            <CustomerContext>Customer Comment</CustomerContext>
+            <XpciVersion>1.0</XpciVersion>
+        </TransactionReference>
+        <RequestAction>1</RequestAction>
+        <RequestOption>1</RequestOption>
+    </Request>
+    <ShipmentIdentificationNumber>1Z2220060292353829</ShipmentIdentificationNumber>
+</VoidShipmentRequest>

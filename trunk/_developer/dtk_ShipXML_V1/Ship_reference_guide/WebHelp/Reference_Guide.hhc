@@ -1,0 +1,116 @@
+<html>
+<!-- Sitemap 1.0 -->
+<object type="text/site properties">
+  <param name="FrameName" value="bsscright">
+  <param name="SiteType" value="toc">
+  <param name="Image Width" value="16">
+</object>
+<ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="An Introduction to UPS OnLine Tools">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="OnLine Tools Overview">
+      <param name="Local" value="UPS_Online/overview.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Using UPS Image Files">
+      <param name="Local" value="images.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="General OnLine Tool Programming Information">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Developing OnLine Tools with Java">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Introduction to Developing with Java">
+        <param name="Local" value="Java/java_intro.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="HTTP Post for Java">
+        <param name="Local" value="Java/java_HTTP_Post.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Using Secure Socket Layer with Java">
+        <param name="Local" value="Java/java_ssl.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Proxy Authentication for Java">
+        <param name="Local" value="Java/java_proxy_authentication.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="XML Programming Information for Java">
+        <param name="Local" value="Java/java_xml.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Working with Java Sample Code">
+        <param name="Local" value="Java/java_sample.htm">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Developing OnLine Tools with Visual Basic">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Introduction to Developing with VB">
+        <param name="Local" value="Visual_Basic/vb_intro.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="HTTP Post for VB">
+        <param name="Local" value="Visual_Basic/vb_HTTP_Post.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Using Secure Socket Layer with VB">
+        <param name="Local" value="Visual_Basic/vb_ssl.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Proxy Authentication for VB">
+        <param name="Local" value="Visual_Basic/vb_proxy_authentication.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="XML Programming Information for VB">
+        <param name="Local" value="Visual_Basic/vb_xml.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Working with VB Sample Code">
+        <param name="Local" value="Visual_Basic/vb_sample.htm">
+      </object>
+      </ul>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Shipping XML Programming Information">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Introduction to Shipping">
+      <param name="Local" value="XML_Sample/toolintro.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Shipping XML Request">
+      <param name="Local" value="XML_Sample/xmlrequest.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Shipping XML Response">
+      <param name="Local" value="XML_Sample/xmlresponse.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Shipping DTDs">
+      <param name="Local" value="dtd.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Technical Support">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Technical Support">
+      <param name="Local" value="Technical_Support.htm">
+    </object>
+    </ul>
+</ul>
+</html>

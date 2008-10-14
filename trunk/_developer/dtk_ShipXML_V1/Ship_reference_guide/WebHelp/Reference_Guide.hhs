@@ -1,0 +1,1166 @@
+[TOPICS=23]
+"Classpath","Classpath.htm"
+"Shipping DTDs","dtd.htm"
+"Using UPS Images","images.htm"
+"HTTP Post","Java/java_HTTP_Post.htm"
+"Introduction to Developing with Java","Java/java_intro.htm"
+"Proxy Authentication","Java/java_proxy_authentication.htm"
+"Working with Sample Code","Java/java_sample.htm"
+"Using Secure Socket Layer (SSL)","Java/java_ssl.htm"
+"XML Programming Information","Java/java_xml.htm"
+"New Topic","New_Topic.htm"
+"Path","Path.htm"
+"Technical Support","Technical_Support.htm"
+"Introduction to OnLine Tool Programming","Tool_Specific/tool_programming.htm"
+"OnLine Tool Overview","UPS_Online/overview.htm"
+"HTTP Post","Visual_Basic/vb_HTTP_Post.htm"
+"Introduction to Developing with Visual Basic","Visual_Basic/vb_intro.htm"
+"Proxy Authentication","Visual_Basic/vb_proxy_authentication.htm"
+"Working with Sample Code","Visual_Basic/vb_sample.htm"
+"Using Secure Socket Layer (SSL)","Visual_Basic/vb_ssl.htm"
+"XML Programming Information","Visual_Basic/vb_xml.htm"
+"Introduction to Shipping","XML_Sample/toolintro.htm"
+"XML Request","XML_Sample/xmlrequest.htm"
+"XML Response","XML_Sample/xmlresponse.htm"
+
+
+[KEYWORDS=1048]
+"0", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"00", 22
+"000000", 13
+"0001", 22, 21
+"01", 21
+"02", 21
+"03", 21
+"0x", 16
+"1", 14, 13, 8, 7, 6, 5, 3, 2, 22, 21, 19, 18, 17, 16
+"100", 8
+"111616", 21
+"12345", 21
+"13", 22
+"15", 15, 4
+"15px", 15, 4
+"17", 15, 4
+"17px", 15, 4
+"1945", 3
+"1px", 13
+"1z12345e1512345676", 22, 21
+"1z12345e1512345686", 22
+"2", 7, 6, 5, 21
+"20", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"2001", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"2048", 14
+"20px", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"22", 21
+"222626", 21
+"23", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"23px", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"2616", 3
+"3", 7, 21
+"30346", 21
+"30605", 21
+"31", 22
+"33", 21
+"333656", 21
+"35", 20
+"35000", 21
+"38", 22
+"39", 22
+"3x", 2
+"4", 14, 22, 21
+"480", 13
+"480px", 13
+"50", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"500", 21
+"50px", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"51", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"51px", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"55", 21
+"550", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"550px", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"6", 6, 21
+"60000", 14
+"619", 13
+"619px", 13
+"7", 22
+"7117", 21
+"7227", 21
+"7337", 21
+"75", 22
+"75093", 21
+"8", 21
+"8080", 14
+"8b505cd8a2612824", 17
+"9119", 21
+"929", 21
+"9339", 21
+"9v", 21
+"_", 14, 19, 18, 17, 16
+"abcdefg", 21
+"abl", 7
+"abov", 8
+"acc", 8
+"accept", 14, 22, 21
+"acces", 8, 7, 6, 5, 21, 20, 19, 17, 16
+"accessadapt", 8
+"accesslicens", 17
+"accesslicenseagreementrequest", 17
+"accesslicensenumb", 21, 17
+"accesslicenseprofil", 17
+"accessrequest", 8, 6, 21
+"accountnumb", 21
+"accurat", 2
+"activiti", 20
+"ad", 14, 6, 5, 19, 17
+"adapt", 8
+"adapte", 8
+"adapteeread", 8
+"adaptfromobject", 8
+"adaptfromxml", 8
+"add", 8, 7, 16
+"addition", 20
+"additional", 3, 20
+"addnod", 8, 19, 17
+"addprovid", 7
+"addres", 21
+"addressline1", 21
+"addressline2", 21
+"addressline3", 21
+"agreement", 17
+"aliv", 14
+"allocat", 14
+"allow", 8, 7, 19
+"alltool", 17
+"along", 6
+"alphawork", 8
+"already", 6, 5, 18
+"although", 13
+"alway", 14
+"america", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"amount", 2, 19
+"anoth", 7
+"any", 15, 14, 7, 4, 2
+"anytim", 7, 5
+"api", 8, 7
+"app", 14
+"append", 3, 19
+"appendchild", 8, 19
+"application", 14, 13, 10, 8, 7, 5, 3, 2, 0, 18, 17
+"appnam", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"appropriat", 2, 19
+"archiv", 9, 1, 0
+"area", 2
+"around", 8, 2, 19
+"array", 19
+"async", 19
+"athen", 21
+"atlanta", 21
+"attentionnam", 21
+"attribut", 9, 1, 19
+"attrnam", 8, 19
+"attrvalu", 8, 19
+"authenticat", 7
+"authentication", 15, 14, 7, 5, 4, 16
+"authenticator", 7, 5
+"authorization", 14, 7, 5
+"av", 3
+"availabl", 11, 8
+"ba", 14
+"baby_up", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"back", 14
+"bas", 14, 13, 6, 5, 18
+"basic", 15, 13, 4
+"bat", 6
+"batch", 6
+"bdoloop", 14
+"be", 7
+"becom", 7
+"befor", 14, 8, 5, 3
+"behind", 7, 5, 16
+"below", 14, 8, 7, 5, 19, 17, 16
+"bet", 20
+"billingweight", 22
+"billship", 21
+"binari", 0
+"bind", 7
+"boolean", 14, 19
+"bord", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"border", 2
+"both", 8, 7, 6, 5
+"bottom", 13, 2
+"box", 7
+"buf", 3
+"bufferedread", 3
+"bufferstr", 8
+"build", 13, 8, 19, 17
+"built", 8
+"busines", 11
+"byt", 7
+"cal", 8, 7, 5, 19, 17
+"call", 14, 8
+"callback", 7
+"cam", 7
+"cannot", 7, 3
+"captur", 14
+"cas", 14
+"catch", 8, 7, 3
+"cbool", 14
+"certificat", 7
+"chang", 14, 8, 7
+"char", 3
+"check", 7
+"child", 19
+"childnod", 19
+"christy", 21
+"city", 21
+"claim", 7
+"clas", 14, 8, 7, 5, 3, 0, 18
+"classpath", 6, 0
+"client", 7, 6, 5
+"clos", 7, 3
+"cod", 15, 14, 9, 8, 7, 6, 5, 4, 3, 1, 22, 21, 19, 18, 17, 16
+"codamount", 21
+"codcod", 21
+"codfundscod", 21
+"color", 13
+"com", 14, 11, 8, 7, 6, 5, 21
+"combin", 7, 2
+"commerc", 13, 20
+"communicat", 7
+"communication", 13, 7
+"commup", 13
+"company", 13, 20
+"company1", 21
+"company2", 21
+"companynam", 21
+"compil", 5, 3
+"complet", 14, 8, 6, 5, 18
+"component", 14
+"comput", 15, 14, 13, 12, 11, 9, 8, 7, 6, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"concatenat", 8
+"configuration", 14, 6, 5, 3, 18
+"confirm", 22, 21
+"connect", 14, 3
+"connection", 14, 7, 6, 5, 3, 18, 16
+"consist", 0
+"const", 14
+"constant", 14
+"contact", 11
+"contain", 9, 8, 6, 1, 20, 19, 17
+"content", 14
+"context", 7
+"contract", 9, 1
+"control", 7, 20
+"convert", 8
+"copyright", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"correct", 7
+"cost", 20
+"countri", 20
+"country", 11
+"countrycod", 21, 17
+"coupl", 8
+"creat", 8, 3, 20, 19, 18, 17
+"createattribut", 19
+"createelement", 8, 19
+"createnod", 19
+"createprocessinginstruction", 19
+"createtextnod", 8
+"createxmldocument", 8, 19, 17
+"cryptographic", 7
+"currencycod", 22, 21
+"custom", 11, 8
+"customer", 13, 20
+"customercontext", 22, 21, 17
+"data", 15, 7, 4, 3
+"decrypt", 7
+"default", 8
+"defin", 7, 5
+"definition", 9, 1
+"demo", 17
+"demo22", 14
+"description", 22, 21
+"design", 15, 13, 7, 4, 2
+"destination", 20
+"detail", 13, 7, 5
+"develop", 15, 7, 4, 20
+"development", 13
+"dfactory", 8
+"dialog", 7
+"dif", 5
+"different", 13, 18
+"digest", 22, 21
+"digital", 7
+"dim", 14, 19, 17
+"direct", 8
+"display", 2
+"dll", 14, 0
+"doc", 8, 19, 17
+"doc1", 17
+"docbuild", 8
+"doctobuf", 8
+"document", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"documentation", 8, 5, 3
+"documentbuild", 8
+"documentbuilderfactory", 8
+"docxml", 19
+"dom", 14, 8, 19
+"domdocument30", 19, 17
+"dompars", 8
+"don", 8, 7, 19
+"download", 14, 9, 6, 2, 1, 22, 21
+"dtd", 9, 1
+"du", 20
+"dwstatu", 14
+"dwstatussiz", 14
+"dwtimeout", 14
+"e", 13, 11, 8, 7, 3, 20
+"e1", 3
+"easy", 13
+"eavesdrop", 7
+"ec", 11
+"edg", 2
+"edition", 7
+"editor", 3
+"efficienci", 20
+"eith", 13, 3
+"element", 9, 8, 2, 1, 19
+"elementlist", 19
+"els", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"emailaddres", 21
+"emailmessag", 21
+"emailshipnot", 21
+"empty", 2, 19
+"empty_nod", 19, 17
+"en", 14, 8, 21, 17
+"enabl", 8, 7, 20
+"encrypt", 7
+"encryption", 7
+"end", 14, 19, 17
+"eng", 7
+"ensur", 8
+"ent", 17
+"environment", 10, 6, 0
+"epl", 22, 21
+"equal", 2, 19
+"equalsignorecas", 8, 7
+"err", 14
+"errfill", 19
+"errhand", 14, 19
+"error", 14, 13, 8, 3, 19, 17
+"errorhandl", 17
+"establish", 14
+"etc", 3, 2
+"every", 2, 19
+"ex", 8, 7
+"ex_blue_sm", 15, 4
+"exampl", 15, 14, 9, 8, 7, 6, 5, 4, 3, 1, 19, 18, 17, 16
+"exception", 8, 7, 3, 19
+"execut", 5, 3
+"executabl", 10, 6
+"exit", 14, 7, 19, 17
+"expensiv", 20
+"extend", 7, 5
+"extensibl", 13
+"extension", 7, 6
+"fail", 14, 8
+"fals", 14, 19
+"field", 19
+"fil", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 22, 21, 20, 19, 18, 17, 16
+"fileinputstream", 7
+"filenam", 6, 5, 18, 17
+"filenotfoundexception", 8
+"fillxml", 19
+"final", 3
+"find", 15, 4
+"finish", 17
+"firewall", 14, 7, 5, 16
+"first", 3
+"float", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"fnf", 8
+"focus", 13
+"follow", 8, 7, 6, 5, 3, 2, 19, 18
+"forgery", 7
+"form", 2
+"format", 15, 8, 4
+"four", 7
+"full", 17
+"function", 14, 6, 5, 19
+"functionality", 13
+"ga", 21
+"generat", 14, 2, 19, 17
+"get", 8, 3, 19
+"getbyt", 3
+"getchildnod", 8
+"getchildnodevalu", 8
+"getdocument", 8
+"getdocumentelement", 8
+"getelementsbytagnam", 8, 19
+"getexception", 8
+"getfirstchild", 8
+"getinputstream", 3
+"getlength", 8
+"getlicensenumb", 8
+"getmessag", 8
+"getnextsibl", 8
+"getnodenam", 8
+"getoutputstream", 3
+"getpassword", 8
+"getpasswordauthentication", 7, 5
+"getproperti", 7, 5
+"getproperty", 7
+"getuserid", 8
+"gif", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"go", 15, 14, 11, 7, 6, 4, 3, 20
+"goto", 14, 19, 17
+"graphic", 2, 22
+"graphicimag", 22
+"great", 7, 6, 5, 20, 19
+"guid", 13, 20
+"handl", 14, 13, 7, 6, 5, 18
+"hardwar", 20
+"head", 16
+"header", 14
+"height", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"her", 15, 14, 12, 8, 7, 6, 5, 4, 2, 22, 21, 19, 18, 17
+"hhttpopenrequest", 14, 18, 16
+"high", 7
+"hinternetconnect", 14, 18
+"hinternetsession", 14, 18
+"hold", 7
+"hom", 7
+"host", 14, 6, 5, 18
+"hostnam", 3
+"how", 15, 13, 9, 8, 7, 4, 3, 1
+"html", 6, 3
+"http", 15, 14, 13, 8, 7, 6, 5, 4, 3, 18, 17, 16
+"http_addreq_flag_add", 14
+"http_addreq_flag_replac", 14
+"http_query_flag_numb", 14
+"http_query_status_cod", 14
+"http_status_deni", 14
+"http_status_proxy_auth_req", 14
+"httpaddrequestheader", 14
+"httpopenrequest", 14, 18
+"httpqueryinfo", 14
+"httpsauthenticator", 7, 5
+"httpsclient", 7, 5
+"httpsendrequest", 14
+"httpsurlconnection", 7, 5
+"httpurlconnection", 3
+"hypertext", 13, 3
+"i", 19
+"ibm", 8, 7, 6, 5
+"icon", 2
+"id", 14
+"idea", 15, 4
+"identificationnumb", 8
+"identify", 2
+"ie3", 16
+"ie4", 16
+"if", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"illustrat", 8, 7, 5, 3, 19, 18
+"imag", 2, 22
+"img", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"implement", 15, 13, 7, 6, 5, 4
+"implementation", 8, 7, 6, 5
+"import", 8, 7, 5
+"importtoken", 7
+"inc", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"includ", 9, 7, 5, 2, 1
+"indata", 17
+"index", 6
+"individual", 8, 7
+"industry", 7
+"info", 8
+"information", 15, 14, 8, 7, 4, 3, 2, 20, 19
+"input", 9, 8, 3, 1
+"inputbox", 17
+"inputsourc", 8
+"inputstreamread", 3
+"insert", 22, 21
+"instead", 8
+"insuredvalu", 21
+"int", 7, 3
+"integ", 14, 19
+"integrat", 13, 20
+"integration", 13, 11
+"integrity", 7
+"intend", 7
+"interchang", 9, 1
+"interfac", 9, 7, 5, 1
+"internal", 7
+"internet", 7, 5, 3, 18, 16
+"internet_default_https_port", 14, 18
+"internet_flag_ignore_cert_cn_invalid", 14, 18
+"internet_flag_ignore_cert_date_invalid", 14, 18
+"internet_flag_multipart", 14, 18
+"internet_flag_reload", 14, 18
+"internet_flag_secur", 14, 18
+"internet_open_type_preconfig", 14
+"internet_option_connect_timeout", 14
+"internet_option_password", 14
+"internet_option_proxy_password", 14, 16
+"internet_option_proxy_usernam", 14, 16
+"internet_option_receive_timeout", 14
+"internet_option_send_timeout", 14
+"internet_option_usernam", 14
+"internet_option_version", 14
+"internet_service_http", 14, 18
+"internetconnect", 14, 18
+"internetopen", 14
+"internetqueryoption", 14
+"internetreadfil", 14
+"internetsetoption", 14
+"internetsetoptionstr", 14, 16
+"introduction", 15, 12, 4, 20
+"io", 8, 3
+"ioexception", 8, 3
+"iretval", 14, 16
+"issu", 18
+"item", 8, 19
+"ixmldomattribut", 19
+"ixmldomelement", 19, 17
+"ixmldomnod", 19
+"ixmldomnodelist", 19
+"ixmldomprocessinginstruction", 19
+"ixmldomtext", 19
+"jar", 7, 6, 5, 0
+"java", 15, 13, 8, 7, 6, 5, 4, 3, 0
+"java1", 8
+"java2", 8
+"javascript", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"javatm", 7
+"javax", 8
+"jaxp", 8
+"jdk", 7, 6, 5
+"jo", 21
+"jpg", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"jr", 6
+"js", 7, 6, 5
+"keep", 14
+"key", 7
+"keylocation", 7
+"keyr", 7, 6, 5
+"kin", 7
+"labelimag", 22
+"labelimageformat", 22
+"labelprintmethod", 21
+"labelspecification", 21
+"labelstocksiz", 21
+"lang", 8, 21, 17
+"languag", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"languagecod", 17
+"last", 14
+"lastdllerror", 14
+"lay", 15, 7, 4, 18
+"lb", 22, 21
+"lblmajor", 14
+"lblminor", 14
+"lbufferlen", 14
+"learn", 7
+"left", 14, 13
+"len", 14, 18, 17, 16
+"length", 14, 7, 19
+"let", 3
+"librari", 7, 0
+"licens", 7, 17
+"lin", 3
+"list", 19
+"lmajorversion", 14
+"lminorversion", 14
+"lnumberofbytesread", 14
+"load", 7, 19
+"loadxml", 19
+"locat", 10, 7, 0
+"location", 6, 5
+"logo", 2
+"logo_", 2
+"logo_l", 2
+"logo_m", 2
+"long", 14
+"loos", 8
+"loptionbufferlen", 14, 18
+"lower", 20
+"machin", 6, 5
+"mailroom", 20
+"main", 17
+"maintain", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"major", 14
+"mak", 7, 2, 19, 17
+"man", 2
+"manual", 16
+"mark", 2
+"markup", 13, 9, 1
+"maxnod", 19
+"mean", 8, 7
+"measur", 7
+"memo", 21
+"messag", 13, 7
+"method", 15, 14, 13, 12, 11, 9, 8, 7, 6, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"microsystem", 8, 7
+"minimum", 2
+"minor", 14, 18
+"modify", 14, 6, 5, 18
+"modsamplecod", 14
+"modul", 17
+"monetaryvalu", 22, 21
+"msgbox", 17
+"msxml2", 14, 19, 17
+"msxml3", 19, 18
+"must", 14, 7, 6, 5, 2, 16
+"mvtxturl", 14
+"n1", 19
+"nam", 14, 8, 7, 6, 5, 21, 19, 18
+"nat", 7
+"navigator", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"ne", 16
+"necessary", 14
+"need", 8
+"net", 7, 5
+"netscap", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"new", 8, 7, 5, 3, 19, 17
+"newdocument", 8
+"newdocumentbuild", 8
+"newinstanc", 8
+"newtagnam", 8, 19
+"next", 19
+"nl", 8
+"nod", 8, 19, 17
+"node_element", 19
+"nodelist", 8, 19
+"nodetypedvalu", 19
+"non", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"nonvalidat", 21
+"normal", 14
+"not", 7, 16
+"now", 7
+"null", 8, 7, 3
+"numb", 13
+"number", 2
+"oattr", 19
+"object", 8, 2, 19
+"objxml", 19
+"objxmllist", 19
+"occur", 8
+"ok", 7
+"on", 7, 19
+"onlin", 15, 14, 13, 12, 11, 8, 7, 6, 5, 4, 3, 20, 18
+"open", 14, 7, 18
+"openconnection", 3
+"operat", 10, 0
+"option", 16
+"optional", 14, 7
+"ord", 14, 6, 5, 19
+"org", 8, 3
+"organization", 7
+"origin", 20
+"original", 7
+"other", 9, 1
+"otherwis", 7, 19
+"our", 14
+"out", 14, 8, 7, 5, 3
+"output", 9, 3, 1
+"outputstream", 3
+"outsid", 11
+"overall", 20
+"overview", 13, 20
+"own", 7
+"p", 7
+"packag", 8, 7, 6, 5, 21
+"packageresult", 22
+"packageserviceoption", 21
+"packageweight", 21
+"packagingtyp", 21
+"paramet", 14, 3
+"parameter", 18
+"parcel", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"parent", 8, 19
+"parentnod", 19
+"parenttag", 8, 19
+"pars", 14, 13, 8, 19
+"parser", 8
+"parti", 7
+"particular", 6, 5
+"partner", 9, 1
+"party", 7
+"pas", 14, 8, 19
+"password", 14, 7, 5, 21, 16
+"passwordauthentication", 7, 5
+"passwordauthenticator", 7, 5
+"path", 10, 6, 5, 17
+"paymentinformation", 21
+"perf", 21
+"perform", 14, 3
+"person", 2
+"pfx", 7, 6, 5
+"phonedialplannumb", 21
+"phoneextension", 21
+"phonelinenumb", 21
+"phonenumb", 21
+"photo", 2
+"photography", 2
+"pkcs11", 7
+"pkg", 7
+"plac", 14
+"plano", 21
+"platform", 7
+"pleas", 11, 6, 5, 3, 18
+"pnod", 19
+"pop", 7
+"port", 7, 5
+"portion", 14
+"position", 2
+"post", 15, 14, 8, 4, 3, 18, 17
+"postalcod", 21
+"postxml", 14
+"prefix", 3
+"prepaid", 21
+"prevent", 7
+"previous", 17
+"println", 8, 7, 5, 3
+"printstacktrac", 8
+"printstream", 8
+"privacy", 7
+"privat", 7, 3
+"problem", 14
+"procedur", 7
+"proces", 14, 8
+"product", 7, 6, 20
+"program", 15, 13, 12, 8, 4, 20, 19
+"programmer", 9, 1
+"proof", 7
+"prop", 19
+"properti", 7, 6, 5
+"property", 14, 8, 7, 5
+"protect", 8, 7, 5
+"protocol", 14, 13, 7, 6, 5, 3, 18, 16
+"provid", 15, 13, 8, 7, 6, 5, 4, 2
+"proximity", 2
+"proxy", 15, 14, 7, 6, 5, 4, 16
+"proxyhost", 7, 5
+"proxyport", 7, 5
+"psswd", 7
+"public", 14, 8, 7, 19, 17
+"pur", 8
+"purpos", 14, 7
+"put", 7, 5
+"querystr", 3
+"quick", 6
+"rat", 9
+"ratio", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"read", 14, 7, 6, 5, 3, 18
+"readi", 2
+"readurlconnection", 3
+"reasonabl", 2
+"receiv", 7
+"recipient", 7
+"recommend", 6, 5, 3
+"redistribut", 7
+"ref", 14, 8, 5, 3
+"referenc", 13, 2
+"referencenumb", 21
+"register", 2
+"relat", 13, 7, 5
+"relativ", 15, 14, 13, 12, 11, 9, 8, 7, 6, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"representativ", 11
+"reproduc", 2
+"reqfil", 17
+"request", 14, 13, 9, 8, 6, 5, 3, 1, 21, 20, 18, 17
+"requestaction", 21, 17
+"requestfil", 14
+"requestoption", 21, 17
+"requir", 15, 14, 13, 8, 7, 6, 5, 4, 2, 0, 19
+"resend", 14
+"resetproperti", 7, 5
+"residentialaddres", 21
+"resourc", 0
+"respectiv", 6, 5, 19
+"respfil", 17
+"respons", 14, 13, 9, 8, 6, 5, 3, 1, 22, 20, 18
+"responsefil", 14
+"responsestatuscod", 22
+"responsestatusdescription", 22
+"result", 6
+"resync", 7
+"return", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"rfc", 3
+"right", 13
+"ring", 7
+"rm", 8
+"rnod", 17
+"root", 8, 19
+"rootnam", 8, 19
+"rul", 9, 7, 1
+"run", 14, 7, 6, 5, 3, 18, 17
+"s", 14, 13, 11, 9, 8, 7, 6, 5, 3, 2, 1, 20, 18, 16
+"sampl", 15, 14, 8, 6, 5, 4, 3, 22, 21, 20, 18, 17
+"samplepackag", 7, 5
+"sav", 15, 14, 13, 12, 11, 9, 8, 7, 6, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"saxexception", 8
+"sbuf", 14, 18
+"scrambl", 7
+"screen", 2
+"script", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"scuseragent", 14
+"sdk", 18
+"se", 6, 17
+"section", 15, 4, 17
+"secur", 15, 7, 6, 4, 18
+"security", 7
+"seen", 8, 16
+"select", 14, 11
+"selection", 9
+"send", 14, 8, 7, 6, 5, 3, 18, 17
+"separat", 8, 2
+"separate", 8
+"serv", 14, 13, 8, 7, 6, 5, 3, 18, 17
+"server", 8
+"servic", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"serviceoptionscharg", 22
+"servicerequest", 6
+"serviceresponsecontain", 8
+"session", 14
+"set", 14, 9, 7, 6, 5, 1, 19, 18, 17, 16
+"setattribut", 8, 19
+"setcontext", 7
+"setdefault", 7, 5
+"setdefaultauthenticator", 7, 5
+"setdeliveryzon", 8
+"setdescription", 8
+"sethttpscontext", 7
+"setnamespaceawar", 8
+"setpickupdat", 8
+"setshipmentid", 8
+"setup", 7, 5
+"shead", 14
+"shield", 2
+"ship", 8, 1, 22, 21, 20
+"shipaccept", 21
+"shipconfirm", 21
+"shipconfirmu", 22, 21
+"shipfrom", 21
+"shipfromaddr1", 21
+"shipfromattnnam", 21
+"shipfromcompanynam", 21
+"shipmenet", 8
+"shipment", 8, 21
+"shipmentacceptrequest", 21
+"shipmentacceptrespons", 22
+"shipmentcharg", 22
+"shipmentconfirmrequest", 21
+"shipmentconfirmrespons", 22
+"shipmentdigest", 22, 21
+"shipmentidentificationnumb", 22, 21
+"shipmentnod", 8
+"shipmentnotification", 21
+"shipmentresult", 22
+"shipmentserviceoption", 21
+"shipperattnnam", 21
+"shippernam", 21
+"shippernumb", 21
+"shipto", 21
+"shiptoaddr1", 21
+"shiptoattnnam", 21
+"shiptocompanynam", 21
+"should", 3, 2, 19
+"show", 8, 7
+"shown", 19
+"sinc", 5
+"singl", 8
+"sit", 11
+"siz", 2, 19
+"slight", 18
+"slogan", 2
+"so", 7, 0
+"socket", 15, 7, 6, 4, 18
+"softwar", 9, 1, 20
+"sole", 2
+"solid", 13
+"solution", 8, 20
+"soptionbuf", 14, 18
+"sourc", 14, 7, 6, 5, 3, 2, 18
+"spac", 2
+"specifi", 9, 1
+"specific", 7
+"specification", 9, 7, 1
+"specify", 8, 19
+"src", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"sreadbuf", 14
+"srespons", 14
+"sresponsebuf", 14
+"ssl", 15, 7, 6, 5, 4, 18
+"ssl3", 7
+"sslcontext", 7
+"sslit", 7, 6, 5
+"sslnetworkclient", 7
+"sslpkcs12token", 7
+"sstatu", 14
+"st", 21
+"standard", 7
+"startswith", 8
+"statement", 14
+"stateprovincecod", 21
+"static", 8, 7, 3
+"statu", 22
+"statuscod", 22
+"statustyp", 22
+"step", 7
+"str", 14, 8, 7, 3, 19, 17
+"strcomp", 19
+"stream", 8, 3
+"streamlin", 20
+"strict", 7
+"string", 15, 4
+"stringbuf", 8, 3
+"stringread", 8
+"strparenttag", 8, 19
+"structuredphonenumb", 21
+"strurl", 14
+"strus", 7, 5
+"strxml", 19
+"styl", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"sub", 17
+"submission", 13
+"subroutin", 19, 17
+"succes", 22
+"successful", 5
+"sun", 8, 7, 6
+"support", 13, 11, 8
+"sur", 14, 6
+"surround", 2
+"sx", 8
+"symbol", 2
+"sync", 19
+"syntax", 9, 1
+"system", 13, 10, 8, 7, 6, 5, 3, 0
+"t", 8, 19
+"tag", 8, 19
+"tak", 14, 9, 7, 1, 19
+"tamper", 7
+"technical", 11
+"technology", 7
+"test", 17
+"test262223144cat", 21
+"testpw", 21
+"testus", 21
+"testxmltransmitteribm", 6
+"testxmltransmittersun", 6
+"text", 12, 19
+"textstr", 8, 19
+"them", 8
+"thisnod", 19
+"throw", 8, 3
+"tim", 14
+"timeintransit", 14
+"tochararray", 7, 5
+"token", 7
+"tool", 15, 14, 13, 12, 11, 8, 7, 6, 5, 4, 3, 20, 18
+"top", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"topic", 12
+"tostr", 8, 3
+"totalbytesread", 14
+"totalcharg", 22
+"tr01", 22, 21
+"track", 6, 3
+"trackingnumb", 22
+"trad", 9, 1
+"trademark", 2
+"transact", 15, 4
+"transaction", 7
+"transactionreferenc", 22, 21, 17
+"transf", 3
+"transfer", 7
+"transport", 13
+"transportationcharg", 22
+"treat", 8
+"trim", 14, 17
+"tru", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"try", 8, 7, 3
+"twininetdllversion", 14
+"two", 8, 7
+"tx", 21
+"txdocument", 8
+"typ", 14, 12, 9, 2, 1
+"u", 11
+"uc", 3
+"un_global_h", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"un_global_upslogo", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"unit", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"unitofmeasurement", 22, 21
+"unscrambl", 7
+"up", 15, 14, 13, 11, 8, 7, 6, 5, 4, 3, 2, 20, 19, 18
+"url", 14, 3, 18
+"urlconnection", 3
+"urlencod", 14
+"urlobject", 14, 18
+"urlread", 3
+"us", 15, 14, 13, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 21, 19, 18, 17
+"usabl", 8, 7
+"usd", 22, 21
+"userid", 21
+"usernam", 14, 7, 5, 16
+"usshipfromaddr2", 21
+"usshipfromaddr3", 21
+"usshipperaddr1", 21
+"usshipperaddr2", 21
+"usshipperaddr3", 21
+"usshiptoaddr2", 21
+"usshiptoaddr3", 21
+"utiliz", 5, 2, 0
+"valid", 19, 17
+"validat", 9, 8, 1
+"valu", 14, 9, 8, 7, 6, 5, 3, 1, 21, 19, 18
+"variabl", 14, 10, 0
+"vb", 15, 14, 19, 18, 17, 16
+"vb6", 14, 19
+"vbcrlf", 14, 17
+"vbnullstr", 14, 18
+"vdllversion", 14
+"vendor", 8, 7
+"verifi", 7
+"verify", 8
+"version", 14, 8, 7, 6, 5, 22, 21, 19
+"via", 7
+"view", 7, 6, 3
+"visit", 11
+"visual", 15, 13, 4
+"vm", 8
+"vocabulary", 9, 1
+"void", 8, 7, 22, 21
+"voidshipmentrequest", 21
+"voidshipmentrespons", 22
+"w3c", 8
+"want", 14, 6, 5, 18
+"way", 8, 7, 5, 19
+"web", 11, 8
+"weight", 22, 21
+"wend", 14
+"what", 9, 1
+"wheth", 20
+"whil", 14, 7, 3
+"width", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"will", 15, 14, 8, 7, 5, 4, 20, 17, 16
+"wininet", 14, 18, 16
+"within", 6, 5, 3, 2, 19
+"without", 8, 20
+"word", 14, 2
+"work", 15, 13, 6, 5, 4, 3, 17, 16
+"worldwid", 20
+"would", 14
+"writ", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"writabl", 19
+"www", 14, 11, 7, 3
+"x", 15, 14, 13, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2, 1, 22, 21, 20, 19, 18, 17, 16
+"xml", 15, 14, 13, 9, 8, 6, 5, 4, 3, 1, 22, 21, 20, 19, 18, 17
+"xml4j", 8
+"xml_accesslicensenumb", 8
+"xml_accessrequest", 8
+"xml_deliveryzon", 8
+"xml_description", 8
+"xml_password", 8
+"xml_pickupdat", 8
+"xml_shipment", 8
+"xml_userid", 8
+"xmlbuf", 8
+"xmlin", 8
+"xmlsampl", 6
+"xmltransmit", 14, 6, 5, 3, 18
+"xmltransmitteribm", 6
+"xmltransmittersun", 6
+"xnod", 19
+"xpci", 9, 1
+"xpciversion", 22, 21
+"xpicversion", 17
+"your", 15, 14, 13, 11, 6, 5, 4, 2, 20, 18
+"zip", 7, 6
+
+
+[STOPWORDS=88]
+"a"
+"about"
+"after"
+"against"
+"all"
+"also"
+"among"
+"an"
+"and"
+"are"
+"as"
+"at"
+"be"
+"became"
+"because"
+"been"
+"between"
+"but"
+"by"
+"can"
+"come"
+"do"
+"during"
+"each"
+"early"
+"for"
+"form"
+"found"
+"from"
+"had"
+"has"
+"have"
+"he"
+"her"
+"his"
+"however"
+"in"
+"include"
+"into"
+"is"
+"it"
+"its"
+"late"
+"later"
+"made"
+"many"
+"may"
+"me"
+"med"
+"more"
+"most"
+"near"
+"no"
+"non"
+"not"
+"of"
+"on"
+"only"
+"or"
+"other"
+"over"
+"several"
+"she"
+"some"
+"such"
+"than"
+"that"
+"the"
+"their"
+"then"
+"there"
+"these"
+"they"
+"this"
+"through"
+"to"
+"under"
+"until"
+"use"
+"was"
+"we"
+"were"
+"when"
+"where"
+"which"
+"who"
+"with"
+"you"

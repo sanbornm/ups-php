@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<AccessRequest xml:lang="en-US">
+  <AccessLicenseNumber>Your_License</AccessLicenseNumber>
+  <UserId>Your_ID</UserId>
+  <Password>Your_Password</Password>
+</AccessRequest> 
+<?xml version="1.0"?>
+<ShipmentConfirmRequest xml:lang="en-US">
+  <Request>
+    <TransactionReference>
+      <CustomerContext>Customer Comment</CustomerContext>
+      <XpciVersion/>
+    </TransactionReference>
+    <RequestAction>ShipConfirm</RequestAction>
+    <RequestOption>validate</RequestOption>
+  </Request>
+  <LabelSpecification>
+    <LabelPrintMethod>
+      <Code>GIF</Code>
+      <Description>gif file</Description>
+    </LabelPrintMethod>
+    <HTTPUserAgent>Mozilla/4.5</HTTPUserAgent>
+    <LabelImageFormat>
+      <Code>GIF</Code>
+      <Description>gif</Description>
+    </LabelImageFormat>
+  </LabelSpecification>
+  <Shipment>
+   <RateInformation>
+      <NegotiatedRatesIndicator/> 
+    </RateInformation> 
+	<Description/>
+    <Shipper>
+      <Name>Shipper Name</Name>
+      <PhoneNumber>1234567890</PhoneNumber>
+      <ShipperNumber>Ship Number</ShipperNumber>
+	  <TaxIdentificationNumber>1234567877</TaxIdentificationNumber>
+      <Address>
+    	<AddressLine1>Address Line</AddressLine1>
+    	<City>City</City>
+    	<StateProvinceCode>MD</StateProvinceCode>
+    	<PostalCode>21093</PostalCode>
+    	<PostcodeExtendedLow></PostcodeExtendedLow>
+    	<CountryCode>US</CountryCode>
+     </Address>
+    </Shipper>
+	<ShipTo>
+     <CompanyName>Ship To Company Name</CompanyName>
+      <AttentionName>Ship To Attn Name</AttentionName>
+      <PhoneNumber>97225377171</PhoneNumber>
+      <Address>
+        <AddressLine1>Address Line</AddressLine1>
+        <City>City</City>
+        <StateProvinceCode>FL</StateProvinceCode>
+        <PostalCode>32960</PostalCode>
+        <CountryCode>US</CountryCode>
+      </Address>
+    </ShipTo>
+    <ShipFrom>
+      <CompanyName>Ship From Company Name</CompanyName>
+      <AttentionName>Ship From Attn Name</AttentionName>
+      <PhoneNumber>1234567890</PhoneNumber>
+	  <TaxIdentificationNumber>1234567877</TaxIdentificationNumber>
+      <Address>
+        <AddressLine1>Address Line</AddressLine1>
+        <City>City</City>
+    	<StateProvinceCode>MD</StateProvinceCode>
+    	<PostalCode>21093</PostalCode>
+    	<CountryCode>US</CountryCode>
+      </Address>
+    </ShipFrom>
+     <PaymentInformation>
+      <Prepaid>
+        <BillShipper>
+          <AccountNumber>Ship Number</AccountNumber>
+        </BillShipper>
+      </Prepaid>
+    </PaymentInformation>
+    <Service>
+      <Code>02</Code>
+      <Description>2nd Day Air</Description>
+    </Service>
+    <ShipmentServiceOptions>
+      <OnCallAir>
+    	<PickupDetails>	
+    		<PickupDate>20071210</PickupDate>
+    		<EarliestTimeReady>0800</EarliestTimeReady>
+    		<LatestTimeReady>1800</LatestTimeReady>
+    		<SuiteRoomID>100</SuiteRoomID>
+    		<FloorID>2</FloorID>
+    		<Location>Location</Location>
+    		<ContactInfo>
+    			<Name>Contact Info Name</Name>
+    			<StructuredPhoneNumber>	 
+    			<PhoneCountryCode></PhoneCountryCode>
+        			<PhoneDialPlanNumber>111666</PhoneDialPlanNumber>
+        			<PhoneLineNumber>7777</PhoneLineNumber>
+        			<PhoneExtension>9119</PhoneExtension>
+        		</StructuredPhoneNumber>
+    		</ContactInfo>
+    	</PickupDetails>
+      </OnCallAir> 
+      <Notification>
+    	<NotificationCode>6</NotificationCode>
+    	<EMailMessage>
+    		<EMailAddress>email@ups.com</EMailAddress>
+    		<FromName>From Name</FromName>
+    		<Memo>Memo</Memo>
+    		<SubjectCode>03</SubjectCode>
+    	</EMailMessage>
+      </Notification>
+  	  <Notification>
+        <NotificationCode>7</NotificationCode>
+    	<EMailMessage>
+			<EMailAddress>email@ups.com</EMailAddress>
+    		<UndeliverableEMailAddress>email@ups.com</UndeliverableEMailAddress>
+    	</EMailMessage>
+      </Notification>
+      <SaturdayPickup>0</SaturdayPickup>
+      <SaturdayDelivery>0</SaturdayDelivery>
+    </ShipmentServiceOptions>
+    <Package>
+      <PackagingType>
+        <Code>02</Code>
+        <Description>Customer Supplied</Description>
+      </PackagingType>
+      <Description>Package Description</Description>
+	  <ReferenceNumber>
+	  	<Code>00</Code>
+		<Value>Package</Value>
+	  </ReferenceNumber>
+      <PackageWeight>
+        <UnitOfMeasurement/>
+        <Weight>60.0</Weight>
+      </PackageWeight>
+      <LargePackageIndicator/>
+      <AdditionalHandling>0</AdditionalHandling>
+    </Package>
+  </Shipment>
+</ShipmentConfirmRequest> 
