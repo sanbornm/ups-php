@@ -9,7 +9,7 @@ In order to provide consistent looking code to developers we shall try to code t
 = Details =
 
 ==Code Indention==
-All code will be indented with a standard tab character
+All code will be indented with a standard tab character.
 
 ==Line Termination==
 Line termination is the standard way for Unix text files. Lines must end only with a linefeed (LF). Linefeeds are represented as ordinal 10, or hexadecimal 0x0A.
