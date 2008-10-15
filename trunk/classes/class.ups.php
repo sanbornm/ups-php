@@ -5,34 +5,48 @@ class ups {
 	var $User;
 	var $Pass;
 	var $templatePath;
+	var $accessRequest;
+
+    /**********************************************
+     * $License = XML Access Code provided by UPS
+     * $User = UPS.com Username
+     * $Password = UPS.com Password
+     * $templatePath = Path to XML templates 
+     *
+     **********************************************/
 
 	function ups($license,$user,$pass){
 		$this->License = $license;
 		$this->User = $user;
 		$this->Pass = $pass;
-		$this->setTestingMode(1);
+		$this->setTestingMode(1); 
+		$this->accessRequest = false;
 		$this->templatePath = 'xml/'; // No beginning slash if path is relative
 	}
 
 	function access(){
 		// This will create the AccessRequest XML that belongs at the beginning of EVERY request made to UPS
 		$accessXML = $this->sandwich($this->templatePath.'AccessRequest.xml', array('{LICENSE}','{USER_ID}','{PASSWORD}'), array($this->License,$this->User,$this->Pass));
+		$this->accessRequest = true;
 	return $accessXML;
 	}
 
 	function request($type, $xml){
 		// This function will return all of the relevant response info in the form of an Array
-		$output = preg_replace('/[\s+]{2,}/', '', $xml);
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $this->upsUrl.'/ups.app/xml/'.$type);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $output);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$curlReturned = curl_exec($ch);
-		curl_close($ch);
-		$response = $curlReturned;
-	return $response;
+		if ($this->accessRequest != true) {
+			die('access function has not been set');		
+		} else {	
+			$output = preg_replace('/[\s+]{2,}/', '', $xml);
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $this->upsUrl.'/ups.app/xml/'.$type);
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_HEADER, 0);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $output);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			$curlReturned = curl_exec($ch);
+			curl_close($ch);
+			$response = $curlReturned;
+			return $response;
 	}
 	
 	function sandwich($templateFile, $findArray, $replaceArray){
