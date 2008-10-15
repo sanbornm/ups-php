@@ -36,6 +36,7 @@ class ups {
 	}
 	
 	function sandwich($templateFile, $findArray, $replaceArray){
+		// This will look in the template folder for an xml template and subsitute one array for another	
 		$handle=fopen($templateFile, "r");
 		if($handle){$buffer = fread($handle, filesize($templateFile));fclose($handle);}
 		$x=0;while($x < count($findArray)){$buffer = str_replace($findArray[$x],$replaceArray[$x],$buffer);++$x; }
@@ -43,6 +44,7 @@ class ups {
 	}
 
 	function getAvailableLayout($templateFile){
+		// This function needs commented
 		$handle=fopen($templateFile, "r");
 		if($handle){$buffer = fread($handle, filesize($templateFile));fclose($handle);}
 		preg_match_all("/(\{.*?\})/",$buffer,$availArr);
@@ -63,6 +65,8 @@ class ups {
 	}
 	
 	function setTemplatePath($path){
+		// TODO: set the default path to ../xml/ incase user doesn't set it
+		// Set the template path for xml templates
 		if($path !== ''){
 			$this->templatePath = $path;
 		}
