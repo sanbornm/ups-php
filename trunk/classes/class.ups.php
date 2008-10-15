@@ -5,6 +5,7 @@ class ups {
 	var $User;
 	var $Pass;
 	var $templatePath;
+	var $debugMode;
 	var $accessRequest;
 
     /**********************************************
@@ -89,8 +90,10 @@ class ups {
 	
 	function setTestingMode($bool){
 		if($bool == 1){
+			$this->debugMode = true;
 			$this->upsUrl = 'https://wwwcie.ups.com';
 		}else{
+			$this->debugMode = false;
 			$this->upsUrl = 'https://www.ups.com';
 		}
 	return true;
@@ -137,6 +140,14 @@ class xml2Array {
 	function tagClosed($parser, $name){
 		$this->arrOutput[count($this->arrOutput)-2]['children'][] = $this->arrOutput[count($this->arrOutput)-1];
 		array_pop($this->arrOutput);
+	}
+
+	function throwError($error) {
+		if($this->debugMode) {
+			die($error);
+		}else{
+			return $error;		
+		}
 	}
 }
 
