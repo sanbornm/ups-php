@@ -1,12 +1,10 @@
 <?php
 class upsTrack {
-
 	
 	function upsTrack($upsObj){
 		// Must pass the UPS object to this class for it to work
 		$this->ups = $upsObj;
 	}
-	
 	
 	function track($trackingNumber){
 		$xml = $this->ups->access();
