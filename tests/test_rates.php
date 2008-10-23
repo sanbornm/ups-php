@@ -1,3 +1,5 @@
+<html>
+<body>
 <?php
 //TODO: This is not a functional test yet as class.upsRate.php is not finished
 require('../classes/class.ups.php');
@@ -28,3 +30,5 @@ if (isset($accessNumber)) {
 	Password: <input type="password" name="password" value="<?php echo $password; ?>" /><br />
 	<input type="submit" name="submit" /><br />
 </form>
+</body>
+</html>
