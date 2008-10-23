@@ -29,7 +29,7 @@ class ups {
 		// This will create the AccessRequest XML that belongs at the beginning of EVERY request made to UPS
 		$accessXML = $this->sandwich($this->templatePath.'AccessRequest.xml', array('{LICENSE}','{USER_ID}','{PASSWORD}'), array($this->License,$this->User,$this->Pass));
 		$this->accessRequest = true;
-	return $accessXML;
+		return $accessXML;
 	}
 
 	function request($type, $xml){
@@ -48,20 +48,27 @@ class ups {
 			curl_close($ch);
 			$response = $curlReturned;
 			return $response;
-	}
+		}
+	}	
 	
 	function sandwich($templateFile, $findArray, $replaceArray){
 		// This will look in the template folder for an xml template and subsitute one array for another	
 		$handle=fopen($templateFile, "r");
-		if($handle){$buffer = fread($handle, filesize($templateFile));fclose($handle);}
-		$x=0;while($x < count($findArray)){$buffer = str_replace($findArray[$x],$replaceArray[$x],$buffer);++$x; }
-	return $buffer;
+		if($handle){
+				$buffer = fread($handle, filesize($templateFile));fclose($handle);
+		}
+		$x=0;while($x < count($findArray)){
+				$buffer = str_replace($findArray[$x],$replaceArray[$x],$buffer);++$x; 
+		}
+		return $buffer;
 	}
 
 	function getAvailableLayout($templateFile){
 		// This function needs commented
 		$handle=fopen($templateFile, "r");
-		if($handle){$buffer = fread($handle, filesize($templateFile));fclose($handle);}
+		if($handle){
+			$buffer = fread($handle, filesize($templateFile));fclose($handle);
+		}
 		preg_match_all("/(\{.*?\})/",$buffer,$availArr);
 		$lines = file($templateFile);
 		$items = split(' ',$lines[1]);
@@ -75,7 +82,8 @@ class ups {
 				$key = $availArr[0][$x];
 				$textArrayLayout .= "$".$prefix."['".$key."'] = '';<br>";
 			}
-		++$x; }
+		++$x; 
+		}
 	return $textArrayLayout;
 	}
 	
@@ -85,7 +93,7 @@ class ups {
 		if($path !== ''){
 			$this->templatePath = $path;
 		}
-	return true;
+		return true;
 	}
 	
 	function setTestingMode($bool){
@@ -96,7 +104,7 @@ class ups {
 			$this->debugMode = false;
 			$this->upsUrl = 'https://www.ups.com';
 		}
-	return true;
+		return true;
 	}
 
 }
