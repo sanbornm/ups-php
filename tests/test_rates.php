@@ -15,10 +15,15 @@ if (isset($accessNumber)) {
 	$upsConnect->setTemplatePath('../xml/');
 	$upsConnect->setTestingMode(1); // Change this to 0 for production
 	
+	
+	
 	$upsRate = new upsRate($upsConnect);
 	
 	print '<h2>UPS Rates Test</h2>';
 	
+	$upsRate->shipper(array('name' => 'mark', 'phone' => '5556568976', 'shipperNumber' => '486732', 'address1' => '14 main st', 'address2' => '', 'address3' => '', 'city' => 'Beverly Hills', 'state' => 'CA', 'postalCode' => '90210', 'country' => 'US'));
+	$upsRate->shipTo(array('companyName' => 'mark', 'attentionName' => 'mark', 'phone' => '5554823976', 'address1' => '12 Hollywood Blvd', 'address2' => '', 'address3' => '', 'city' => 'Beverly Hills', 'state' => 'CA', 'postalCode' => '90210', 'countryCode' => 'US'));	
+	$upsRate->package(array('description' => 'my description', 'code' => '02'));
 	$rateData = $upsRate->rate();
 	echo '<pre>'; print_r($rateData); echo '</pre>';
 	
