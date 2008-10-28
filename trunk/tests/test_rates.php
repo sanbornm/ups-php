@@ -59,7 +59,7 @@ if ($accessNumber != '' && $username != '' && $password != '') {
 
 
 	echo '<h2>XML Sent to UPS</h2>';
-	echo '<pre><![CDATA['; echo $upsRate->xmlSent; echo ']]></pre>';
+	echo '<pre>'; echo htmlspecialchars($upsRate->xmlSent); echo '</pre>';
 
 } else {
 	echo 'One or more parts of the form are not filled out.  You must provide your UPS credentials in order to get an accurate rate.';
