@@ -120,7 +120,13 @@ class ups {
 		}
 		return true;
 	}
-
+	function throwError($error) {
+		if($this->debugMode) {
+			die($error);
+		}else{
+			return $error;		
+		}
+	}
 }
 
 // Simon Willison, 16th April 2003
@@ -217,13 +223,6 @@ class xml2Array {
 		array_pop($this->arrOutput);
 	}
 
-	function throwError($error) {
-		if($this->debugMode) {
-			die($error);
-		}else{
-			return $error;		
-		}
-	}
 }
 
 ?>
