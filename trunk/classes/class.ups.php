@@ -26,12 +26,12 @@ class ups {
 	}
 
 	function access(){
-		/* MARKED CODE FOR DELETION
 		// This will create the AccessRequest XML that belongs at the beginning of EVERY request made to UPS
 		$accessXML = $this->sandwich($this->templatePath.'AccessRequest.xml', array('{LICENSE}','{USER_ID}','{PASSWORD}'), array($this->License,$this->User,$this->Pass));
 		$this->accessRequest = true;
-		return $accessXML; */
+		return $accessXML;
 
+		/*
 		$accessXML = new xmlWriter();
 		$accessXML->push('AccessRequest',array('xml:lang' => 'en-US'));
 		$accessXML->element('AccessLicenseNumber', $this->License);
@@ -40,7 +40,7 @@ class ups {
 		$accessXML->pop();
 
 		$this->accessRequest = true;
-		return $accessXML->getXml();
+		return $accessXML->getXml(); */
 
 
 
