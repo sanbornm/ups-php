@@ -18,6 +18,7 @@ class upsRate {
 	
 	// Main function that puts together all the XML builder function variables.  Builds the final XML for Rate calculation
 	function rate() {
+		// First part of XML is the access part,
 		$xml = $this->ups->access();
 		$content = $this->requestXML;
 

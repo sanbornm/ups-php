@@ -4,5 +4,5 @@
 			<XpciVersion/>
 		</TransactionReference>
 		<RequestAction>Rate</RequestAction>  
-		<RequestOption>Rate</RequestOption>  
+		<RequestOption>{RATE_OPTION}</RequestOption>  
 	</Request>
