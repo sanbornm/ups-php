@@ -127,7 +127,7 @@ class ups {
 // Based on Lars Marius Garshol's Python XMLWriter class
 // See http://www.xml.com/pub/a/2003/04/09/py-xml.html
 
-class xmlWriter {
+/* class xmlWriter {
     var $xml;
     var $indent;
     var $stack = array();
@@ -174,6 +174,7 @@ class xmlWriter {
         return $this->xml;
     }
 }
+*/
 
 class xml2Array {
 
