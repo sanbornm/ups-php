@@ -1,36 +1,59 @@
 <?php
 
 class upsRate {
+	var $requestXML;
+	var $shipmentXML;
 	var $shipperXML;
 	var $shipToXML;	
 	var $packageXML;	
 	var $packageDimensionsXML;	
 	var $packageWeightXML;	
+
+	var $xmlSent;
 	
 	function upsRate($upsObj) {
 		// Must pass the UPS object to this class for it to work
 		$this->ups = $upsObj;
 	}
 	
+	// Main function that puts together all the XML builder function variables.  Builds the final XML for Rate calculation
 	function rate() {
 		$xml = $this->ups->access();
-		$content = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_Request.xml', array(), array());
+		$content = $this->requestXML;
 
 
-
-		$content .= $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_Shipment.xml', array('{SHIPMENT_DESCRIPTION}','{SHIPPING_CODE}','{SHIPMENT_CONTENT}'), array('description','01',$this->shipperXML. $this->shipToXML. $this->packageXML));
+		$content .= $this->shipmentXML;
 		
 		$xml .= $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_Main.xml', array('{CONTENT}'), array($content));
-		echo "<pre>$xml</pre>";
+
+		$this->xmlSent = $xml;
+
 		$responseXML = $this->ups->request('Rate', $xml);
 		$xmlParser = new XML2Array();
 		$fromUPS = $xmlParser->parse($responseXML);
 		return $fromUPS;
 	}
 
-	function shipment($params) {
+	// Build Request XML
+	function request($params) {
+		if ($params['Shop']) {
+			$request = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_Request.xml', array('{RATE_OPTION}'), array('Shop')); 
+		} else {
+			$request = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_Request.xml', array('{RATE_OPTION}'), array('Rate')); 
+		}
+		$this->requestXML = $request;
+		return $request;
 	}
 
+	// Build the shipment XML
+	function shipment($params) {
+		$shipment = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_Shipment.xml', array('{SHIPMENT_DESCRIPTION}','{SHIPPING_CODE}','{SHIPMENT_CONTENT}'), array($params['description'],$params['serviceType'],$this->shipperXML. $this->shipToXML. $this->packageXML));
+		
+		$this->shipmentXML = $shipment;
+		return $shipment;
+	}
+
+	// Build the shipper XML
 	function shipper($params) {
 		$shipper = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_Shipper.xml', array('{SHIPPER_NAME}',
 			'{SHIPPER_PHONE}',
@@ -50,6 +73,7 @@ class upsRate {
 		return $shipper;
 	}
 
+	// Build the shipTo XML
 	function shipTo($params) {
 		$shipTo = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_ShipTo.xml', array('{SHIPTO_COMPANY_NAME}',
 			'{SHIPTO_ATTN_NAME}',
@@ -68,6 +92,7 @@ class upsRate {
 		return $shipTo;
 	}
 
+	// Build the package XML
 	function package($params) {
 		$package = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_Package.xml', array('{PACKAGE_DESCRIPTION}',
 			'{PACKAGING_CODE}','{PACKAGE_SIZE}','{PACKAGE_EXTRAS}'), array($params['description'],$params['code'],$this->packageDimensions(array('length' => '5', 'width' => '5', 'height' => '5')). $this->packageWeight(array('weight' => '5')),''));
@@ -76,6 +101,7 @@ class upsRate {
 		return $package;
 	}
 
+	// Build the packageDimensions XML
 	function packageDimensions($params) {
 		$packageDimensions = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_PackageDimensions.xml', array('{PACKAGE_LENGTH}',
 			'{PACKAGE_WIDTH}',
@@ -85,6 +111,7 @@ class upsRate {
 		return $packageDimensions;
 	}
 
+	// Build packageWeight XML
 	function packageWeight($params) {
 		$packageWeight = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_PackageWeight.xml', array('{PACKAGE_WEIGHT}'), array($params['weight'])); 
 
