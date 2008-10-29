@@ -12,7 +12,6 @@ $password = $_POST['password'];
 
 // If the form is filled out go get a rate from UPS 
 if ($accessNumber != '' && $username != '' && $password != '') {
-	// Replace the values below with your own credentials.
 	$upsConnect = new ups("$accessNumber","$username","$password");
 	$upsConnect->setTemplatePath('../xml/');
 	$upsConnect->setTestingMode(1); // Change this to 0 for production
@@ -54,9 +53,9 @@ if ($accessNumber != '' && $username != '' && $password != '') {
 
 	$upsRate->shipment(array('description' => 'my description','serviceType' => '03'));
 
-	$rateFromUPS = $upsRate->rate();
-	echo '<pre>'; print_r($rateFromUPS); echo '</pre>';
-
+	$rateFromUPS = $upsRate->sendRateRequest();
+	
+	echo $upsRate->returnRate();
 
 	echo '<h2>XML Sent to UPS</h2>';
 	echo '<pre>'; echo htmlspecialchars($upsRate->xmlSent); echo '</pre>';
