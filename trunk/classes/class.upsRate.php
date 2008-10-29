@@ -127,6 +127,8 @@ class upsRate {
 		return $packageWeight;
 	}
 
+	
+
 	// Output the entire array of XML returned by UPS
 	function returnResponseArray() {
 		$rateResponse = $this->rateResponse;
