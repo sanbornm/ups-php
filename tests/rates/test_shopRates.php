@@ -15,16 +15,9 @@ if ($accessNumber != '' && $username != '' && $password != '') {
 	$upsConnect = new ups("$accessNumber","$username","$password");
 	$upsConnect->setTemplatePath('../../xml/');
 	$upsConnect->setTestingMode(1); // Change this to 0 for production
-	
-	
-	
+
 	$upsRate = new upsRate($upsConnect);
-	
-	
-	# Shop for different services
-	#$upsRate->request(array('Shop' => true));
-	# Return a specific service rate
-	$upsRate->request(array());
+	$upsRate->request(array('Shop' => true));
 
 	$upsRate->shipper(array('name' => 'mark',
 							 'phone' => '5556568976', 
@@ -53,25 +46,24 @@ if ($accessNumber != '' && $username != '' && $password != '') {
 	$upsRate->shipment(array('description' => 'my description','serviceType' => '03'));
 
 	$rateFromUPS = $upsRate->sendRateRequest();
-	
-	echo '<h1>UPS Rate Test</h1>';
-	echo '<h2>Rate</h2>';
-	echo $upsRate->returnRate();
-	echo '<h2>UPS Rates Response XML in an Array</h2>';
-	echo '<pre>'; print_r($upsRate->returnResponseArray()); echo '</pre>';
-
-	echo '<h2>XML Sent to UPS</h2>';
-	echo '<pre>'; echo htmlspecialchars($upsRate->xmlSent); echo '</pre>';
-
-} else {
-	echo 'One or more parts of the form are not filled out.  You must provide your UPS credentials in order to get an accurate rate.';
-}
 ?>
+
+<h1>UPS Rate Shopping Test</h1>
+<h2>UPS Rates Response XML in an Array</h2>
+<?php echo '<pre>'; print_r($upsRate->returnResponseArray()); echo '</pre>'; ?>
+
+<?php } else { ?>
+One or more parts of the form are not filled out.  You must provide your UPS credentials in order to get an accurate rate.
+<?php } ?>
+
 <form action="" method="POST">
 	Access Key: <input type="text" name="accessNumber" value="<?php echo $accessNumber; ?>" /><br />
 	Username: <input type="text" name="username" value="<?php echo $username; ?>" /><br />
 	Password: <input type="password" name="password" value="<?php echo $password; ?>" /><br />
 	<input type="submit" name="submit" /><br />
 </form>
+
+
 </body>
 </html>
+
