@@ -135,10 +135,26 @@ class upsRate {
 		return $rateResponse;
 	}
 
+	function isResponseError() {
+		$rateResponse = $this->rateResponse;
+		$responseStatusCode = $rateResponse['RatingServiceSelectionResponse']['Response']['ResponseStatusCode']['VALUE'];
+
+		if ($responseStatusCode < 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	// Return the total monitary value of the service
 	function returnRate() {
 		$rateResponse = $this->rateResponse;
-		return $rateResponse['RatingServiceSelectionResponse']['RatedShipment']['TotalCharges']['MonetaryValue']['VALUE'];
+		$error = $rateResponse['RatingServiceSelectionResponse']['Response']['Error']['ErrorDescription']['VALUE'];
+		if ($this->isResponseError()) {
+			$this->ups->throwError("There was an error and UPS said, '$error'.");
+		} else {
+			return $rateResponse['RatingServiceSelectionResponse']['RatedShipment']['TotalCharges']['MonetaryValue']['VALUE'];
+		}
 	}
 
 		
