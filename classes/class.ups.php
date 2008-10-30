@@ -55,13 +55,24 @@ class ups {
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $this->upsUrl.'/ups.app/xml/'.$type);
 			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_HEADER, 0);
+			curl_setopt($ch,CURLOPT_TIMEOUT, 60);
+			curl_setopt($ch, CURLOPT_HEADER, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $output);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			$curlReturned = curl_exec($ch);
 			curl_close($ch);
-			$response = $curlReturned;
-			return $response;
+
+			// Find out if the UPS service is down
+			preg_match_all('/HTTP\/1\.\d\s(\d+)/',$curlReturned,$matches);
+			foreach($matches[1] as $key=>$value) {
+				if ($value != 100 && $value != 200) {
+					$this->throwError("The UPS service seems to be down with HTTP/1.1 $value");
+					return false;
+            	} else {
+					$response = strstr($curlReturned, '<?'); // Seperate the html header and the actual XML because we turned CURLOPT_HEADER to 1
+					return $response;
+				}
+			}
 		}
 	}	
 	
@@ -113,7 +124,7 @@ class ups {
 	function setTestingMode($bool){
 		if($bool == 1){
 			$this->debugMode = true;
-			$this->upsUrl = 'https://wwwcie.ups.com';
+			$this->upsUrl = 'https://wwwcie.ups.com/';
 		}else{
 			$this->debugMode = false;
 			$this->upsUrl = 'https://www.ups.com';
