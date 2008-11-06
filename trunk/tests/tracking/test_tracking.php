@@ -18,7 +18,7 @@ if ($accessNumber != '' && $username != '' && $password != '') {
 
 	$ups_track = new upsTrack($ups_connect);
 
-	$tracking_data = $ups_track->track('1Z12345E1392654435');
+	$tracking_data = $ups_track->track($trackingNumber);
 ?>
 <h2>UPS Tracking Test</h2>
 <pre><?php print_r($tracking_data); ?></pre>
