@@ -157,6 +157,17 @@ class upsRate {
 		}
 	}
 
+	// Find out if there are multiple rates in a response (user is shoping for rates)
+	function isMultipleRates() {
+		$rateResponse = $this->rateResponse;
+		
+		if ($rateResponse['RatingServiceSelectionResponse']['RatedShipment'][0] == null) { //If there is a value here there are multiple rates
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 		
 }
 ?>

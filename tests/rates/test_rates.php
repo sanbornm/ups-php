@@ -57,6 +57,7 @@ if ($accessNumber != '' && $username != '' && $password != '') {
 	echo '<h1>UPS Rate Test</h1>';
 	echo '<h2>Rate</h2>';
 	echo $upsRate->returnRate();
+
 	echo '<h2>UPS Rates Response XML in an Array</h2>';
 	echo '<pre>'; print_r($upsRate->returnResponseArray()); echo '</pre>';
 
