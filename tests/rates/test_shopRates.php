@@ -41,7 +41,13 @@ if ($accessNumber != '' && $username != '' && $password != '') {
 							'postalCode' => '90210', 
 							'countryCode' => 'US'));
 
-	$upsRate->package(array('description' => 'my description', 'code' => '02'));
+	$upsRate->package(array('description' => 'my description', 
+									'weight' => 5,
+									'code' => '02',
+									'length' => 5,
+									'width' => 5,
+									'height' => 5,
+									));
 
 	$upsRate->shipment(array('description' => 'my description','serviceType' => '03'));
 
