@@ -103,9 +103,9 @@ class upsRate {
 	// Build the package XML
 	function package($params) {
 		$package = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_Package.xml', array('{PACKAGE_DESCRIPTION}',
-			'{PACKAGING_CODE}','{PACKAGE_SIZE}','{PACKAGE_EXTRAS}'), array($params['description'],$params['code'],$this->packageDimensions(array('length' => '5', 'width' => '5', 'height' => '5')). $this->packageWeight(array('weight' => '5')),''));
+			'{PACKAGING_CODE}','{PACKAGE_SIZE}','{PACKAGE_EXTRAS}'), array($params['description'],$params['code'],$this->packageDimensions(array('length' => $params['length'], 'width' => $params['width'], 'height' => $params['height'])). $this->packageWeight(array('weight' => $params['weight'])),''));
 
-		$this->packageXML = $package;
+		$this->packageXML .= $package;
 		return $package;
 	}
 
