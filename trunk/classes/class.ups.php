@@ -53,7 +53,7 @@ class ups {
 		} else {	
 			$output = preg_replace('/[\s+]{2,}/', '', $xml);
 			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $this->upsUrl.'ups.app/xml/'.$type);
+			curl_setopt($ch, CURLOPT_URL, $this->upsUrl.'/ups.app/xml/'.$type);
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch,CURLOPT_TIMEOUT, 60);
 			curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -124,7 +124,7 @@ class ups {
 	function setTestingMode($bool){
 		if($bool == 1){
 			$this->debugMode = true;
-			$this->upsUrl = 'https://wwwcie.ups.com/';
+			$this->upsUrl = 'https://wwwcie.ups.com'; // Don't put a trailing slash here or world will collide.
 		}else{
 			$this->debugMode = false;
 			$this->upsUrl = 'https://www.ups.com';
