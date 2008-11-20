@@ -22,7 +22,11 @@ Lines should not contain trailing spaces. In order to facilitate this convention
 
 ==Terminology==
 ! is known as a "bang"
+
 # is known as a "hash"
+
 $ is known as a "bling"
+
 % is known as "cuffs"
+
 | is known as "bong"
