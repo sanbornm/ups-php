@@ -1,6 +1,7 @@
 <?php
 class upsTrack {
 	var $xmlSent;
+	var $trackResponse;
 	
 	function upsTrack($upsObj){
 		// Must pass the UPS object to this class for it to work
@@ -19,7 +20,26 @@ class upsTrack {
 		$xmlParser = new upsxmlParser();
 		$fromUPS = $xmlParser->xmlparser($responseXML);
 		$fromUPS = $xmlParser->getData();
+
+		$this->trackResponse = $fromUPS;
 	return $fromUPS;
+	}
+
+	// Output the entire array of XML returned by UPS
+	function returnResponseArray() {
+		$trackResponse = $this->trackResponse;
+		return $trackResponse;
+	}
+
+	function isResponseError() {
+		$rateResponse = $this->rateResponse;
+		$responseStatusCode = $rateResponse['TrackResponse']['Response']['ResponseStatusCode']['VALUE'];
+
+		if ($responseStatusCode < 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

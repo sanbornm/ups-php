@@ -14,14 +14,14 @@ $trackingNumber = $_POST['tracking'];
 if ($accessNumber != '' && $username != '' && $password != '') {
 	$ups_connect = new ups($accessNumber,$username,$password);
 	$ups_connect->setTemplatePath('../../xml/');
-	$ups_connect->setTestingMode(1); //Change this to 0 for production
+	$ups_connect->setTestingMode(0); //Change this to 0 for production
 
 	$upsTrack = new upsTrack($ups_connect);
 
 	$tracking_data = $upsTrack->track($trackingNumber);
 ?>
 <h2>UPS Tracking Test</h2>
-<pre><?php print_r($tracking_data); ?></pre>
+<pre><?php print_r($upsTrack->returnResponseArray()); ?></pre>
 
 <h2>XML Sent to UPS</h2>
 <pre><?php echo htmlspecialchars($upsTrack->xmlSent); ?></pre>
