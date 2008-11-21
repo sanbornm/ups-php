@@ -15,8 +15,10 @@ class upsTrack {
 		$this->xmlSent = $xml;
 
 		$responseXML = $this->ups->request('Track', $xml);
-		$xmlParser = new XML2Array();
-		$fromUPS = $xmlParser->parse($responseXML);
+
+		$xmlParser = new upsxmlParser();
+		$fromUPS = $xmlParser->xmlparser($responseXML);
+		$fromUPS = $xmlParser->getData();
 	return $fromUPS;
 	}
 
