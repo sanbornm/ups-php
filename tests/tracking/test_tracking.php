@@ -16,12 +16,15 @@ if ($accessNumber != '' && $username != '' && $password != '') {
 	$ups_connect->setTemplatePath('../../xml/');
 	$ups_connect->setTestingMode(1); //Change this to 0 for production
 
-	$ups_track = new upsTrack($ups_connect);
+	$upsTrack = new upsTrack($ups_connect);
 
-	$tracking_data = $ups_track->track($trackingNumber);
+	$tracking_data = $upsTrack->track($trackingNumber);
 ?>
 <h2>UPS Tracking Test</h2>
 <pre><?php print_r($tracking_data); ?></pre>
+
+<h2>XML Sent to UPS</h2>
+<pre><?php echo htmlspecialchars($upsTrack->xmlSent); ?></pre>
 <?php } else { ?>
 One or more parts of the form are not filled out.  You must provide your UPS credentials in order to get an accurate rate.
 <?php } ?>
