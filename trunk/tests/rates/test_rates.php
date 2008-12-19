@@ -28,7 +28,7 @@ if ($accessNumber != '' && $username != '' && $password != '') {
 
 	$upsRate->shipper(array('name' => 'mark',
 							 'phone' => '5556568976', 
-							 'shipperNumber' => '597746', 
+							 'shipperNumber' => '123456', 
 							 'address1' => '14 main st', 
 							 'address2' => '', 
 							 'address3' => '', 
