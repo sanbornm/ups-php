@@ -28,7 +28,7 @@ if ($accessNumber != '' && $username != '' && $password != '') {
 
 	$upsRate->shipper(array('name' => 'mark',
 							 'phone' => '5556568976', 
-							 'shipperNumber' => '486732', 
+							 'shipperNumber' => '597746', 
 							 'address1' => '14 main st', 
 							 'address2' => '', 
 							 'address3' => '', 
@@ -63,6 +63,8 @@ if ($accessNumber != '' && $username != '' && $password != '') {
 									'width' => 5,
 									'height' => 5,
 									));
+	
+	// $upsRate->rateInformation(array('NegotiatedRatesIndicator' => 'yes')); // Add for negotiated rates
 
 	$upsRate->shipment(array('description' => 'my description','serviceType' => '02'));
 
