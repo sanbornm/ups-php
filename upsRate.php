@@ -31,7 +31,7 @@ class upsRate {
 	};
     }
 
-    // Define the function getRate() - no parameters
+    // Define the function getRate()
     function getRate($PostalCode,$dest_zip,$service,$length,$width,$height,$weight) {
 	$data ="<?xml version=\"1.0\"?>  
 		<AccessRequest xml:lang=\"en-US\">  

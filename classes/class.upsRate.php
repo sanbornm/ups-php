@@ -3,6 +3,7 @@
 class upsRate {
 	var $requestXML;
 	var $shipmentXML;
+	var $rateInformationXML;
 	var $shipperXML;
 	var $shipToXML;	
 	var $packageXML;	
@@ -55,10 +56,20 @@ class upsRate {
 
 	// Build the shipment XML
 	function shipment($params) {
-		$shipment = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_Shipment.xml', array('{SHIPMENT_DESCRIPTION}','{SHIPPING_CODE}','{SHIPMENT_CONTENT}'), array($params['description'],$params['serviceType'],$this->shipperXML. $this->shipToXML. $this->packageXML));
+		$shipment = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_Shipment.xml', array('{SHIPMENT_DESCRIPTION}','{SHIPPING_CODE}','{SHIPMENT_CONTENT}'), array($params['description'],$params['serviceType'],$this->shipperXML. $this->shipToXML. $this->packageXML. $this->rateInformationXML));
 		
 		$this->shipmentXML = $shipment;
 		return $shipment;
+	}
+
+	// Build Rate Information and Negotiated Rate XML
+	function rateInformation($params) {
+		$rateInformation = '';
+		if ($params['NegotiatedRatesIndicator'] == 'yes'){
+			$rateInformation = $this->ups->sandwich($this->ups->templatePath.'Rates/RatingServiceSelection_RateInformation.xml', array('{NEGOTIATED_RATES_INDICATOR}'), array(''));
+		}
+		$this->rateInformationXML = $rateInformation;
+		return $rateInformation;
 	}
 
 	// Build the shipper XML
