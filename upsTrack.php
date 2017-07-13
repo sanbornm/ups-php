@@ -32,7 +32,7 @@ class upsTrack {
 	if(!$this->isOnline())
 		throw new Exception("The UPS service seems to be down with HTTP/1.1 $value");
         
-	$ch = curl_init("https://www.ups.com/ups.app/xml/Track");
+	$ch = curl_init("https://onlinetools.ups.com/ups.app/xml/Track");
         curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch,CURLOPT_POST,1);
         curl_setopt($ch,CURLOPT_TIMEOUT, 15);
@@ -99,7 +99,7 @@ class upsTrack {
        
     function isOnline() {
 
-        $ch = curl_init("https://www.ups.com/ups.app/xml/Track");
+        $ch = curl_init("https://onlinetools.ups.com/ups.app/xml/Track");
         curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch,CURLOPT_TIMEOUT, 15);
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
